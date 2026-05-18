@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stack cards 堆叠揭示 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 70 stack cards */
+.d70-stage{padding:5vh 0}
+
+.d70-card{position:sticky;height:60vh;display:grid;place-items:center;font-size:clamp(1.4rem,3vw,2.4rem);font-weight:300;color:var(--lime);border-radius:12px;border:1px solid var(--line-soft);margin:0 auto;width:90%;max-width:680px;letter-spacing:-.01em}
+
+.d70-card:nth-child(1){top:5vh;z-index:1}
+
+.d70-card:nth-child(2){top:8vh;z-index:2}
+
+.d70-card:nth-child(3){top:11vh;z-index:3}
+
+.d70-card:nth-child(4){top:14vh;z-index:4}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">Stack cards 堆叠揭示</h1>
+    <div class="cb-tags">sticky 叠纸 · 顺序覆盖</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d70-stage">
+          <div class="d70-card" style="background:#1a2410">card 01 · 卡片堆栈</div>
+          <div class="d70-card" style="background:#2a3024">card 02 · 后一张盖上来</div>
+          <div class="d70-card" style="background:#3a4500">card 03 · 像翻牌</div>
+          <div class="d70-card" style="background:#5a7d00">card 04 · 最后一张</div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo70</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

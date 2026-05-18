@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SVG morph 过场 · 形状变形 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* batch2: 66-89 */
+
+/* 66 svg morph */
+.d66-svg{width:200px;height:200px}
+
+.d66-svg path{transition:d .6s var(--cubic),fill .6s var(--cubic)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">A-entrance</div>
+    <h1 class="cb-title">SVG morph 过场 · 形状变形</h1>
+    <div class="cb-tags">path d morph · CSS transition</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;gap:1rem"><button class="btn" id="d66Btn">↻ Morph</button><svg class="d66-svg" viewBox="0 0 200 200"><path id="d66Path" d="M100 20 L180 180 L20 180 Z" fill="#d2ff00"/></svg></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo66</code></div>
+</footer>
+<script>
+// 66 svg morph
+(function(){
+  const path = document.getElementById('d66Path');
+  const btn = document.getElementById('d66Btn');
+  if(!path||!btn) return;
+  const shapes = [
+    "M100 20 L180 180 L20 180 Z",                                    // triangle
+    "M100 20 A80 80 0 1 1 100 180 A80 80 0 1 1 100 20",              // circle
+    "M30 30 L170 30 L170 170 L30 170 Z",                              // square
+    "M100 20 L120 80 L180 80 L130 120 L150 180 L100 145 L50 180 L70 120 L20 80 L80 80 Z"  // star
+  ];
+  let i = 0;
+  btn.addEventListener('click', () => {
+    i = (i+1) % shapes.length;
+    path.setAttribute('d', shapes[i]);
+  });
+})();
+</script>
+</body>
+</html>

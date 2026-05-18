@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Undo / Redo 历史栈 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 78 undo/redo */
+.d78-stage{width:100%;max-width:480px}
+
+.d78-ta{width:100%;min-height:140px;padding:1rem;background:var(--bg-3);border:1px solid var(--line-soft);color:var(--fg);border-radius:6px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.9rem;outline:none;resize:none}
+
+.d78-ta:focus{border-color:var(--lime)}
+
+.d78-bar{display:flex;justify-content:space-between;align-items:center;margin-top:.75rem;gap:.5rem}
+
+.d78-bar .mono{color:var(--fg-mute);font-size:.7rem}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">E-data</div>
+    <h1 class="cb-title">Undo / Redo 历史栈</h1>
+    <div class="cb-tags">push/pop · Ctrl+Z/Shift+Z</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d78-stage">
+          <textarea class="d78-ta" id="d78Ta" placeholder="输入文字 · Ctrl+Z 撤销 · Ctrl+Shift+Z 重做"></textarea>
+          <div class="d78-bar"><button class="btn" id="d78Undo">↶ Undo</button><span class="mono" id="d78Pos">0 / 0</span><button class="btn" id="d78Redo">↷ Redo</button></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo78</code></div>
+</footer>
+<script>
+// 78 undo/redo
+(function(){
+  const ta = document.getElementById('d78Ta');
+  const undo = document.getElementById('d78Undo');
+  const redo = document.getElementById('d78Redo');
+  const pos = document.getElementById('d78Pos');
+  if(!ta) return;
+  let history = [''], ptr = 0;
+  let saveTimer = null;
+  function save(){
+    if (history[ptr] === ta.value) return;
+    history = history.slice(0, ptr+1);
+    history.push(ta.value);
+    ptr = history.length-1;
+    upd();
+  }
+  function upd(){ pos.textContent = `${ptr} / ${history.length-1}`; }
+  ta.addEventListener('input', () => {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(save, 400);
+  });
+  undo.addEventListener('click', () => { if(ptr>0){ ptr--; ta.value = history[ptr]; upd(); }});
+  redo.addEventListener('click', () => { if(ptr<history.length-1){ ptr++; ta.value = history[ptr]; upd(); }});
+  ta.addEventListener('keydown', e => {
+    if((e.ctrlKey||e.metaKey) && e.key === 'z' && !e.shiftKey){ e.preventDefault(); undo.click(); }
+    if((e.ctrlKey||e.metaKey) && (e.key === 'y' || (e.shiftKey && e.key === 'Z' || e.key === 'z'))){ e.preventDefault(); redo.click(); }
+  });
+  upd();
+})();
+</script>
+</body>
+</html>

@@ -29,8 +29,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 /* ----- shared utilities ----- */
 
-/* only non-pin demos clip overflow for clean rounded corners */
-.demo:not(:has(.pin-stage)) .demo-body,.demo:not(:has(.pin-stage)) .demo-head,.demo:not(:has(.pin-stage)) .demo-foot{overflow:hidden}
+
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.5rem;border:1px solid var(--lime);color:var(--lime);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;border-radius:999px;transition:background .35s,color .35s;cursor:pointer}
+.btn:hover{background:var(--lime);color:#000}
+.btn.is-on{background:var(--lime);color:#000}
+
 
 
 .pin-stage[data-pin-state="start"] .pin-hint-done,
@@ -40,16 +43,13 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 
 
+.d78-bar .mono{color:var(--fg-mute);font-size:.7rem}
+
+
+
 
 /* ---------- D · micro batch (demos 31-65) shared ---------- */
 .dmb-stage{padding:2.5rem 1rem;display:flex;align-items:center;justify-content:center;min-height:160px;flex-wrap:wrap;gap:.5rem;position:relative}
-
-
-
-
-.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.5rem;border:1px solid var(--lime);color:var(--lime);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;border-radius:999px;transition:background .35s,color .35s;cursor:pointer}
-.btn:hover{background:var(--lime);color:#000}
-.btn.is-on{background:var(--lime);color:#000}
 
 
 
@@ -63,28 +63,14 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .pin-hint.is-done .arrow{animation:pinHintDone 1.2s var(--cubic) infinite}
 
 
+.d77-nav .mono{color:var(--fg-mute);font-size:.75rem}
+
+
+
 
 .mono{font-family:'JetBrains Mono','SF Mono','Cascadia Code',ui-monospace,monospace;font-feature-settings:"ss01","ss02"}
 
 
-/* ----- cookbook page chrome ----- */
-.cookbook-page{min-height:100vh;display:flex;flex-direction:column}
-.cb-head{position:sticky;top:0;background:rgba(10,14,7,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-soft);padding:1rem 1.5rem;display:flex;align-items:center;gap:1.5rem;z-index:50;flex-wrap:wrap}
-.cb-back{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-dim);border-bottom:1px solid transparent;padding-bottom:.15rem;transition:color .25s,border-color .25s}
-.cb-back:hover{color:var(--lime);border-color:var(--lime)}
-.cb-meta{flex:1;min-width:200px}
-.cb-cat{font-size:.6rem;letter-spacing:.3em;color:var(--lime);text-transform:uppercase;margin-bottom:.25rem;font-family:'JetBrains Mono',ui-monospace,monospace}
-.cb-title{font-size:clamp(1.4rem,3vw,2rem);font-weight:400;letter-spacing:-.01em;line-height:1.1;color:var(--fg);margin-bottom:.25rem}
-.cb-tags{font-size:.7rem;letter-spacing:.1em;color:var(--fg-mute);font-family:'JetBrains Mono',ui-monospace,monospace}
-.cb-stage{flex:1;padding:3rem 1.5rem;display:flex;justify-content:center;align-items:flex-start}
-.cb-stage > *{width:100%;max-width:80rem}
-.cb-foot{padding:1.5rem;border-top:1px solid var(--line-soft);font-size:.7rem;color:var(--fg-mute);letter-spacing:.05em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-family:'JetBrains Mono',ui-monospace,monospace}
-.cb-foot a{color:var(--lime);border-bottom:1px solid currentColor}
-.cb-foot code{background:rgba(208,255,0,.08);padding:.1em .4em;border-radius:3px;color:var(--lime)}
 
-/* ----- common pin & hint helpers ----- */
-.pin-hint{position:absolute;left:50%;bottom:2rem;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--fg-mute);text-align:center;pointer-events:none;transition:opacity .35s var(--cubic);z-index:5}
-.pin-hint.is-start{color:var(--lime)}
-.pin-hint.is-done{color:var(--lime)}
-.pin-hint .arrow{width:1px;height:1.4rem;background:currentColor;position:relative}
-.pin-hint .arrow::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%) rotate(45deg);width:.5rem;height:.5rem;border-right:1px solid currentColor;border-bottom:1px solid currentColor}
+/* only non-pin demos clip overflow for clean rounded corners */
+.demo:not(:has(.pin-stage)) .demo-body,.demo:not(:has(.pin-stage)) .demo-head,.demo:not(:has(.pin-stage)) .demo-foot{overflow:hidden}

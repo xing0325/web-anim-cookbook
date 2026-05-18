@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Multi-step form 进度 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 77 multi-step form */
+.d77-form{width:100%;max-width:480px;margin:0 auto;padding:1.5rem;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:8px}
+
+.d77-bar{height:3px;background:var(--bg-2);border-radius:2px;overflow:hidden;margin-bottom:2rem}
+
+.d77-bar-fill{height:100%;background:var(--lime);transform-origin:0 50%;transition:transform .4s var(--cubic);transform:scaleX(.33)}
+
+.d77-steps{position:relative;min-height:120px}
+
+.d77-step{position:absolute;inset:0;opacity:0;transform:translateX(20px);transition:opacity .35s var(--cubic),transform .35s var(--cubic);display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
+
+.d77-step.is-on{opacity:1;transform:translateX(0);pointer-events:auto}
+
+.d77-step label{font-size:.7rem;letter-spacing:.2em;color:var(--fg-mute);text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.d77-step input,.d77-step select{padding:.85rem 1rem;border:1px solid var(--line-soft);background:var(--bg-2);color:var(--fg);border-radius:6px;font-size:.95rem;font-family:inherit;outline:none}
+
+.d77-step input:focus,.d77-step select:focus{border-color:var(--lime)}
+
+.d77-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem}
+
+.d77-nav .mono{color:var(--fg-mute);font-size:.75rem}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">E-data</div>
+    <h1 class="cb-title">Multi-step form 进度</h1>
+    <div class="cb-tags">3 步 · 进度条 · 切换</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d77-form">
+          <div class="d77-bar"><div class="d77-bar-fill" id="d77Fill"></div></div>
+          <div class="d77-steps" id="d77Steps">
+            <div class="d77-step is-on"><label>姓名</label><input placeholder="Lando"></div>
+            <div class="d77-step"><label>邮箱</label><input placeholder="@..."></div>
+            <div class="d77-step"><label>赛季偏好</label><select><option>F1</option><option>MotoGP</option></select></div>
+          </div>
+          <div class="d77-nav"><button class="btn" id="d77Prev">← 上一步</button><span class="mono" id="d77Pos">1 / 3</span><button class="btn" id="d77Next">下一步 →</button></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo77</code></div>
+</footer>
+<script>
+// 77 multi-step form
+(function(){
+  const fill = document.getElementById('d77Fill');
+  const steps = document.getElementById('d77Steps');
+  const pos = document.getElementById('d77Pos');
+  const prev = document.getElementById('d77Prev');
+  const next = document.getElementById('d77Next');
+  if(!steps) return;
+  const list = steps.querySelectorAll('.d77-step');
+  let i = 0;
+  function render(){
+    list.forEach((s, idx) => s.classList.toggle('is-on', idx === i));
+    fill.style.transform = `scaleX(${(i+1)/list.length})`;
+    pos.textContent = `${i+1} / ${list.length}`;
+  }
+  prev.addEventListener('click', () => { i = Math.max(0, i-1); render(); });
+  next.addEventListener('click', () => { i = Math.min(list.length-1, i+1); render(); });
+  render();
+})();
+</script>
+</body>
+</html>

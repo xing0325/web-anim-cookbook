@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>backdrop-filter 玻璃感 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 84 backdrop-filter glass */
+.d84-stage{position:relative;width:100%;max-width:480px;aspect-ratio:5/3;background:linear-gradient(135deg,#d2ff00 0%,#5a7d00 30%,#0a1208 100%);border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+
+.d84-card{padding:1.5rem 2rem;background:rgba(10,14,7,.25);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border:1px solid rgba(255,255,255,.18);border-radius:10px;color:#fff;max-width:80%}
+
+.d84-eyebrow{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--lime);margin-bottom:.4rem;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.d84-card h3{font-size:1.3rem;font-weight:500;margin-bottom:.4rem}
+
+.d84-card p{font-size:.85rem;opacity:.85;line-height:1.5}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">G-visual</div>
+    <h1 class="cb-title">backdrop-filter 玻璃感</h1>
+    <div class="cb-tags">backdrop-filter blur · iOS 风</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><div class="d84-stage"><div class="d84-card"><div class="d84-eyebrow">Glassmorphism</div><h3>透过去看底图</h3><p>backdrop-filter: blur(20px) + rgba 半透明背景。</p></div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo84</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

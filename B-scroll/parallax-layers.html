@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>视差多层背景 parallax · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+/* 68 parallax */
+.d68-stage{position:relative;height:300vh;background:#0a1208;overflow:hidden}
+
+.d68-layer{position:absolute;inset:-20% -10% -20% -10%;will-change:transform}
+
+.d68-back{background:radial-gradient(circle at 20% 80%,rgba(208,255,0,.1),transparent 50%)}
+
+.d68-mid{background:radial-gradient(circle at 80% 30%,rgba(122,145,0,.2),transparent 60%)}
+
+.d68-front{background:radial-gradient(circle at 50% 50%,rgba(208,255,0,.15),transparent 40%)}
+
+.d68-text{position:sticky;top:40%;text-align:center;color:var(--lime);z-index:10}
+
+.d68-text h3{font-size:clamp(2.4rem,6vw,4.8rem);font-weight:300;letter-spacing:-.02em}
+
+.d68-text p{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;letter-spacing:.2em;color:var(--fg-mute);margin-top:1rem}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">视差多层背景 parallax</h1>
+    <div class="cb-tags">3 层 · translateY 不同速度</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d68-stage" id="d68Stage">
+          <div class="d68-layer d68-back"></div>
+          <div class="d68-layer d68-mid"></div>
+          <div class="d68-layer d68-front"></div>
+          <div class="d68-text"><h3>VEGAS GP</h3><p>滚动看三层不同速度</p></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo68</code></div>
+</footer>
+<script>
+// 68 parallax
+(function(){
+  const stage = document.getElementById('d68Stage');
+  if(!stage) return;
+  const back = stage.querySelector('.d68-back');
+  const mid = stage.querySelector('.d68-mid');
+  const front = stage.querySelector('.d68-front');
+  ScrollTrigger.create({
+    trigger: stage, start: "top bottom", end: "bottom top", scrub: true,
+    onUpdate: self => {
+      const t = self.progress * 200;
+      back.style.transform = `translateY(${-t*0.3}px)`;
+      mid.style.transform = `translateY(${-t*0.6}px)`;
+      front.style.transform = `translateY(${-t*1}px)`;
+    }
+  });
+})();
+</script>
+</body>
+</html>

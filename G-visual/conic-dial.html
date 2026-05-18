@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>conic-gradient 圆盘仪表 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 83 conic-gradient */
+.d83-dial{position:relative;width:130px;height:130px;border-radius:50%;background:conic-gradient(var(--lime) calc(var(--p,0)*1%),var(--bg-3) 0);display:grid;place-items:center}
+
+.d83-dial::before{content:"";position:absolute;inset:12px;background:var(--bg-2);border-radius:50%}
+
+.d83-num{position:relative;color:var(--lime);font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:600;font-size:1.3rem}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">G-visual</div>
+    <h1 class="cb-title">conic-gradient 圆盘仪表</h1>
+    <div class="cb-tags">CSS conic-gradient · 进度环</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:2rem;flex-wrap:wrap"><div class="d83-dial" style="--p:65"><div class="d83-num">65%</div></div><div class="d83-dial" style="--p:42"><div class="d83-num">42%</div></div><div class="d83-dial" style="--p:88"><div class="d83-num">88%</div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo83</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

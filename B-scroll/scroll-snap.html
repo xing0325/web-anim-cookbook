@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>scroll-snap 章节强制对齐 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 71 scroll-snap */
+.d71-stage{height:60vh;overflow-y:auto;scroll-snap-type:y mandatory;border:1px solid var(--line-soft);border-radius:6px}
+
+.d71-page{height:60vh;display:grid;place-items:center;color:var(--lime);font-size:clamp(1rem,2.5vw,1.6rem);scroll-snap-align:start;font-weight:300;letter-spacing:.05em}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">scroll-snap 章节强制对齐</h1>
+    <div class="cb-tags">scroll-snap-type y mandatory</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d71-stage">
+          <div class="d71-page" style="background:#0a1208">PAGE 01 · 滚一下就咔嚓到下一页</div>
+          <div class="d71-page" style="background:#1c2218">PAGE 02 · CSS scroll-snap-type: y mandatory</div>
+          <div class="d71-page" style="background:#3a4500">PAGE 03 · 每个 child 加 scroll-snap-align: start</div>
+          <div class="d71-page" style="background:#5a7d00">PAGE 04 · 完全零 JS</div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo71</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

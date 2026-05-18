@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Before / after 对比滑块 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 89 before/after */
+.d89-stage{position:relative;width:100%;max-width:480px;aspect-ratio:5/3;border-radius:8px;overflow:hidden;user-select:none}
+
+.d89-after{position:absolute;inset:0;background:linear-gradient(135deg,#0a1208,#1c2218 50%,#3a4500)}
+
+.d89-after::before{content:"AFTER · 干胎";position:absolute;right:1rem;bottom:1rem;color:var(--fg-mute);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;letter-spacing:.2em}
+
+.d89-before{position:absolute;inset:0;background:linear-gradient(135deg,#d2ff00,#5a7d00);clip-path:inset(0 50% 0 0);will-change:clip-path}
+
+.d89-before::before{content:"BEFORE · 雨胎";position:absolute;left:1rem;bottom:1rem;color:#0a0e07;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;letter-spacing:.2em;font-weight:700}
+
+.d89-handle{position:absolute;top:0;bottom:0;width:2px;background:var(--lime);left:50%;cursor:ew-resize;display:grid;place-items:center}
+
+.d89-handle span{display:grid;place-items:center;width:2.4rem;height:2.4rem;background:var(--lime);color:#0a0e07;border-radius:50%;font-weight:700;letter-spacing:.05em}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">H-media</div>
+    <h1 class="cb-title">Before / after 对比滑块</h1>
+    <div class="cb-tags">clip-path inset · 拖分割线</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><div class="d89-stage" id="d89Stage"><div class="d89-after"></div><div class="d89-before" id="d89Before"></div><div class="d89-handle" id="d89Handle"><span>‖</span></div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo89</code></div>
+</footer>
+<script>
+// 89 before/after
+(function(){
+  const stage = document.getElementById('d89Stage');
+  const before = document.getElementById('d89Before');
+  const handle = document.getElementById('d89Handle');
+  if(!stage||!before||!handle) return;
+  let dragging = false;
+  function setX(clientX){
+    const r = stage.getBoundingClientRect();
+    let pct = (clientX - r.left) / r.width * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    before.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
+    handle.style.left = pct + '%';
+  }
+  stage.addEventListener('mousedown', e => { dragging = true; setX(e.clientX); });
+  window.addEventListener('mousemove', e => { if(dragging) setX(e.clientX); });
+  window.addEventListener('mouseup', () => dragging = false);
+  stage.addEventListener('touchstart', e => { dragging = true; setX(e.touches[0].clientX); }, {passive:true});
+  stage.addEventListener('touchmove', e => { if(dragging) setX(e.touches[0].clientX); }, {passive:true});
+  stage.addEventListener('touchend', () => dragging = false);
+})();
+</script>
+</body>
+</html>

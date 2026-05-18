@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>列表拖拽排序 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 80 drag sort */
+.d80-list{display:flex;flex-direction:column;gap:.5rem;width:100%;max-width:380px}
+
+.d80-item{padding:.85rem 1rem;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:6px;color:var(--fg);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.85rem;cursor:grab;user-select:none;transition:opacity .15s,border-color .25s}
+
+.d80-item.is-dragging{opacity:.4;cursor:grabbing}
+
+.d80-item.is-over{border-color:var(--lime)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">F-gesture</div>
+    <h1 class="cb-title">列表拖拽排序</h1>
+    <div class="cb-tags">HTML5 drag/drop · 数组重排</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d80-list" id="d80List">
+          <div class="d80-item" draggable="true">≡ Monaco GP</div>
+          <div class="d80-item" draggable="true">≡ Silverstone</div>
+          <div class="d80-item" draggable="true">≡ Spa</div>
+          <div class="d80-item" draggable="true">≡ Suzuka</div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo80</code></div>
+</footer>
+<script>
+// 80 drag sort
+(function(){
+  const list = document.getElementById('d80List');
+  if(!list) return;
+  let dragged = null;
+  list.addEventListener('dragstart', e => {
+    if(e.target.classList.contains('d80-item')){
+      dragged = e.target;
+      e.target.classList.add('is-dragging');
+    }
+  });
+  list.addEventListener('dragend', e => {
+    if(dragged){ dragged.classList.remove('is-dragging'); dragged = null; }
+    list.querySelectorAll('.is-over').forEach(x => x.classList.remove('is-over'));
+  });
+  list.addEventListener('dragover', e => {
+    e.preventDefault();
+    const target = e.target.closest('.d80-item');
+    if(target && target !== dragged){
+      list.querySelectorAll('.is-over').forEach(x => x.classList.remove('is-over'));
+      target.classList.add('is-over');
+    }
+  });
+  list.addEventListener('drop', e => {
+    e.preventDefault();
+    const target = e.target.closest('.d80-item');
+    if(target && dragged && target !== dragged){
+      const items = [...list.children];
+      const fi = items.indexOf(dragged), ti = items.indexOf(target);
+      if(fi < ti) list.insertBefore(dragged, target.nextSibling);
+      else list.insertBefore(dragged, target);
+    }
+  });
+})();
+</script>
+</body>
+</html>

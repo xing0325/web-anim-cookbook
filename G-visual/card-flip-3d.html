@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D card flip 双面卡片 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 87 3D card flip */
+.d87-card{width:200px;height:280px;perspective:1000px;cursor:pointer}
+
+.d87-card > .d87-face{position:relative}
+
+.d87-card{position:relative}
+
+.d87-card .d87-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1rem;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+
+.d87-front{background:linear-gradient(135deg,#d2ff00,#5a7d00);color:#0a0e07}
+
+.d87-front h3{font-size:2.2rem;font-weight:300;letter-spacing:-.02em}
+
+.d87-front p{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.7rem;letter-spacing:.25em;margin-top:1rem}
+
+.d87-back{background:#0a1208;color:var(--lime);transform:rotateY(180deg);font-size:1rem;letter-spacing:.05em}
+
+.d87-back span{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.7rem;letter-spacing:.25em;color:var(--fg-mute);margin-top:.5rem}
+
+.d87-card:hover .d87-front{transform:rotateY(180deg)}
+
+.d87-card:hover .d87-back{transform:rotateY(360deg)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">G-visual</div>
+    <h1 class="cb-title">3D card flip 双面卡片</h1>
+    <div class="cb-tags">transform-style preserve-3d · rotateY</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:1.5rem;flex-wrap:wrap"><div class="d87-card" data-flip><div class="d87-face d87-front"><h3>LANDO</h3><p>HOVER TO FLIP</p></div><div class="d87-face d87-back">McLaren MCL39<br><span>WDC 2025</span></div></div><div class="d87-card" data-flip><div class="d87-face d87-front"><h3>OSCAR</h3><p>HOVER TO FLIP</p></div><div class="d87-face d87-back">McLaren MCL39<br><span>P2 2025</span></div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo87</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

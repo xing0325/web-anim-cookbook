@@ -12,6 +12,11 @@
 | `svg-mask-shape.html` | SVG mask 异形容器（`-webkit-mask-image` · 凹缺切角 · 不规则边界） |
 | `variable-font.html` | Variable Font 双轴（`wght` + `wdth` · `font-variation-settings` 平滑调节） |
 | `scroll-font-width.html` | 滚动驱动字宽变化（`wdth` 75→125 · scrub · 文字"喘气"） |
+| `conic-dial.html` | conic-gradient 圆盘仪表（`conic-gradient` · 进度环 · 零 JS 画百分比表盘） |
+| `backdrop-glass.html` | backdrop-filter 玻璃感（`backdrop-filter: blur()` · iOS / macOS 风毛玻璃） |
+| `text-stroke.html` | text-stroke 描边字（`-webkit-text-stroke` · 中空字 · hover 填充） |
+| `liquid-blob.html` | Liquid morph blob（SVG `path` 的 `d` 周期性变形 · 有机液态感） |
+| `card-flip-3d.html` | 3D card flip 双面卡片（`transform-style: preserve-3d` · `rotateY` · 两面独立内容） |
 
 ## 共同点 / 设计哲学
 
@@ -23,3 +28,7 @@
 - SVG mask 让 `<div>` 不再是矩形，做 ticket 切角、缺口卡片等设计语言
 
 `scroll-font-width` 是 Variable Font + ScrollTrigger 的组合拳：随着滚动，标题文字的宽度从压缩 (`wdth: 75`) 变到展开 (`wdth: 125`)，文字像在呼吸 —— 这种细节是 OFF+BRAND 标志性的"高级网站"质感。
+
+后加的 5 个偏"装饰原语"：`conic-dial` 用一个 CSS 函数画出仪表盘（不要再上 canvas / svg 画饼图），`backdrop-glass` 一行 `backdrop-filter` 拿下 iOS 风毛玻璃，`text-stroke` 把中空字 + hover 填充做成可读性极强的英雄标题，`liquid-blob` 用 SVG path 周期变形造液态有机感，`card-flip-3d` 是 `preserve-3d` 双面卡片的最小可读实现。
+
+这 5 个共同的特点：**单一 CSS / SVG 原语撑起整个效果**，不需要动效库。它们更像"调色板"而非"动效"，是用来构筑站点视觉语言的小零件。

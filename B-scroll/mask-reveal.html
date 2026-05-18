@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>圆形 Mask reveal · 扩散下一屏 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+/* 69 mask reveal */
+.d69-stage{position:relative;height:240vh}
+
+.d69-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+
+.d69-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1c2218,#0a1208);display:grid;place-items:center}
+
+.d69-bg::before{content:"上一章 · 还看得到";color:var(--fg-mute);font-size:1.2rem;letter-spacing:.2em;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.d69-mask{position:absolute;inset:0;background:linear-gradient(135deg,#d2ff00,#5a7d00);clip-path:circle(0% at 50% 50%);display:grid;place-items:center}
+
+.d69-content{text-align:center;color:#0a0e07}
+
+.d69-content h3{font-size:clamp(2rem,5vw,3.6rem);font-weight:400;margin-bottom:.5rem}
+
+.d69-content p{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.8rem;letter-spacing:.2em}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">圆形 Mask reveal · 扩散下一屏</h1>
+    <div class="cb-tags">clip-path circle · scrub</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d69-stage" id="d69Stage">
+          <div class="d69-pin">
+            <div class="d69-bg"></div>
+            <div class="d69-mask" id="d69Mask"><div class="d69-content"><h3>下一章 · 露出来了</h3><p>滚动让圆形从中心扩散</p></div></div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo69</code></div>
+</footer>
+<script>
+// 69 mask reveal
+(function(){
+  const stage = document.getElementById('d69Stage');
+  const mask = document.getElementById('d69Mask');
+  if(!stage||!mask) return;
+  ScrollTrigger.create({
+    trigger: stage, start: "top top", end: "bottom bottom", scrub: true,
+    onUpdate: self => {
+      const r = self.progress * 150;
+      mask.style.clipPath = `circle(${r}% at 50% 50%)`;
+    }
+  });
+})();
+</script>
+</body>
+</html>

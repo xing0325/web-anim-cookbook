@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>主题切换器 · dark/light/system · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 74 theme switcher */
+.d74-card{padding:2.5rem;border:1px solid var(--line-soft);border-radius:8px;background:var(--bg-3);color:var(--fg);width:100%;max-width:380px;transition:background .45s var(--cubic),color .45s,border-color .45s}
+
+.d74-card[data-theme="light"]{background:#f0f0e8;color:#0a0e07;border-color:#0a0e07}
+
+.d74-card[data-theme="dark"]{background:#0a1208;color:var(--lime);border-color:var(--lime)}
+
+.d74-title{font-size:1.3rem;font-weight:500;margin-bottom:.4rem}
+
+.d74-sub{font-size:.85rem;opacity:.7}
+
+.d74-switch{display:flex;gap:.4rem}
+
+.d74-switch button{padding:.55rem 1.1rem;border:1px solid var(--line-soft);background:transparent;color:var(--fg-dim);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;border-radius:999px;cursor:pointer;transition:all .25s}
+
+.d74-switch button.is-on{border-color:var(--lime);color:var(--lime);background:rgba(208,255,0,.08)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">C-nav</div>
+    <h1 class="cb-title">主题切换器 · dark/light/system</h1>
+    <div class="cb-tags">3 态 · data-theme · 平滑色变</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;gap:1.5rem"><div class="d74-card" id="d74Card"><div class="d74-title">主题预览</div><div class="d74-sub">三态可切：dark / light / system（跟系统）</div></div><div class="d74-switch" id="d74Switch"><button data-theme="dark" class="is-on">Dark</button><button data-theme="light">Light</button><button data-theme="system">System</button></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo74</code></div>
+</footer>
+<script>
+// 74 theme switcher
+(function(){
+  const card = document.getElementById('d74Card');
+  const sw = document.getElementById('d74Switch');
+  if(!card||!sw) return;
+  sw.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => {
+      sw.querySelectorAll('button').forEach(x => x.classList.remove('is-on'));
+      b.classList.add('is-on');
+      const t = b.dataset.theme;
+      if (t === 'system') {
+        const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+        card.dataset.theme = dark ? 'dark' : 'light';
+      } else {
+        card.dataset.theme = t;
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

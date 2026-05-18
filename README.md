@@ -1,6 +1,6 @@
 # web-anim-cookbook
 
-> 65 个可直接拷贝复用的 web 高级动效 demo。反向工程自 [landonorris.com](https://landonorris.com)（兰多·诺里斯官网，由 [OFF+BRAND](https://offbrand.studio) 工作室操刀），整理出一套"普通网页用不到的高级动效"配方集。
+> 89 个可直接拷贝复用的 web 高级动效 demo。反向工程自 [landonorris.com](https://landonorris.com)（兰多·诺里斯官网，由 [OFF+BRAND](https://offbrand.studio) 工作室操刀），整理出一套"普通网页用不到的高级动效"配方集。
 
 赛车风视觉（柠檬绿 `#d2ff00` + 暗绿 `#0a0e07`），但 demo 本身是纯技术展示，可用于任何项目。
 
@@ -20,14 +20,14 @@
 
 | 类 | 名称 | 数量 | 一句话特点 |
 |---|---|---|---|
-| [A](./A-entrance/README.md) | 入场 & 转场 | 2 | 进站动作：字符 stagger、全屏过场幕布 |
-| [B](./B-scroll/README.md) | 滚动驱动 | 7 | ScrollTrigger 的所有花活，scrub / pin / velocity |
-| [C](./C-nav/README.md) | 导航 & 主题 | 2 | 哨兵 div 切色、Footer 三色主题 |
+| [A](./A-entrance/README.md) | 入场 & 转场 | 4 | 进站动作：字符 stagger、全屏过场幕布、SVG morph、logo 描线 |
+| [B](./B-scroll/README.md) | 滚动驱动 | 11 | ScrollTrigger 的所有花活，scrub / pin / velocity / parallax / snap |
+| [C](./C-nav/README.md) | 导航 & 主题 | 6 | 哨兵切色、Footer 主题、sticky shrink、hamburger、主题切换、dot nav |
 | [D](./D-micro/README.md) | 微动效合集 | 40 | 4 个子组：按钮 / 链接 / 表单 / 反馈 |
-| [E](./E-data/README.md) | 数据驱动 | 3 | 翻页倒计时、CMS 日历、滚动计数器 |
-| [F](./F-gesture/README.md) | 手势 & 光标 | 3 | tap-to-lock、cursor reveal、blend cursor |
-| [G](./G-visual/README.md) | 视觉系统 | 6 | clamp 字号、椭圆排字、Variable Font 双轴 |
-| [H](./H-media/README.md) | 媒体 | 2 | hover 自动播放、stat hover 大图 |
+| [E](./E-data/README.md) | 数据驱动 | 6 | 倒计时、CMS 日历、计数器、localStorage、multi-step、undo/redo |
+| [F](./F-gesture/README.md) | 手势 & 光标 | 7 | tap-to-lock、cursor reveal、blend、swipe、drag-sort、drop-upload、3D tilt |
+| [G](./G-visual/README.md) | 视觉系统 | 11 | clamp、椭圆排字、Variable Font、conic 仪表、玻璃、描边字、blob、3D flip |
+| [H](./H-media/README.md) | 媒体 | 4 | hover 自动播放、stat hover、lightbox、before/after 对比 |
 
 ---
 

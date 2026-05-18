@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drag-drop 文件上传区 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 81 drag drop upload */
+.d81-drop{padding:3rem 2rem;border:2px dashed var(--line-soft);border-radius:10px;color:var(--fg-dim);text-align:center;transition:border-color .25s,background .25s,transform .25s;cursor:pointer}
+
+.d81-drop.is-hot{border-color:var(--lime);background:rgba(208,255,0,.05);transform:scale(1.02);color:var(--lime)}
+
+.d81-drop svg{width:2.5rem;height:2.5rem;margin-bottom:.8rem}
+
+.d81-t{font-size:1rem;margin-bottom:.4rem}
+
+.d81-s{font-size:.7rem;letter-spacing:.15em;color:var(--fg-mute)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">F-gesture</div>
+    <h1 class="cb-title">Drag-drop 文件上传区</h1>
+    <div class="cb-tags">dragenter highlight · drop 读文件</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><div class="d81-drop" id="d81Drop"><svg viewBox="0 0 32 32"><path d="M16 4 L16 22 M8 14 L16 22 L24 14 M4 28 L28 28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="d81-t">把图片拖到这里</div><div class="d81-s mono" id="d81S">支持: jpg, png, webp</div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo81</code></div>
+</footer>
+<script>
+// 81 drag-drop
+(function(){
+  const drop = document.getElementById('d81Drop');
+  const status = document.getElementById('d81S');
+  if(!drop) return;
+  drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('is-hot'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('is-hot'));
+  drop.addEventListener('drop', e => {
+    e.preventDefault();
+    drop.classList.remove('is-hot');
+    const file = e.dataTransfer.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ status.textContent = '只接受图片 ✕'; return; }
+    status.textContent = `✓ ${file.name} · ${(file.size/1024).toFixed(0)} KB`;
+  });
+})();
+</script>
+</body>
+</html>

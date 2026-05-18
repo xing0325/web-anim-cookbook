@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Swipe 滑动识别 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 79 swipe */
+.d79-stage{position:relative;width:100%;max-width:480px;height:200px;overflow:hidden;border:1px solid var(--line-soft);border-radius:8px;background:var(--bg-3);touch-action:pan-y;user-select:none}
+
+.d79-card{position:absolute;inset:0;display:grid;place-items:center;color:var(--lime);font-size:1.4rem;font-weight:300;transition:transform .35s var(--cubic);will-change:transform}
+
+.d79-pos{margin-top:.75rem;color:var(--fg-mute);font-size:.75rem;letter-spacing:.15em;text-align:center}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">F-gesture</div>
+    <h1 class="cb-title">Swipe 滑动识别</h1>
+    <div class="cb-tags">touch / mouse drag · 阈值 80px</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d79-stage" id="d79Stage">
+          <div class="d79-card" data-i="0">← 滑动试试 · Card 1</div>
+          <div class="d79-card" data-i="1">Card 2</div>
+          <div class="d79-card" data-i="2">Card 3</div>
+          <div class="d79-card" data-i="3">Card 4 →</div>
+        </div>
+        <div class="d79-pos mono" id="d79Pos">1 / 4</div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo79</code></div>
+</footer>
+<script>
+// 79 swipe
+(function(){
+  const stage = document.getElementById('d79Stage');
+  const pos = document.getElementById('d79Pos');
+  if(!stage) return;
+  const cards = stage.querySelectorAll('.d79-card');
+  let i = 0, startX = null;
+  function render(offset=0){
+    cards.forEach((c, idx) => {
+      const dx = (idx - i) * 100 + (offset / stage.offsetWidth * 100);
+      c.style.transform = `translateX(${dx}%)`;
+    });
+    pos.textContent = `${i+1} / ${cards.length}`;
+  }
+  function down(e){ startX = e.touches ? e.touches[0].clientX : e.clientX; }
+  function move(e){
+    if(startX === null) return;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    render(x - startX);
+  }
+  function up(e){
+    if(startX === null) return;
+    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const d = x - startX;
+    if(Math.abs(d) > 80){
+      if(d > 0 && i > 0) i--;
+      else if(d < 0 && i < cards.length-1) i++;
+    }
+    startX = null;
+    render();
+  }
+  stage.addEventListener('mousedown', down);
+  stage.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', up);
+  stage.addEventListener('touchstart', down, {passive:true});
+  stage.addEventListener('touchmove', move, {passive:true});
+  stage.addEventListener('touchend', up);
+  render();
+})();
+</script>
+</body>
+</html>

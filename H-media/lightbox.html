@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lightbox 点图全屏 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 88 lightbox */
+.d88-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;width:100%;max-width:480px}
+
+.d88-thumb{aspect-ratio:1;border-radius:6px;cursor:pointer;transition:transform .25s var(--cubic)}
+
+.d88-thumb:hover{transform:scale(1.05)}
+
+.d88-box{position:fixed;inset:0;background:rgba(10,14,7,.9);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:200}
+
+.d88-box.is-open{display:flex}
+
+.d88-stage{position:relative;width:80%;max-width:600px;aspect-ratio:4/3}
+
+.d88-img{position:absolute;inset:0;border-radius:8px;transition:opacity .25s}
+
+.d88-prev,.d88-next,.d88-close{position:absolute;background:var(--bg-2);border:1px solid var(--lime);color:var(--lime);width:2.5rem;height:2.5rem;border-radius:50%;cursor:pointer;font-size:1.2rem;display:grid;place-items:center}
+
+.d88-prev{left:-3.5rem;top:50%;transform:translateY(-50%)}
+
+.d88-next{right:-3.5rem;top:50%;transform:translateY(-50%)}
+
+.d88-close{right:-3.5rem;top:-3.5rem}
+
+.d88-pos{position:absolute;bottom:-2.5rem;left:50%;transform:translateX(-50%);color:var(--lime)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">H-media</div>
+    <h1 class="cb-title">Lightbox 点图全屏</h1>
+    <div class="cb-tags">click 放大 · 键盘切 · Esc 关</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:.5rem;flex-wrap:wrap"><div class="d88-grid" id="d88Grid"><div class="d88-thumb" data-i="0" style="background:linear-gradient(135deg,#d2ff00,#5a7d00)"></div><div class="d88-thumb" data-i="1" style="background:linear-gradient(135deg,#0a1208,#3a4500)"></div><div class="d88-thumb" data-i="2" style="background:radial-gradient(circle,#d2ff00,#101400)"></div><div class="d88-thumb" data-i="3" style="background:linear-gradient(225deg,#5a7d00,#0a1208)"></div></div></div>
+        <div class="d88-box" id="d88Box"><div class="d88-stage"><div class="d88-img" id="d88Img"></div><button class="d88-prev" id="d88Prev">←</button><button class="d88-next" id="d88Next">→</button><button class="d88-close" id="d88Close">✕</button><div class="d88-pos mono" id="d88PosTxt">1 / 4</div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo88</code></div>
+</footer>
+<script>
+// 88 lightbox
+(function(){
+  const grid = document.getElementById('d88Grid');
+  const box = document.getElementById('d88Box');
+  const img = document.getElementById('d88Img');
+  const prev = document.getElementById('d88Prev');
+  const next = document.getElementById('d88Next');
+  const close = document.getElementById('d88Close');
+  const posTxt = document.getElementById('d88PosTxt');
+  if(!grid) return;
+  const thumbs = [...grid.querySelectorAll('.d88-thumb')];
+  let cur = 0;
+  function show(i){
+    cur = (i + thumbs.length) % thumbs.length;
+    img.style.background = thumbs[cur].style.background;
+    posTxt.textContent = `${cur+1} / ${thumbs.length}`;
+    box.classList.add('is-open');
+  }
+  grid.addEventListener('click', e => {
+    const t = e.target.closest('.d88-thumb');
+    if(t) show(+t.dataset.i);
+  });
+  prev.addEventListener('click', () => show(cur-1));
+  next.addEventListener('click', () => show(cur+1));
+  close.addEventListener('click', () => box.classList.remove('is-open'));
+  document.addEventListener('keydown', e => {
+    if(!box.classList.contains('is-open')) return;
+    if(e.key === 'Escape') box.classList.remove('is-open');
+    if(e.key === 'ArrowLeft') show(cur-1);
+    if(e.key === 'ArrowRight') show(cur+1);
+  });
+})();
+</script>
+</body>
+</html>

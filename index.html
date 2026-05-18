@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>web-anim-cookbook · 65 个独立 web 动效 demo</title>
+<title>web-anim-cookbook · 89 个独立 web 动效 demo</title>
 <link rel="stylesheet" href="_shared/base.css">
 <style>
 .idx-hero{padding:7rem 1.5rem 3rem;text-align:center;border-bottom:1px solid var(--line-soft);position:relative;overflow:hidden}
@@ -46,10 +46,10 @@ footer.idx-foot a{color:var(--lime);border-bottom:1px solid currentColor}
 <body>
 <section class="idx-hero">
   <div class="idx-eyebrow">web · anim · cookbook</div>
-  <h1 class="idx-title"><em>65</em> 个独立 · 可复用 · 高端 web 动效</h1>
+  <h1 class="idx-title"><em>89</em> 个独立 · 可复用 · 高端 web 动效</h1>
   <p class="idx-sub">反向兰多·诺里斯官网（OFF+BRAND 工作室出品）整理而成。每个 demo 一个 self-contained HTML 文件，<strong>开箱即抄</strong>。</p>
   <div class="idx-stats">
-    <div><strong>65</strong>独立 demos</div>
+    <div><strong>89</strong>独立 demos</div>
     <div><strong>8</strong>分类</div>
     <div><strong>0</strong>构建步骤</div>
     <div><strong>MIT</strong>许可</div>
@@ -62,15 +62,17 @@ footer.idx-foot a{color:var(--lime);border-bottom:1px solid currentColor}
   </nav>
 
   <section class="idx-cat" id="A">
-    <div class="idx-cat-head"><div class="idx-cat-key">A</div><div class="idx-cat-name">入场 &amp; 转场</div><div class="idx-cat-meta"><strong>2</strong> demos</div></div>
+    <div class="idx-cat-head"><div class="idx-cat-key">A</div><div class="idx-cat-name">入场 &amp; 转场</div><div class="idx-cat-meta"><strong>4</strong> demos</div></div>
     <div class="cards">
       <a class="card" href="A-entrance/char-stagger.html"><span class="slug">A-entrance/char-stagger.html</span><div class="name">字符级 stagger 入场</div><div class="tags">GSAP · SplitText · power3.out · 0.025s stagger</div></a>
       <a class="card" href="A-entrance/lime-curtain.html"><span class="slug">A-entrance/lime-curtain.html</span><div class="name">全屏柠檬绿过场幕布</div><div class="tags">.transition-w · Rive 三态 input · Taxi.js</div></a>
+      <a class="card" href="A-entrance/svg-morph.html"><span class="slug">A-entrance/svg-morph.html</span><div class="name">SVG morph 过场 · 形状变形</div><div class="tags">path d morph · CSS transition</div></a>
+      <a class="card" href="A-entrance/logo-draw.html"><span class="slug">A-entrance/logo-draw.html</span><div class="name">Logo 描线入场</div><div class="tags">stroke-dashoffset · 进场画出</div></a>
     </div>
   </section>
 
   <section class="idx-cat" id="B">
-    <div class="idx-cat-head"><div class="idx-cat-key">B</div><div class="idx-cat-name">滚动驱动</div><div class="idx-cat-meta"><strong>7</strong> demos</div></div>
+    <div class="idx-cat-head"><div class="idx-cat-key">B</div><div class="idx-cat-name">滚动驱动</div><div class="idx-cat-meta"><strong>11</strong> demos</div></div>
     <div class="cards">
       <a class="card" href="B-scroll/scroll-3d-helmet.html"><span class="slug">B-scroll/scroll-3d-helmet.html</span><div class="name">scrub · 滚动驱动 3D 头盔</div><div class="tags">ScrollTrigger · scrub · CSS 3D</div></a>
       <a class="card" href="B-scroll/horizontal-pin.html"><span class="slug">B-scroll/horizontal-pin.html</span><div class="name">横向 pin 滚动</div><div class="tags">ScrollTrigger pin · 1 纵屏 = 多横屏</div></a>
@@ -79,14 +81,22 @@ footer.idx-foot a{color:var(--lime);border-bottom:1px solid currentColor}
       <a class="card" href="B-scroll/scroll-svg-draw.html"><span class="slug">B-scroll/scroll-svg-draw.html</span><div class="name">Rive 滚动 scrub · SVG 描线</div><div class="tags">stroke-dashoffset · scrub</div></a>
       <a class="card" href="B-scroll/section-progress.html"><span class="slug">B-scroll/section-progress.html</span><div class="name">章节滚动进度条</div><div class="tags">transform scaleX · scrub</div></a>
       <a class="card" href="B-scroll/css-dual-marquee.html"><span class="slug">B-scroll/css-dual-marquee.html</span><div class="name">CSS 双向无限 marquee</div><div class="tags">@keyframes · 零 JS</div></a>
+      <a class="card" href="B-scroll/parallax-layers.html"><span class="slug">B-scroll/parallax-layers.html</span><div class="name">视差多层背景 parallax</div><div class="tags">3 层 · translateY 不同速度 · ScrollTrigger</div></a>
+      <a class="card" href="B-scroll/mask-reveal.html"><span class="slug">B-scroll/mask-reveal.html</span><div class="name">圆形 Mask reveal 扩散下一屏</div><div class="tags">clip-path circle scrub</div></a>
+      <a class="card" href="B-scroll/stack-cards.html"><span class="slug">B-scroll/stack-cards.html</span><div class="name">Stack cards 堆叠揭示</div><div class="tags">sticky 叠纸 · 顺序覆盖</div></a>
+      <a class="card" href="B-scroll/scroll-snap.html"><span class="slug">B-scroll/scroll-snap.html</span><div class="name">scroll-snap 章节强制对齐</div><div class="tags">scroll-snap-type y mandatory</div></a>
     </div>
   </section>
 
   <section class="idx-cat" id="C">
-    <div class="idx-cat-head"><div class="idx-cat-key">C</div><div class="idx-cat-name">导航 &amp; 主题</div><div class="idx-cat-meta"><strong>2</strong> demos</div></div>
+    <div class="idx-cat-head"><div class="idx-cat-key">C</div><div class="idx-cat-name">导航 &amp; 主题</div><div class="idx-cat-meta"><strong>6</strong> demos</div></div>
     <div class="cards">
       <a class="card" href="C-nav/nav-sentinel-theme.html"><span class="slug">C-nav/nav-sentinel-theme.html</span><div class="name">隐形哨兵切 nav 主题</div><div class="tags">ScrollTrigger.onToggle · data-attr</div></a>
       <a class="card" href="C-nav/footer-theme.html"><span class="slug">C-nav/footer-theme.html</span><div class="name">Footer 三色主题</div><div class="tags">data-footer-theme · CSS 属性选择器</div></a>
+      <a class="card" href="C-nav/sticky-nav-shrink.html"><span class="slug">C-nav/sticky-nav-shrink.html</span><div class="name">Sticky nav 滚动时缩小</div><div class="tags">scroll position · class toggle</div></a>
+      <a class="card" href="C-nav/hamburger-morph.html"><span class="slug">C-nav/hamburger-morph.html</span><div class="name">Hamburger 转 close</div><div class="tags">3 横线 rotate 合成 X</div></a>
+      <a class="card" href="C-nav/theme-switcher.html"><span class="slug">C-nav/theme-switcher.html</span><div class="name">主题切换器 dark/light/system</div><div class="tags">3 态 toggle · 平滑色变</div></a>
+      <a class="card" href="C-nav/dot-navigator.html"><span class="slug">C-nav/dot-navigator.html</span><div class="name">侧边 dot navigator</div><div class="tags">IntersectionObserver 高亮当前 section</div></a>
     </div>
   </section>
 
@@ -151,25 +161,32 @@ footer.idx-foot a{color:var(--lime);border-bottom:1px solid currentColor}
   </section>
 
   <section class="idx-cat" id="E">
-    <div class="idx-cat-head"><div class="idx-cat-key">E</div><div class="idx-cat-name">数据驱动</div><div class="idx-cat-meta"><strong>3</strong> demos</div></div>
+    <div class="idx-cat-head"><div class="idx-cat-key">E</div><div class="idx-cat-name">数据驱动</div><div class="idx-cat-meta"><strong>6</strong> demos</div></div>
     <div class="cards">
       <a class="card" href="E-data/flip-countdown.html"><span class="slug">E-data/flip-countdown.html</span><div class="name">倒计时翻页数字</div><div class="tags">yPercent flip · 每秒更新</div></a>
       <a class="card" href="E-data/cms-calendar.html"><span class="slug">E-data/cms-calendar.html</span><div class="name">CMS 日历切换</div><div class="tags">24 字段 · prev/next 切换</div></a>
       <a class="card" href="E-data/scroll-counter.html"><span class="slug">E-data/scroll-counter.html</span><div class="name">滚动数字计数器</div><div class="tags">ScrollTrigger once · GSAP snap</div></a>
+      <a class="card" href="E-data/localstorage-pref.html"><span class="slug">E-data/localstorage-pref.html</span><div class="name">localStorage 持久化</div><div class="tags">刷新依然记得</div></a>
+      <a class="card" href="E-data/multi-step-form.html"><span class="slug">E-data/multi-step-form.html</span><div class="name">Multi-step form 进度</div><div class="tags">3 步 · 进度条 · 切换</div></a>
+      <a class="card" href="E-data/undo-redo.html"><span class="slug">E-data/undo-redo.html</span><div class="name">Undo / Redo 历史栈</div><div class="tags">push/pop · Ctrl+Z</div></a>
     </div>
   </section>
 
   <section class="idx-cat" id="F">
-    <div class="idx-cat-head"><div class="idx-cat-key">F</div><div class="idx-cat-name">手势 &amp; 光标</div><div class="idx-cat-meta"><strong>3</strong> demos</div></div>
+    <div class="idx-cat-head"><div class="idx-cat-key">F</div><div class="idx-cat-name">手势 &amp; 光标</div><div class="idx-cat-meta"><strong>7</strong> demos</div></div>
     <div class="cards">
       <a class="card" href="F-gesture/tap-to-lock.html"><span class="slug">F-gesture/tap-to-lock.html</span><div class="name">tap to lock 模态手势</div><div class="tags">touch-action 切换 · 锁页面</div></a>
       <a class="card" href="F-gesture/cursor-reveal.html"><span class="slug">F-gesture/cursor-reveal.html</span><div class="name">自定义光标 + 区域 reveal</div><div class="tags">clip-path circle · cursor follow</div></a>
       <a class="card" href="F-gesture/blend-cursor.html"><span class="slug">F-gesture/blend-cursor.html</span><div class="name">菜单图片 blend-mode cursor</div><div class="tags">mix-blend-mode · radial gradient</div></a>
+      <a class="card" href="F-gesture/swipe-cards.html"><span class="slug">F-gesture/swipe-cards.html</span><div class="name">Swipe 滑动识别</div><div class="tags">touch/mouse · 阈值 80px</div></a>
+      <a class="card" href="F-gesture/drag-sort.html"><span class="slug">F-gesture/drag-sort.html</span><div class="name">列表拖拽排序</div><div class="tags">HTML5 drag/drop · 数组重排</div></a>
+      <a class="card" href="F-gesture/drop-upload.html"><span class="slug">F-gesture/drop-upload.html</span><div class="name">Drag-drop 文件上传区</div><div class="tags">dragenter highlight · drop 读文件</div></a>
+      <a class="card" href="F-gesture/3d-tilt-card.html"><span class="slug">F-gesture/3d-tilt-card.html</span><div class="name">卡片 3D tilt 鼠标跟随</div><div class="tags">mousemove rotateX/Y · perspective</div></a>
     </div>
   </section>
 
   <section class="idx-cat" id="G">
-    <div class="idx-cat-head"><div class="idx-cat-key">G</div><div class="idx-cat-name">视觉系统</div><div class="idx-cat-meta"><strong>6</strong> demos</div></div>
+    <div class="idx-cat-head"><div class="idx-cat-key">G</div><div class="idx-cat-name">视觉系统</div><div class="idx-cat-meta"><strong>11</strong> demos</div></div>
     <div class="cards">
       <a class="card" href="G-visual/fluid-clamp.html"><span class="slug">G-visual/fluid-clamp.html</span><div class="name">1728 流体 clamp 字号</div><div class="tags">clamp() · CSS custom property</div></a>
       <a class="card" href="G-visual/oval-arc-text.html"><span class="slug">G-visual/oval-arc-text.html</span><div class="name">椭圆轨迹大字</div><div class="tags">transform-origin · 字符 rotate</div></a>
@@ -177,14 +194,21 @@ footer.idx-foot a{color:var(--lime);border-bottom:1px solid currentColor}
       <a class="card" href="G-visual/svg-mask-shape.html"><span class="slug">G-visual/svg-mask-shape.html</span><div class="name">SVG mask 异形容器</div><div class="tags">-webkit-mask-image · 凹缺切角</div></a>
       <a class="card" href="G-visual/variable-font.html"><span class="slug">G-visual/variable-font.html</span><div class="name">Variable Font 双轴</div><div class="tags">font-variation-settings</div></a>
       <a class="card" href="G-visual/scroll-font-width.html"><span class="slug">G-visual/scroll-font-width.html</span><div class="name">滚动驱动字宽变化</div><div class="tags">wdth axis sync to scroll</div></a>
+      <a class="card" href="G-visual/conic-dial.html"><span class="slug">G-visual/conic-dial.html</span><div class="name">conic-gradient 圆盘仪表</div><div class="tags">CSS conic-gradient · 进度环</div></a>
+      <a class="card" href="G-visual/backdrop-glass.html"><span class="slug">G-visual/backdrop-glass.html</span><div class="name">backdrop-filter 玻璃感</div><div class="tags">backdrop-filter blur · iOS 风</div></a>
+      <a class="card" href="G-visual/text-stroke.html"><span class="slug">G-visual/text-stroke.html</span><div class="name">text-stroke 描边字</div><div class="tags">中空字 · hover 填充</div></a>
+      <a class="card" href="G-visual/liquid-blob.html"><span class="slug">G-visual/liquid-blob.html</span><div class="name">Liquid morph blob</div><div class="tags">SVG path 周期性变形</div></a>
+      <a class="card" href="G-visual/card-flip-3d.html"><span class="slug">G-visual/card-flip-3d.html</span><div class="name">3D card flip 双面卡片</div><div class="tags">transform-style preserve-3d · rotateY</div></a>
     </div>
   </section>
 
   <section class="idx-cat" id="H">
-    <div class="idx-cat-head"><div class="idx-cat-key">H</div><div class="idx-cat-name">媒体</div><div class="idx-cat-meta"><strong>2</strong> demos</div></div>
+    <div class="idx-cat-head"><div class="idx-cat-key">H</div><div class="idx-cat-name">媒体</div><div class="idx-cat-meta"><strong>4</strong> demos</div></div>
     <div class="cards">
       <a class="card" href="H-media/hover-video.html"><span class="slug">H-media/hover-video.html</span><div class="name">Hover 自动播放视频</div><div class="tags">IntersectionObserver · stream</div></a>
       <a class="card" href="H-media/stat-hover-img.html"><span class="slug">H-media/stat-hover-img.html</span><div class="name">Stat hover 大图淡入</div><div class="tags">mouseenter + bg fade</div></a>
+      <a class="card" href="H-media/lightbox.html"><span class="slug">H-media/lightbox.html</span><div class="name">Lightbox 点图全屏</div><div class="tags">click 放大 · 键盘切 · Esc 关</div></a>
+      <a class="card" href="H-media/before-after.html"><span class="slug">H-media/before-after.html</span><div class="name">Before / after 对比滑块</div><div class="tags">clip-path inset · 拖分割线</div></a>
     </div>
   </section>
 </div>

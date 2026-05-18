@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hamburger 转 close · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 73 hamburger morph */
+.d73-ham{width:3.5rem;height:3.5rem;display:grid;place-items:center;border:1px solid var(--line-soft);background:var(--bg-3);border-radius:50%;cursor:pointer;position:relative}
+
+.d73-ham span{display:block;position:absolute;left:25%;right:25%;height:2px;background:var(--lime);transition:transform .35s var(--cubic),opacity .25s}
+
+.d73-ham span:nth-child(1){top:32%}
+
+.d73-ham span:nth-child(2){top:50%}
+
+.d73-ham span:nth-child(3){top:68%}
+
+.d73-ham.is-x span:nth-child(1){transform:translateY(.55rem) rotate(45deg)}
+
+.d73-ham.is-x span:nth-child(2){opacity:0}
+
+.d73-ham.is-x span:nth-child(3){transform:translateY(-.55rem) rotate(-45deg)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">C-nav</div>
+    <h1 class="cb-title">Hamburger 转 close</h1>
+    <div class="cb-tags">3 横线 · rotate + opacity</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><button class="d73-ham" id="d73Ham"><span></span><span></span><span></span></button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo73</code></div>
+</footer>
+<script>
+// 73 hamburger
+(function(){
+  const ham = document.getElementById('d73Ham');
+  if(!ham) return;
+  ham.addEventListener('click', () => ham.classList.toggle('is-x'));
+})();
+</script>
+</body>
+</html>

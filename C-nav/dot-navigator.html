@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>侧边 dot navigator · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 75 dot navigator */
+.d75-stage{position:relative;height:60vh;overflow-y:auto;border:1px solid var(--line-soft);border-radius:6px}
+
+.d75-section{height:60vh;display:grid;place-items:center;color:var(--lime);scroll-snap-align:start}
+
+.d75-section h3{font-size:1.8rem;font-weight:300}
+
+.d75-dots{position:absolute;right:1rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.6rem;z-index:5}
+
+.d75-dots a{width:.7rem;height:.7rem;border-radius:50%;background:transparent;border:1.5px solid var(--lime);cursor:pointer;transition:background .25s,transform .25s}
+
+.d75-dots a.is-on{background:var(--lime);transform:scale(1.3)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">C-nav</div>
+    <h1 class="cb-title">侧边 dot navigator</h1>
+    <div class="cb-tags">IntersectionObserver · 当前 section 高亮</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d75-stage" id="d75Stage">
+          <div class="d75-section" data-id="d75-1" style="background:#0a1208"><h3>Section 01</h3></div>
+          <div class="d75-section" data-id="d75-2" style="background:#1c2218"><h3>Section 02</h3></div>
+          <div class="d75-section" data-id="d75-3" style="background:#3a4500"><h3>Section 03</h3></div>
+          <div class="d75-section" data-id="d75-4" style="background:#5a7d00"><h3>Section 04</h3></div>
+          <nav class="d75-dots" id="d75Dots"><a data-id="d75-1" class="is-on"></a><a data-id="d75-2"></a><a data-id="d75-3"></a><a data-id="d75-4"></a></nav>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo75</code></div>
+</footer>
+<script>
+// 75 dot navigator
+(function(){
+  const stage = document.getElementById('d75Stage');
+  const dots = document.getElementById('d75Dots');
+  if(!stage||!dots) return;
+  const secs = stage.querySelectorAll('.d75-section');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const id = e.target.dataset.id;
+        dots.querySelectorAll('a').forEach(d => d.classList.toggle('is-on', d.dataset.id === id));
+      }
+    });
+  }, { root: stage, threshold: 0.5 });
+  secs.forEach(s => obs.observe(s));
+  dots.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      const target = stage.querySelector(`[data-id="${a.dataset.id}"]`);
+      if(target) stage.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>卡片 3D tilt 鼠标跟随 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 82 3D tilt */
+.d82-card{position:relative;width:200px;height:280px;border-radius:12px;overflow:hidden;cursor:pointer;transform-style:preserve-3d;transition:transform .15s ease-out,box-shadow .25s;will-change:transform}
+
+.d82-bg{position:absolute;inset:0;background:linear-gradient(135deg,#d2ff00,#0a1208);z-index:1}
+
+.d82-t{position:absolute;left:1rem;top:1rem;font-size:2.4rem;font-weight:300;color:#0a0e07;z-index:2;letter-spacing:-.02em}
+
+.d82-s{position:absolute;left:1rem;bottom:1rem;color:#0a0e07;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.7rem;letter-spacing:.2em;z-index:2}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">F-gesture</div>
+    <h1 class="cb-title">卡片 3D tilt 鼠标跟随</h1>
+    <div class="cb-tags">mousemove · rotateX/Y · perspective</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:1.5rem;flex-wrap:wrap"><div class="d82-card" data-d82-tilt><div class="d82-bg"></div><div class="d82-t">P1</div><div class="d82-s">Las Vegas</div></div><div class="d82-card" data-d82-tilt><div class="d82-bg"></div><div class="d82-t">P3</div><div class="d82-s">Monaco</div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo82</code></div>
+</footer>
+<script>
+// 82 3D tilt
+(function(){
+  document.querySelectorAll('[data-d82-tilt]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x*20}deg) rotateX(${-y*20}deg)`;
+      card.style.boxShadow = `${-x*30}px ${-y*30}px 50px rgba(208,255,0,.25)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+})();
+</script>
+</body>
+</html>

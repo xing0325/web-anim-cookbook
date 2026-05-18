@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sticky nav 滚动时缩小 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+/* 72 sticky nav shrink */
+.d72-stage{height:60vh;overflow-y:auto;border:1px solid var(--line-soft);border-radius:6px;background:var(--bg-3)}
+
+.d72-nav{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 1.5rem;background:rgba(10,14,7,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft);transition:padding .35s var(--cubic),backdrop-filter .35s;z-index:10}
+
+.d72-nav.shrunk{padding:.6rem 1.5rem}
+
+.d72-logo{font-weight:700;color:var(--lime);font-size:1.2rem;letter-spacing:.05em;transition:font-size .35s var(--cubic)}
+
+.d72-nav.shrunk .d72-logo{font-size:.9rem}
+
+.d72-links{display:flex;gap:1rem;font-size:.7rem;letter-spacing:.2em;color:var(--fg-dim);font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.d72-pad{padding:3rem 1.5rem;color:var(--fg-mute);font-size:.85rem;letter-spacing:.1em;text-align:center}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">C-nav</div>
+    <h1 class="cb-title">Sticky nav 滚动时缩小</h1>
+    <div class="cb-tags">scroll position · class toggle</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d72-stage" id="d72Stage">
+          <nav class="d72-nav" id="d72Nav">
+            <div class="d72-logo">LANDO</div>
+            <div class="d72-links"><span>HOME</span><span>RACE</span><span>STORE</span></div>
+          </nav>
+          <div class="d72-pad">↓ 在此容器内滚动 · nav 会收 ↓</div>
+          <div class="d72-pad" style="height:140vh;background:linear-gradient(var(--bg-3),var(--bg-2))"></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo72</code></div>
+</footer>
+<script>
+// 72 sticky nav shrink
+(function(){
+  const stage = document.getElementById('d72Stage');
+  const nav = document.getElementById('d72Nav');
+  if(!stage||!nav) return;
+  stage.addEventListener('scroll', () => {
+    nav.classList.toggle('shrunk', stage.scrollTop > 60);
+  });
+})();
+</script>
+</body>
+</html>
