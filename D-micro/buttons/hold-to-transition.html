@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hold-to-transition · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+.d30-stage{padding:3rem 0;text-align:center}
+.d30-btn{position:relative;padding:1.2rem 3rem;border:1px solid var(--lime);color:var(--lime);background:transparent;border-radius:999px;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace;overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none}
+.d30-fill{position:absolute;inset:0;background:var(--lime);transform:translateX(-100%);transition:transform .35s var(--cubic);will-change:transform}
+.d30-btn.holding .d30-fill{transform:translateX(0);transition:transform .6s linear}
+.d30-btn.holding .d30-txt{color:#0a0e07}
+.d30-btn.done{border-color:var(--lime)}
+.d30-btn.done .d30-fill{transform:translateX(0)}
+.d30-btn.done .d30-txt{color:#0a0e07}
+.d30-txt{position:relative;z-index:1;transition:color .35s}
+.d30-status{margin-top:1.5rem;font-size:.7rem;color:var(--fg-dim);letter-spacing:.2em;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+
+
+
+/* ---------- demo 30 · hold-to-transition ---------- */
+.d30-stage{padding:3rem 0;text-align:center}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/buttons</div>
+    <h1 class="cb-title">Hold-to-transition</h1>
+    <div class="cb-tags">mousedown timer · 进度环 · 防误触</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d30-stage">
+          <button class="d30-btn" id="d30Btn">
+            <span class="d30-fill"></span>
+            <span class="d30-txt" id="d30Txt">Hold to enter</span>
+          </button>
+          <div class="d30-status mono" id="d30Status">等待按下 ...</div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo30</code></div>
+</footer>
+<script>
+/* =================== DEMO 30 · hold-to-transition === */
+(function(){
+  const btn = document.getElementById('d30Btn');
+  const txt = document.getElementById('d30Txt');
+  const status = document.getElementById('d30Status');
+  if(!btn) return;
+  let timer = null;
+  function start(e){
+    if (e) e.preventDefault();
+    if (btn.classList.contains('done')) {
+      btn.classList.remove('done');
+      txt.textContent = "Hold to enter";
+    }
+    btn.classList.add('holding');
+    status.textContent = "按住中 · 别松手 · 0.6s";
+    timer = setTimeout(() => {
+      btn.classList.remove('holding');
+      btn.classList.add('done');
+      txt.textContent = "✓ Entered";
+      status.textContent = "触发成功 · hold-to-confirm 完成";
+      timer = null;
+    }, 600);
+  }
+  function cancel(){
+    if (timer) { clearTimeout(timer); timer = null;
+      btn.classList.remove('holding');
+      status.textContent = "取消了 · 需要按住 0.6 秒才触发";
+    } else if (btn.classList.contains('holding')) {
+      btn.classList.remove('holding');
+    }
+  }
+  btn.addEventListener('mousedown', start);
+  btn.addEventListener('touchstart', start, {passive:false});
+  btn.addEventListener('mouseup', cancel);
+  btn.addEventListener('mouseleave', cancel);
+  btn.addEventListener('touchend', cancel);
+  btn.addEventListener('touchcancel', cancel);
+})();
+
+/* =================== smooth-jump for all in-page hash links === */
+(function(){
+  function jumpTo(id){
+    const el = document.getElementById(id);
+    if (!el) return;
+    const navH = (document.getElementById('nav')?.offsetHeight) || 64;
+    const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + id);
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (href.length < 2) return;
+    const id = href.slice(1);
+    // hash routes like #filter-X are handled by focusMode via hashchange
+    if (id.startsWith('filter-')) {
+      e.preventDefault();
+      if (location.hash === href) {
+        // same hash: still trigger filter logic
+        if (window.__applyFilter) window.__applyFilter(id.slice(7));
+      } else {
+        location.hash = href;
+      }
+      return;
+    }
+    if (!document.getElementById(id)) return;
+    e.preventDefault();
+    jumpTo(id);
+  });
+})();
+
+/* =================== inject category pills + filter mode === */
+const CAT_MAP = {
+  demo1:    {key:"A",name:"入场",cat:"entrance"},
+  demo2:    {key:"C",name:"导航主题",cat:"nav"},
+  demo3:    {key:"B",name:"滚动驱动",cat:"scroll"},
+  demo4:    {key:"B",name:"滚动驱动",cat:"scroll"},
+  demo5:    {key:"B",name:"滚动驱动",cat:"scroll"},
+  demo6:    {key:"D",name:"微动效",cat:"micro"},
+  demo7:    {key:"G",name:"视觉系统",cat:"visual"},
+  demo8:    {key:"F",name:"手势光标",cat:"gesture"},
+  demo9:    {key:"F",name:"手势光标",cat:"gesture"},
+  demo10:   {key:"H",name:"媒体",cat:"media"},
+  demo12:   {key:"E",name:"数据驱动",cat:"data"},
+  demo13:   {key:"G",name:"视觉系统",cat:"visual"},
+  demo14:   {key:"G",name:"视觉系统",cat:"visual"},
+  demo15:   {key:"B",name:"滚动驱动",cat:"scroll"},
+  demo16:   {key:"G",name:"视觉系统",cat:"visual"},
+  demo17:   {key:"F",name:"手势光标",cat:"gesture"},
+  demo18:   {key:"D",name:"微动效",cat:"micro"},
+  demo19:   {key:"E",name:"数据驱动",cat:"data"},
+  demo19svg:{key:"B",name:"滚动驱动",cat:"scroll"},
+  demo20:   {key:"G",name:"视觉系统",cat:"visual"},
+  demo21:   {key:"C",name:"导航主题",cat:"nav"},
+  demo22:   {key:"D",name:"微动效",cat:"micro"},
+  demo23:   {key:"H",name:"媒体",cat:"media"},
+  demo24:   {key:"B",name:"滚动驱动",cat:"scroll"},
+  demo11:   {key:"A",name:"入场",cat:"entrance"},
+  demo26:   {key:"D",name:"微动效",cat:"micro"},
+  demo27:   {key:"E",name:"数据驱动",cat:"data"},
+  demo28:   {key:"B",name:"滚动驱动",cat:"scroll"},
+  demo29:   {key:"G",name:"视觉系统",cat:"visual"},
+  demo30:   {key:"D",name:"微动效",cat:"micro"},
+  demo31:{key:"D",name:"微动效",cat:"micro"},demo32:{key:"D",name:"微动效",cat:"micro"},demo33:{key:"D",name:"微动效",cat:"micro"},demo34:{key:"D",name:"微动效",cat:"micro"},demo35:{key:"D",name:"微动效",cat:"micro"},demo36:{key:"D",name:"微动效",cat:"micro"},demo37:{key:"D",name:"微动效",cat:"micro"},
+  demo38:{key:"D",name:"微动效",cat:"micro"},demo39:{key:"D",name:"微动效",cat:"micro"},demo40:{key:"D",name:"微动效",cat:"micro"},demo41:{key:"D",name:"微动效",cat:"micro"},demo42:{key:"D",name:"微动效",cat:"micro"},demo43:{key:"D",name:"微动效",cat:"micro"},demo44:{key:"D",name:"微动效",cat:"micro"},demo45:{key:"D",name:"微动效",cat:"micro"},
+  demo46:{key:"D",name:"微动效",cat:"micro"},demo47:{key:"D",name:"微动效",cat:"micro"},demo48:{key:"D",name:"微动效",cat:"micro"},demo49:{key:"D",name:"微动效",cat:"micro"},demo50:{key:"D",name:"微动效",cat:"micro"},demo51:{key:"D",name:"微动效",cat:"micro"},demo52:{key:"D",name:"微动效",cat:"micro"},demo53:{key:"D",name:"微动效",cat:"micro"},demo54:{key:"D",name:"微动效",cat:"micro"},demo55:{key:"D",name:"微动效",cat:"micro"},
+  demo56:{key:"D",name:"微动效",cat:"micro"},demo57:{key:"D",name:"微动效",cat:"micro"},demo58:{key:"D",name:"微动效",cat:"micro"},demo59:{key:"D",name:"微动效",cat:"micro"},demo60:{key:"D",name:"微动效",cat:"micro"},demo61:{key:"D",name:"微动效",cat:"micro"},demo62:{key:"D",name:"微动效",cat:"micro"},demo63:{key:"D",name:"微动效",cat:"micro"},demo64:{key:"D",name:"微动效",cat:"micro"},demo65:{key:"D",name:"微动效",cat:"micro"}
+};
+
+const CAT_NAMES = {
+  entrance: {key:"A", name:"入场 & 转场"},
+  scroll:   {key:"B", name:"滚动驱动"},
+  nav:      {key:"C", name:"导航 & 主题"},
+  micro:    {key:"D", name:"微动效"},
+  data:     {key:"E", name:"数据驱动"},
+  gesture:  {key:"F", name:"手势 & 光标"},
+  visual:   {key:"G", name:"视觉系统"},
+  media:    {key:"H", name:"媒体"}
+};
+
+(function injectPills(){
+  document.querySelectorAll('.demo').forEach(d => {
+    const m = CAT_MAP[d.id];
+    if (!m) return;
+    d.dataset.cat = m.cat;
+    const pill = document.createElement('div');
+    pill.className = 'cat-pill';
+    pill.textContent = `${m.key} · ${m.name}`;
+    const head = d.querySelector('.demo-head');
+    const num = head && head.querySelector('.num');
+    if (num) num.after(pill); else head && head.prepend(pill);
+  });
+  // also tag cat-dividers (they already have data-cat from the script)
+  document.querySelectorAll('.cat-divider').forEach(d => d.classList.add('is-cat-div'));
+})();
+
+/* =================== render splash-grid dynamically from CAT_MAP === */
+(function renderSplashGrid(){
+  const grid = document.getElementById('splashGrid');
+  if (!grid) return;
+  // collect demos by category, in DOM order
+  const byCat = {};
+  document.querySelectorAll('.demo').forEach(d => {
+    const m = CAT_MAP[d.id]; if (!m) return;
+    (byCat[m.cat] = byCat[m.cat] || []).push(d);
+  });
+  const order = ["entrance","scroll","nav","micro","data","gesture","visual","media"];
+  const subtitle = {
+    entrance:"用户与页面的\"门\"",
+    scroll:"把滚动条变成时间线",
+    nav:"section 间的色彩切换",
+    micro:"按钮 / 链接 / 字符的小动作",
+    data:"CMS / 定时 / 计算",
+    gesture:"鼠标 / 触屏的硬件交互",
+    visual:"字体 / 布局 / 形状 / 容器",
+    media:"视频 / 图片相关"
+  };
+  let html = "";
+  order.forEach(cat => {
+    const list = byCat[cat] || [];
+    if (!list.length) return;
+    const meta = CAT_NAMES[cat];
+    // get the displayed numbers (.num textContent) of each demo
+    const nums = list.map(d => {
+      const t = d.querySelector('.num')?.textContent?.trim() || '';
+      const m = /^(\d+)/.exec(t);
+      return m ? m[1] : '';
+    }).filter(Boolean);
+    html += `<a class="splash-card splash-jump reveal" href="#filter-${cat}" data-cat="${cat}">
+      <div class="splash-card-head"><div class="splash-card-key">${meta.key}</div><div class="splash-card-name">${meta.name}</div></div>
+      <div class="splash-card-meta">${subtitle[cat]} · <strong>${list.length}</strong> demos</div>
+      <div class="splash-card-list">${nums.map(n => `<span>${n}</span>`).join('')}</div>
+    </a>`;
+  });
+  grid.innerHTML = html;
+})();
+
+/* =================== focus mode (filter by category) === */
+(function focusMode(){
+  const filterBar = document.getElementById('filterBar');
+  const filterKey = document.getElementById('filterKey');
+  const filterName = document.getElementById('filterName');
+  const filterCount = document.getElementById('filterCount');
+  const filterBack = document.getElementById('filterBack');
+
+  function applyFilter(cat){
+    const meta = CAT_NAMES[cat];
+    if (!meta) return clearFilter();
+    document.body.dataset.filter = cat;
+    let count = 0;
+    document.querySelectorAll('.demo').forEach(d => {
+      const isActive = d.dataset.cat === cat;
+      d.classList.toggle('is-active', isActive);
+      if (isActive) count++;
+    });
+    document.querySelectorAll('.cat-divider').forEach(d => {
+      d.classList.toggle('is-active', d.dataset.cat === cat);
+    });
+    document.querySelectorAll('.splash-card').forEach(c => {
+      c.classList.toggle('is-active', c.dataset.cat === cat);
+    });
+    filterKey.textContent = meta.key;
+    filterName.textContent = meta.name;
+    filterCount.textContent = `· ${count} demos`;
+    // scroll to the active divider after a tick (DOM has hidden others)
+    requestAnimationFrame(() => {
+      const div = document.querySelector('.cat-divider.is-active');
+      if (div) {
+        const navH = (document.getElementById('nav')?.offsetHeight) || 64;
+        const top = div.getBoundingClientRect().top + window.scrollY - navH - 16;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+      try { ScrollTrigger && ScrollTrigger.refresh(); } catch(e){}
+    });
+  }
+
+  function clearFilter(){
+    delete document.body.dataset.filter;
+    document.querySelectorAll('.demo.is-active, .cat-divider.is-active, .splash-card.is-active')
+      .forEach(el => el.classList.remove('is-active'));
+    history.replaceState(null, '', location.pathname + location.search);
+    try { ScrollTrigger && ScrollTrigger.refresh(); } catch(e){}
+  }
+
+  function handleHash(){
+    const h = location.hash;
+    const m = /^#filter-([a-z]+)$/.exec(h);
+    if (m && CAT_NAMES[m[1]]) {
+      applyFilter(m[1]);
+    } else {
+      // hash is something else (or empty) → exit filter
+      if (document.body.dataset.filter && (!h || !h.startsWith('#filter-'))) {
+        clearFilter();
+      }
+    }
+  }
+
+  filterBack.addEventListener('click', () => {
+    clearFilter();
+    // scroll back to splash
+    const splash = document.querySelector('.splash');
+    if (splash) {
+      const navH = (document.getElementById('nav')?.offsetHeight) || 64;
+      const top = splash.getBoundingClientRect().top + window.scrollY - navH - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+
+  window.addEventListener('hashchange', handleHash);
+  window.__applyFilter = applyFilter;
+  window.__clearFilter = clearFilter;
+  // initial check
+  setTimeout(handleHash, 200);
+})();
+</script>
+</body>
+</html>

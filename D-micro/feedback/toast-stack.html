@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Toast 通知滑入 + auto-dismiss · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 58 toast */
+.d58-stack{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column-reverse;gap:.5rem;z-index:55;pointer-events:none}
+
+.d58-stack > div{pointer-events:auto;background:var(--bg-2);border:1px solid var(--lime);border-radius:6px;padding:.85rem 1.2rem;display:flex;align-items:center;gap:.6rem;color:var(--fg);font-size:.85rem;min-width:240px;transform:translateX(120%);transition:transform .35s var(--cubic),opacity .35s}
+
+.d58-stack > div.show{transform:translateX(0)}
+
+.d58-stack > div.gone{opacity:0;transform:translateX(120%)}
+
+.d58-stack > div.success{border-color:var(--lime)}
+
+.d58-stack > div.info{border-color:#7a9100}
+
+.d58-stack > div.error{border-color:#ff5252}
+
+.d58-stack > div .dot{width:.5rem;height:.5rem;border-radius:50%;flex-shrink:0;background:currentColor}
+
+.d58-stack > div.success .dot{background:var(--lime)}
+
+.d58-stack > div.error .dot{background:#ff5252}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Toast 通知滑入 + auto-dismiss</h1>
+    <div class="cb-tags">dynamic DOM · stack · 3s timer</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;gap:1rem;display:flex"><div style="display:flex;gap:.5rem"><button class="btn" data-toast="success">Success</button><button class="btn" data-toast="info">Info</button><button class="btn" data-toast="error">Error</button></div><div class="d58-stack" id="d58Stack"></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo58</code></div>
+</footer>
+<script>
+// 58 toast
+(function(){
+  const stack = document.getElementById('d58Stack');
+  if (!stack) return;
+  const messages = {
+    success: "✓ 圈速提交成功",
+    info: "ⓘ 维修区限速 80 km/h",
+    error: "✕ 胎温过低 · 进站"
+  };
+  document.querySelectorAll('[data-toast]').forEach(b => {
+    b.addEventListener('click', () => {
+      const t = b.dataset.toast;
+      const el = document.createElement('div');
+      el.className = t;
+      el.innerHTML = `<span class="dot"></span><span>${messages[t]}</span>`;
+      stack.appendChild(el);
+      requestAnimationFrame(() => el.classList.add('show'));
+      setTimeout(() => {
+        el.classList.add('gone');
+        setTimeout(() => el.remove(), 400);
+      }, 2800);
+    });
+  });
+})();
+</script>
+</body>
+</html>

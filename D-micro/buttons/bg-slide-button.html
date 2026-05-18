@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>按钮背景从一侧滑入 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 32 bg slide */
+.d32-btn{position:relative;overflow:hidden;padding:.95rem 2rem;border:1px solid var(--lime);background:transparent;color:var(--lime);border-radius:999px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .35s var(--cubic);z-index:1}
+
+.d32-btn::before{content:"";position:absolute;inset:0;background:var(--lime);transform:translateX(-100%);transition:transform .4s var(--cubic);z-index:-1}
+
+.d32-btn:hover{color:#0a0e07}
+
+.d32-btn:hover::before{transform:translateX(0)}
+
+.d32-r::before{transform:translateX(100%)}
+
+.d32-b::before{transform:translateY(100%)}
+
+.d32-b:hover::before{transform:translateY(0)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/buttons</div>
+    <h1 class="cb-title">按钮背景从一侧滑入</h1>
+    <div class="cb-tags">::before translateX · 纯 CSS</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:1rem;display:flex;justify-content:center;flex-wrap:wrap"><button class="d32-btn d32-l">From Left</button><button class="d32-btn d32-r">From Right</button><button class="d32-btn d32-b">From Bottom</button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo32</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

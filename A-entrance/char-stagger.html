@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>字符级 stagger 入场 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d1-stage{text-align:center;padding:3rem 0}
+.d1-line{font-size:clamp(1.8rem,4vw,3rem);font-weight:300;letter-spacing:-.02em;margin-bottom:2rem;line-height:1}
+.d1-line .word{display:inline-block;overflow:hidden;vertical-align:bottom;margin-right:.15em}
+.d1-line .char{display:inline-block;will-change:transform}
+.d1-mob{display:inline-block;clip-path:ellipse(110% 110% at 50% 0%);will-change:clip-path}
+
+
+
+
+/* ---------- demo 1: char stagger ---------- */
+.d1-stage{text-align:center;padding:3rem 0}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">A-entrance</div>
+    <h1 class="cb-title">字符级 stagger 入场</h1>
+    <div class="cb-tags">GSAP · SplitText · power3.out</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d1-stage">
+          <div class="d1-line" id="d1Line">
+            <span class="word"><span class="char">M</span><span class="char">e</span><span class="char">s</span><span class="char">s</span><span class="char">a</span><span class="char">g</span><span class="char">e</span></span>
+            <span class="word"><span class="char">f</span><span class="char">r</span><span class="char">o</span><span class="char">m</span></span>
+            <span class="word"><span class="char">l</span><span class="char">a</span><span class="char">n</span><span class="char">d</span><span class="char">o</span></span>
+          </div>
+          <div class="d1-mob" id="d1Mob" style="font-size:clamp(1.2rem,2.5vw,1.8rem);color:var(--lime);letter-spacing:.2em;text-transform:uppercase">·  L A N D O   N O R R I S  ·</div>
+          <div style="margin-top:2rem"><button class="btn" id="d1Btn">↻ Replay</button></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo1</code></div>
+</footer>
+<script>
+/* =================== DEMO 1 · char stagger =================== */
+const d1Line = document.getElementById("d1Line");
+const d1Mob = document.getElementById("d1Mob");
+const d1Btn = document.getElementById("d1Btn");
+function playD1() {
+  const chars = d1Line.querySelectorAll(".char");
+  gsap.fromTo(chars, { y: "110%" }, { y: 0, duration: .9, stagger: .025, ease: "power3.out" });
+  gsap.fromTo(d1Mob, { clipPath: "ellipse(110% 110% at 50% 0%)", opacity: 0 }, { clipPath: "ellipse(0% 0% at 50% 100%)", opacity: 1, duration: 1.2, ease: "power3.out", delay: .2 });
+}
+d1Btn.addEventListener("click", playD1);
+ScrollTrigger.create({
+  trigger: d1Line, start: "top 80%",
+  onEnter: playD1, once: false,
+  onEnterBack: playD1
+});
+</script>
+</body>
+</html>

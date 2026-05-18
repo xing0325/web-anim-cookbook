@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pill / chip 选中态 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 55 chip */
+.d55-chip{padding:.5rem 1.1rem;border:1px solid var(--line-soft);background:transparent;color:var(--fg-dim);border-radius:999px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .3s var(--cubic)}
+
+.d55-chip:hover{border-color:var(--lime);color:var(--lime)}
+
+.d55-chip.is-on{background:var(--lime);color:#0a0e07;border-color:var(--lime);transform:scale(1.05)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/forms</div>
+    <h1 class="cb-title">Pill / chip 选中态</h1>
+    <div class="cb-tags">click toggle · scale 1.05</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-wrap:wrap;gap:.5rem"><button class="d55-chip">Wet</button><button class="d55-chip">Dry</button><button class="d55-chip is-on">Soft</button><button class="d55-chip">Medium</button><button class="d55-chip">Hard</button><button class="d55-chip is-on">Pit lane</button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo55</code></div>
+</footer>
+<script>
+// 55 chip
+(function(){
+  document.querySelectorAll('.d55-chip').forEach(c => {
+    c.addEventListener('click', () => c.classList.toggle('is-on'));
+  });
+})();
+</script>
+</body>
+</html>

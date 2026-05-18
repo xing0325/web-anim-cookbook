@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rive 状态机切赛道 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+.d6-stage{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem 0;align-items:center}
+.d6-canvas{aspect-ratio:1;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:4px;display:grid;place-items:center;position:relative;overflow:hidden}
+.d6-svg{width:60%;height:60%;color:var(--lime);transition:color .5s var(--cubic)}
+.d6-svg svg{width:100%;height:100%;display:block}
+.d6-svg path,.d6-svg circle{transition:stroke-dashoffset 1s var(--cubic),fill 1s var(--cubic),opacity .5s,transform .8s var(--cubic);transform-origin:center;transform-box:fill-box}
+.d6-controls{display:flex;flex-direction:column;gap:.75rem}
+.d6-btn{text-align:left;padding:.85rem 1.2rem;border:1px solid var(--line-soft);background:var(--bg-3);color:var(--fg-dim);font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;border-radius:4px;transition:all .35s;cursor:pointer}
+.d6-btn:hover,.d6-btn.is-active{border-color:var(--lime);color:var(--lime);background:rgba(208,255,0,.05)}
+@media(max-width:700px){.d6-stage{grid-template-columns:1fr}}
+
+
+
+
+/* ---------- demo 6: rive state machine ---------- */
+.d6-stage{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem 0;align-items:center}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/links</div>
+    <h1 class="cb-title">Rive 状态机切赛道</h1>
+    <div class="cb-tags">hover swap · GSAP path morph</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d6-stage">
+          <div class="d6-canvas">
+            <div class="d6-svg" id="d6Svg">
+              <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path id="d6Path" d="M40 100 Q40 40 100 40 T160 100 Q160 160 100 160 T40 100" stroke-dasharray="500" stroke-dashoffset="0" />
+                <circle id="d6Dot" cx="40" cy="100" r="6" fill="currentColor" stroke="none"/>
+                <text id="d6Label" x="100" y="190" text-anchor="middle" fill="currentColor" stroke="none" font-size="10" letter-spacing="3" font-family="monospace">MONTRÉAL</text>
+              </svg>
+            </div>
+          </div>
+          <div class="d6-controls">
+            <div style="font-size:.7rem;letter-spacing:.25em;color:var(--fg-mute);text-transform:uppercase;margin-bottom:.5rem">hover 切换 input "track"</div>
+            <button class="d6-btn is-active" data-track="MONTRÉAL" data-d="M40 100 Q40 40 100 40 T160 100 Q160 160 100 160 T40 100">CA · Montréal</button>
+            <button class="d6-btn" data-track="MONACO" data-d="M30 120 L60 60 Q100 30 140 60 L170 120 Q160 170 100 170 Q40 170 30 120 Z">MC · Monaco</button>
+            <button class="d6-btn" data-track="SILVERSTONE" data-d="M20 100 L50 50 L120 50 L180 80 L160 130 L100 150 L40 140 Z">UK · Silverstone</button>
+            <button class="d6-btn" data-track="SUZUKA" data-d="M40 60 L120 40 Q170 70 140 110 Q90 130 60 100 Q30 130 80 170 L150 160">JP · Suzuka</button>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo6</code></div>
+</footer>
+<script>
+/* =================== DEMO 6 · Rive state-machine sim =================== */
+const d6Path = document.getElementById("d6Path");
+const d6Label = document.getElementById("d6Label");
+const d6Dot = document.getElementById("d6Dot");
+const d6Btns = document.querySelectorAll(".d6-btn");
+let d6Anim;
+function setTrack(d, name) {
+  d6Btns.forEach(b => b.classList.remove("is-active"));
+  event && event.currentTarget && event.currentTarget.classList.add("is-active");
+  // animate path morph using GSAP attr plugin if available; otherwise just swap with transition
+  gsap.to(d6Path, { attr: { d }, duration: .8, ease: "power3.inOut" });
+  // travel a dot along the path roughly
+  if (d6Anim) d6Anim.kill();
+  const p = d6Path;
+  const total = p.getTotalLength();
+  d6Anim = gsap.to({ t: 0 }, {
+    t: 1, duration: 4, repeat: -1, ease: "none",
+    onUpdate() {
+      const pt = p.getPointAtLength(this.targets()[0].t * total);
+      d6Dot.setAttribute("cx", pt.x);
+      d6Dot.setAttribute("cy", pt.y);
+    }
+  });
+  d6Label.textContent = name;
+}
+d6Btns.forEach(b => b.addEventListener("click", e => setTrack(b.dataset.d, b.dataset.track)));
+// kick off the dot
+setTimeout(() => {
+  d6Btns[0].classList.add("is-active");
+  const p = d6Path;
+  const total = p.getTotalLength();
+  d6Anim = gsap.to({ t: 0 }, {
+    t: 1, duration: 4, repeat: -1, ease: "none",
+    onUpdate() {
+      const pt = p.getPointAtLength(this.targets()[0].t * total);
+      d6Dot.setAttribute("cx", pt.x);
+      d6Dot.setAttribute("cy", pt.y);
+    }
+  });
+}, 200);
+</script>
+</body>
+</html>

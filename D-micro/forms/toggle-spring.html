@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Toggle 反弹滑块 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 47 toggle */
+.d47-row{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;width:100%;max-width:280px;color:var(--fg);font-size:.95rem}
+
+.d47-tg{position:relative;display:inline-block}
+
+.d47-tg input{display:none}
+
+.d47-track{display:block;width:3rem;height:1.5rem;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:999px;position:relative;transition:background .35s,border-color .35s;cursor:pointer}
+
+.d47-knob{position:absolute;top:1px;left:1px;width:1.3rem;height:1.3rem;background:var(--fg-mute);border-radius:50%;transition:transform .45s cubic-bezier(.5,1.6,.5,1),background .35s}
+
+.d47-tg input:checked + .d47-track{background:var(--lime);border-color:var(--lime)}
+
+.d47-tg input:checked + .d47-track .d47-knob{transform:translateX(1.5rem);background:#0a0e07}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/forms</div>
+    <h1 class="cb-title">Toggle 反弹滑块</h1>
+    <div class="cb-tags">cubic-bezier spring · checkbox</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;gap:1rem;display:flex"><label class="d47-row"><span>DRS</span><span class="d47-tg"><input type="checkbox"><span class="d47-track"><span class="d47-knob"></span></span></span></label><label class="d47-row"><span>Pit limiter</span><span class="d47-tg"><input type="checkbox" checked><span class="d47-track"><span class="d47-knob"></span></span></span></label></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo47</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

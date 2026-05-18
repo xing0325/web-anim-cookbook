@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SVG mask 异形容器 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d16-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;padding:1rem 0}
+.d16-card{position:relative}
+.d16-mask{aspect-ratio:1;background:linear-gradient(135deg,#0a1208,var(--bg-3));border:1px solid var(--line-soft)}
+.d16-card[data-mask="a"] .d16-mask{-webkit-mask:radial-gradient(circle 28px at 0% 50%,transparent 27px,#000 28px);mask:radial-gradient(circle 28px at 0% 50%,transparent 27px,#000 28px)}
+.d16-card[data-mask="b"] .d16-mask{-webkit-mask:radial-gradient(circle 28px at 100% 50%,transparent 27px,#000 28px);mask:radial-gradient(circle 28px at 100% 50%,transparent 27px,#000 28px)}
+.d16-card[data-mask="c"] .d16-mask{-webkit-mask:linear-gradient(135deg,transparent 40px,#000 41px);mask:linear-gradient(135deg,transparent 40px,#000 41px)}
+.d16-card[data-mask="d"] .d16-mask{-webkit-mask:linear-gradient(-135deg,transparent 40px,#000 41px);mask:linear-gradient(-135deg,transparent 40px,#000 41px)}
+.d16-card{background:none}
+.d16-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:1.25rem;color:var(--lime);font-weight:500;letter-spacing:.05em}
+.d16-content span{font-size:.65rem;letter-spacing:.3em;color:var(--fg-mute);margin-bottom:.35rem;font-family:'JetBrains Mono',ui-monospace,monospace}
+.d16-tag{position:absolute;top:.5rem;left:.5rem;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-mute);font-family:'JetBrains Mono',ui-monospace,monospace;background:rgba(0,0,0,.5);padding:.2rem .5rem;border-radius:3px}
+
+
+
+
+/* ---------- demo 16: SVG mask shapes ---------- */
+.d16-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;padding:1rem 0}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">G-visual</div>
+    <h1 class="cb-title">SVG mask 异形容器</h1>
+    <div class="cb-tags">-webkit-mask-image · 凹缺切角</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d16-grid">
+          <div class="d16-card" data-mask="a"><div class="d16-mask"><div class="d16-content"><span>01</span>NEXT RACE</div></div><div class="d16-tag">callout-left</div></div>
+          <div class="d16-card" data-mask="b"><div class="d16-mask"><div class="d16-content"><span>02</span>LAST LAP</div></div><div class="d16-tag">callout-right</div></div>
+          <div class="d16-card" data-mask="c"><div class="d16-mask"><div class="d16-content"><span>03</span>FASTEST</div></div><div class="d16-tag">case-left</div></div>
+          <div class="d16-card" data-mask="d"><div class="d16-mask"><div class="d16-content"><span>04</span>POINTS</div></div><div class="d16-tag">case-right</div></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo16</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkbox 描边变实 + 对勾绘制 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 46 checkbox */
+.d46-row{display:flex;align-items:center;gap:.7rem;cursor:pointer;color:var(--fg);font-size:.95rem;user-select:none}
+
+.d46-row input{display:none}
+
+.d46-box{width:1.3rem;height:1.3rem;border:1.5px solid var(--lime);border-radius:4px;display:grid;place-items:center;transition:background .25s,border-color .25s}
+
+.d46-box svg{width:80%;height:80%;display:block}
+
+.d46-box svg path{fill:none;stroke:#0a0e07;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:18;stroke-dashoffset:18;transition:stroke-dashoffset .35s var(--cubic) .1s}
+
+.d46-row input:checked + .d46-box{background:var(--lime)}
+
+.d46-row input:checked + .d46-box svg path{stroke-dashoffset:0}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/forms</div>
+    <h1 class="cb-title">Checkbox 描边变实 + 对勾绘制</h1>
+    <div class="cb-tags">stroke-dashoffset · 双 path</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;gap:1rem;display:flex"><label class="d46-row"><input type="checkbox"><span class="d46-box"><svg viewBox="0 0 16 16"><path d="M3 8 L7 12 L13 4" /></svg></span> Wet tires</label><label class="d46-row"><input type="checkbox"><span class="d46-box"><svg viewBox="0 0 16 16"><path d="M3 8 L7 12 L13 4" /></svg></span> Dry compound</label><label class="d46-row"><input type="checkbox"><span class="d46-box"><svg viewBox="0 0 16 16"><path d="M3 8 L7 12 L13 4" /></svg></span> Soft strategy</label></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo46</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

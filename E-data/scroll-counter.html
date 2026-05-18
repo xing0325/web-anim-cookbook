@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>滚动数字计数器 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d27-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;padding:2rem 0}
+.d27-stat{padding:1.5rem;border:1px solid var(--line-soft);border-radius:4px;background:var(--bg-3)}
+.d27-num{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:200;color:var(--lime);line-height:1;margin-bottom:.5rem;font-feature-settings:"tnum";letter-spacing:-.02em;font-family:"Mona Sans",sans-serif}
+.d27-lbl{font-size:.6rem;letter-spacing:.25em;color:var(--fg-mute);text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+
+
+
+/* ---------- demo 27 · counter ---------- */
+.d27-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;padding:2rem 0}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">E-data</div>
+    <h1 class="cb-title">滚动数字计数器</h1>
+    <div class="cb-tags">ScrollTrigger once · GSAP snap</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d27-grid">
+          <div class="d27-stat"><div class="d27-num" data-counter data-to="42">0</div><div class="d27-lbl">PODIUMS</div></div>
+          <div class="d27-stat"><div class="d27-num" data-counter data-to="19">0</div><div class="d27-lbl">RACE WINS</div></div>
+          <div class="d27-stat"><div class="d27-num" data-counter data-to="28">0</div><div class="d27-lbl">POLES</div></div>
+          <div class="d27-stat"><div class="d27-num" data-counter data-to="180">0</div><div class="d27-lbl">RACE STARTS</div></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo27</code></div>
+</footer>
+<script>
+/* =================== DEMO 27 · scroll counter === */
+(function(){
+  document.querySelectorAll('[data-counter]').forEach(el => {
+    const to = parseInt(el.dataset.to, 10);
+    ScrollTrigger.create({
+      trigger: el, start: "top 85%", once: true,
+      onEnter: () => {
+        const obj = { v: 0 };
+        gsap.to(obj, { v: to, duration: 1.6, ease: "power2.out", onUpdate: () => {
+          el.textContent = Math.floor(obj.v);
+        }, onComplete: () => { el.textContent = to; }});
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

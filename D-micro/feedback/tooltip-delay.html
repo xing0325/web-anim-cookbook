@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tooltip hover delay + 定位 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 59 tooltip */
+.d59-trig{padding:.7rem 1.2rem;border:1px solid var(--line-soft);background:var(--bg-3);color:var(--fg);border-radius:6px;font-size:.78rem;letter-spacing:.1em;cursor:pointer;font-family:inherit;transition:border-color .25s}
+
+.d59-trig:hover{border-color:var(--lime);color:var(--lime)}
+
+.d59-tip{position:fixed;background:var(--lime);color:#0a0e07;padding:.5rem .85rem;border-radius:4px;font-size:.72rem;letter-spacing:.05em;pointer-events:none;opacity:0;transform:translate(-50%,8px);transition:opacity .25s,transform .25s;z-index:50;white-space:nowrap;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.d59-tip.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Tooltip hover delay + 定位</h1>
+    <div class="cb-tags">600ms delay · fixed position</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-wrap:wrap;gap:1rem"><button class="d59-trig" data-tip="Pole Position · 28 in career">Poles</button><button class="d59-trig" data-tip="Race wins · 19 (and counting)">Wins</button><button class="d59-trig" data-tip="DNF · only 4 last season">DNF</button></div>
+        <div class="d59-tip" id="d59Tip"></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo59</code></div>
+</footer>
+<script>
+// 59 tooltip delay
+(function(){
+  const tip = document.getElementById('d59Tip');
+  if (!tip) return;
+  let timer = null;
+  document.querySelectorAll('.d59-trig').forEach(b => {
+    b.addEventListener('mouseenter', () => {
+      timer = setTimeout(() => {
+        tip.textContent = b.dataset.tip;
+        const r = b.getBoundingClientRect();
+        tip.style.left = (r.left + r.width / 2) + 'px';
+        tip.style.top = (r.bottom + 12) + 'px';
+        tip.classList.add('show');
+      }, 600);
+    });
+    b.addEventListener('mouseleave', () => {
+      clearTimeout(timer);
+      tip.classList.remove('show');
+    });
+  });
+})();
+</script>
+</body>
+</html>

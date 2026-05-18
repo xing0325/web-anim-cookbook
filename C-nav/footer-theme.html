@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Footer 三色主题 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d22-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:1.25rem 1.5rem;gap:1rem;border-radius:4px;transition:background .45s var(--cubic),color .45s var(--cubic);font-family:'JetBrains Mono',ui-monospace,monospace}
+.d22-footer[data-footer-theme="green"]{background:#101400;color:#d2ff00}
+.d22-footer[data-footer-theme="black"]{background:#000;color:#d2ff00}
+.d22-footer[data-footer-theme="white"]{background:#f0f0e8;color:#101400}
+.d22-logo{font-weight:600;letter-spacing:.1em;font-size:.85rem}
+.d22-links{display:flex;gap:1.25rem;font-size:.7rem;letter-spacing:.2em}
+.d22-state{font-size:.65rem;opacity:.7}
+.d22-state span{font-weight:600}
+.d22-controls{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
+.d22-btn{font-size:.65rem;padding:.5rem 1rem}
+
+
+
+
+/* ---------- demo 20 (Variable Font) · d21- ---------- */
+.d21-stage{padding:2rem 0;text-align:center}
+
+.d21-preview{font-family:"Mona Sans","Inter",sans-serif;font-size:clamp(2.8rem,8vw,6rem);line-height:1;letter-spacing:-.01em;color:var(--lime);transition:font-variation-settings .15s linear,letter-spacing .2s;margin-bottom:2rem}
+
+.d21-controls{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
+
+.d21-controls label{display:flex;flex-direction:column;gap:.5rem;font-size:.65rem;letter-spacing:.25em;color:var(--fg-dim);text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace;min-width:200px}
+
+.d21-controls label span{color:var(--lime);font-weight:600}
+
+.d21-controls input{accent-color:var(--lime);width:100%}
+
+.d21-readout{font-size:.78rem;color:var(--fg-dim);padding:.75rem;background:#070a05;border:1px solid var(--line-soft);border-radius:4px;display:inline-block}
+
+.d21-readout span{color:var(--lime)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">C-nav</div>
+    <h1 class="cb-title">Footer 三色主题</h1>
+    <div class="cb-tags">data-footer-theme · CSS 属性选择器</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d22-footer" id="d22Footer" data-footer-theme="green">
+          <div class="d22-logo">LN · OFF+BRAND</div>
+          <div class="d22-links">
+            <span>HOME</span><span>ON TRACK</span><span>OFF TRACK</span><span>CALENDAR</span>
+          </div>
+          <div class="d22-state mono">data-footer-theme="<span id="d22ThemeOut">green</span>"</div>
+        </div>
+        <div class="d22-controls">
+          <button class="btn d22-btn" data-ft="green">green</button>
+          <button class="btn d22-btn" data-ft="black">black</button>
+          <button class="btn d22-btn" data-ft="white">white</button>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo21</code></div>
+</footer>
+<script>
+/* =================== DEMO 21 (Footer theme) · d22- ============ */
+(function(){
+  const footer = document.getElementById('d22Footer');
+  const out = document.getElementById('d22ThemeOut');
+  document.querySelectorAll('.d22-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      const t = b.dataset.ft;
+      footer.setAttribute('data-footer-theme', t);
+      out.textContent = t;
+    });
+  });
+})();
+</script>
+</body>
+</html>

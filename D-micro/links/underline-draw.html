@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>下划线从左到右画出 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 38 underline */
+.d38-link{position:relative;color:var(--fg);font-size:.95rem;text-decoration:none;padding-bottom:.15rem;cursor:pointer}
+
+.d38-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--cubic)}
+
+.d38-link:hover::after{transform:scaleX(1)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/links</div>
+    <h1 class="cb-title">下划线从左到右画出</h1>
+    <div class="cb-tags">::after scaleX · transform-origin</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:2rem"><a class="d38-link">View race</a><a class="d38-link">Read story</a><a class="d38-link">Watch highlights</a></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo38</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

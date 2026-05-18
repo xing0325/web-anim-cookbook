@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>按钮 hover 4 件套 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+.d23-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;padding:1rem 0}
+.d23-btn{position:relative;display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:1.1rem 1.25rem;border:1px solid var(--lime);background:transparent;color:var(--lime);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;border-radius:999px;cursor:pointer;overflow:hidden;font-family:'JetBrains Mono',ui-monospace,monospace;transition:transform .35s var(--cubic),background .35s var(--cubic),color .35s var(--cubic)}
+.d23-icon{width:1.4rem;height:1.4rem;display:grid;place-items:center;border:1px solid currentColor;border-radius:50%;flex-shrink:0;transition:transform .45s var(--cubic),background .35s,color .35s}
+.d23-icon svg{width:.7rem;height:.7rem}
+.d23-rotate:hover .d23-icon{transform:rotate(-90deg);background:var(--lime);color:#0a0e07}
+.d23-invert:hover{background:var(--lime);color:#0a0e07}
+.d23-invert:hover .d23-icon{background:#0a0e07;color:var(--lime)}
+.d23-scale:hover{transform:scale(1.06)}
+.d23-scale:hover .d23-icon{transform:scale(1.3);background:var(--lime);color:#0a0e07}
+.d23-shake:hover .d23-icon{animation:d23Shake .45s linear infinite}
+@keyframes d23Shake{0%,100%{transform:translateX(0) rotate(0deg)}25%{transform:translateX(-2px) rotate(-8deg)}75%{transform:translateX(2px) rotate(8deg)}}
+
+
+
+
+/* ---------- demo 21 (Footer theme) · d22- ---------- */
+.d22-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:1.25rem 1.5rem;gap:1rem;border-radius:4px;transition:background .45s var(--cubic),color .45s var(--cubic);font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.d22-footer[data-footer-theme="green"]{background:#101400;color:#d2ff00}
+
+.d22-footer[data-footer-theme="black"]{background:#000;color:#d2ff00}
+
+.d22-footer[data-footer-theme="white"]{background:#f0f0e8;color:#101400}
+
+.d22-logo{font-weight:600;letter-spacing:.1em;font-size:.85rem}
+
+.d22-links{display:flex;gap:1.25rem;font-size:.7rem;letter-spacing:.2em}
+
+.d22-state{font-size:.65rem;opacity:.7}
+
+.d22-state span{font-weight:600}
+
+.d22-controls{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
+
+.d22-btn{font-size:.65rem;padding:.5rem 1rem}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/buttons</div>
+    <h1 class="cb-title">按钮 hover 4 件套</h1>
+    <div class="cb-tags">rotate / invert / scale / shake</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d23-grid">
+          <button class="d23-btn d23-rotate" data-btn-rive-rotate="90">
+            <span class="d23-txt">Send Mail</span>
+            <span class="d23-icon"><svg viewBox="0 0 16 16"><path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </button>
+          <button class="d23-btn d23-invert" data-btn-rive-invert="true">
+            <span class="d23-txt">Read Story</span>
+            <span class="d23-icon"><svg viewBox="0 0 16 16"><path d="M3 13L13 3M5 3h8v8" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </button>
+          <button class="d23-btn d23-scale" data-btn-rive-hover="scale">
+            <span class="d23-txt">Race In</span>
+            <span class="d23-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" fill="none" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg></span>
+          </button>
+          <button class="d23-btn d23-shake" data-btn-rive-hover="shake">
+            <span class="d23-txt">Watch Live</span>
+            <span class="d23-icon"><svg viewBox="0 0 16 16"><polygon points="5,3 5,13 13,8" fill="currentColor"/></svg></span>
+          </button>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo22</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

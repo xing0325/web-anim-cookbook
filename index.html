@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>web-anim-cookbook · 65 个独立 web 动效 demo</title>
+<link rel="stylesheet" href="_shared/base.css">
+<style>
+.idx-hero{padding:7rem 1.5rem 3rem;text-align:center;border-bottom:1px solid var(--line-soft);position:relative;overflow:hidden}
+.idx-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(208,255,0,.08),transparent 50%);pointer-events:none}
+.idx-eyebrow{font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--lime);margin-bottom:1.5rem;display:flex;align-items:center;justify-content:center;gap:.6rem}
+.idx-eyebrow::before,.idx-eyebrow::after{content:"";width:2rem;height:1px;background:var(--lime)}
+.idx-title{font-size:clamp(2.4rem,7vw,5.4rem);font-weight:200;line-height:1.02;letter-spacing:-.025em;margin-bottom:1rem}
+.idx-title em{font-style:normal;color:var(--lime);font-weight:300}
+.idx-sub{color:var(--fg-dim);max-width:42rem;margin:0 auto 2rem;font-size:1.05rem;line-height:1.55}
+.idx-stats{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.78rem;color:var(--fg-mute)}
+.idx-stats strong{color:var(--lime);font-size:1.1rem;font-weight:600;display:block}
+
+.idx-shell{max-width:96rem;margin:0 auto;padding:5rem 1.5rem}
+
+.idx-cat{margin-bottom:5rem;scroll-margin-top:2rem}
+.idx-cat-head{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--line-soft)}
+.idx-cat-key{display:grid;place-items:center;width:2.6rem;height:2.6rem;border-radius:50%;background:var(--lime);color:#0a0e07;font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:700;font-size:.85rem;flex-shrink:0}
+.idx-cat-name{font-size:clamp(1.4rem,3vw,1.8rem);font-weight:400;letter-spacing:-.005em;flex:1}
+.idx-cat-meta{font-size:.7rem;letter-spacing:.2em;color:var(--fg-mute);text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace}
+.idx-cat-meta strong{color:var(--lime);font-weight:700}
+
+.idx-sub-head{font-size:.7rem;letter-spacing:.3em;color:var(--lime);text-transform:uppercase;padding:1.25rem 0 .85rem;border-top:1px dashed var(--line-soft);margin-top:1.5rem;font-family:'JetBrains Mono',ui-monospace,monospace}
+.idx-sub-head:first-child{border-top:none;padding-top:0;margin-top:0}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.75rem}
+.card{display:block;padding:1.25rem 1.25rem 1.1rem;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:6px;text-decoration:none;color:inherit;transition:border-color .35s var(--cubic),transform .35s var(--cubic),background .35s}
+.card:hover{border-color:var(--lime);transform:translateY(-2px);background:var(--bg-3)}
+.card .slug{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.65rem;color:var(--lime);letter-spacing:.1em;margin-bottom:.4rem;display:block}
+.card .name{font-size:.95rem;font-weight:500;color:var(--fg);margin-bottom:.35rem;letter-spacing:-.005em;line-height:1.25}
+.card .tags{font-size:.7rem;color:var(--fg-mute);font-family:'JetBrains Mono',ui-monospace,monospace;line-height:1.5}
+
+.idx-toc{position:sticky;top:1rem;display:flex;gap:.4rem;flex-wrap:wrap;padding:1rem;background:rgba(10,14,7,.85);backdrop-filter:blur(10px);border:1px solid var(--line-soft);border-radius:999px;z-index:30;margin:0 auto 3rem;max-width:fit-content}
+.idx-toc a{display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:transparent;color:var(--fg-dim);font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:600;font-size:.7rem;transition:background .25s,color .25s}
+.idx-toc a:hover{background:var(--lime);color:#0a0e07}
+
+footer.idx-foot{padding:3rem 1.5rem;text-align:center;font-size:.75rem;color:var(--fg-mute);border-top:1px solid var(--line-soft);font-family:'JetBrains Mono',ui-monospace,monospace}
+footer.idx-foot a{color:var(--lime);border-bottom:1px solid currentColor}
+</style>
+</head>
+<body>
+<section class="idx-hero">
+  <div class="idx-eyebrow">web · anim · cookbook</div>
+  <h1 class="idx-title"><em>65</em> 个独立 · 可复用 · 高端 web 动效</h1>
+  <p class="idx-sub">反向兰多·诺里斯官网（OFF+BRAND 工作室出品）整理而成。每个 demo 一个 self-contained HTML 文件，<strong>开箱即抄</strong>。</p>
+  <div class="idx-stats">
+    <div><strong>65</strong>独立 demos</div>
+    <div><strong>8</strong>分类</div>
+    <div><strong>0</strong>构建步骤</div>
+    <div><strong>MIT</strong>许可</div>
+  </div>
+</section>
+
+<div class="idx-shell">
+  <nav class="idx-toc">
+    <a href="#A">A</a><a href="#B">B</a><a href="#C">C</a><a href="#D">D</a><a href="#E">E</a><a href="#F">F</a><a href="#G">G</a><a href="#H">H</a>
+  </nav>
+
+  <section class="idx-cat" id="A">
+    <div class="idx-cat-head"><div class="idx-cat-key">A</div><div class="idx-cat-name">入场 &amp; 转场</div><div class="idx-cat-meta"><strong>2</strong> demos</div></div>
+    <div class="cards">
+      <a class="card" href="A-entrance/char-stagger.html"><span class="slug">A-entrance/char-stagger.html</span><div class="name">字符级 stagger 入场</div><div class="tags">GSAP · SplitText · power3.out · 0.025s stagger</div></a>
+      <a class="card" href="A-entrance/lime-curtain.html"><span class="slug">A-entrance/lime-curtain.html</span><div class="name">全屏柠檬绿过场幕布</div><div class="tags">.transition-w · Rive 三态 input · Taxi.js</div></a>
+    </div>
+  </section>
+
+  <section class="idx-cat" id="B">
+    <div class="idx-cat-head"><div class="idx-cat-key">B</div><div class="idx-cat-name">滚动驱动</div><div class="idx-cat-meta"><strong>7</strong> demos</div></div>
+    <div class="cards">
+      <a class="card" href="B-scroll/scroll-3d-helmet.html"><span class="slug">B-scroll/scroll-3d-helmet.html</span><div class="name">scrub · 滚动驱动 3D 头盔</div><div class="tags">ScrollTrigger · scrub · CSS 3D</div></a>
+      <a class="card" href="B-scroll/horizontal-pin.html"><span class="slug">B-scroll/horizontal-pin.html</span><div class="name">横向 pin 滚动</div><div class="tags">ScrollTrigger pin · 1 纵屏 = 多横屏</div></a>
+      <a class="card" href="B-scroll/velocity-marquee.html"><span class="slug">B-scroll/velocity-marquee.html</span><div class="name">速度敏感 marquee</div><div class="tags">scroll velocity · direction-aware</div></a>
+      <a class="card" href="B-scroll/scroll-color.html"><span class="slug">B-scroll/scroll-color.html</span><div class="name">滚动驱动色彩补间</div><div class="tags">hex 线性插值 · scrub</div></a>
+      <a class="card" href="B-scroll/scroll-svg-draw.html"><span class="slug">B-scroll/scroll-svg-draw.html</span><div class="name">Rive 滚动 scrub · SVG 描线</div><div class="tags">stroke-dashoffset · scrub</div></a>
+      <a class="card" href="B-scroll/section-progress.html"><span class="slug">B-scroll/section-progress.html</span><div class="name">章节滚动进度条</div><div class="tags">transform scaleX · scrub</div></a>
+      <a class="card" href="B-scroll/css-dual-marquee.html"><span class="slug">B-scroll/css-dual-marquee.html</span><div class="name">CSS 双向无限 marquee</div><div class="tags">@keyframes · 零 JS</div></a>
+    </div>
+  </section>
+
+  <section class="idx-cat" id="C">
+    <div class="idx-cat-head"><div class="idx-cat-key">C</div><div class="idx-cat-name">导航 &amp; 主题</div><div class="idx-cat-meta"><strong>2</strong> demos</div></div>
+    <div class="cards">
+      <a class="card" href="C-nav/nav-sentinel-theme.html"><span class="slug">C-nav/nav-sentinel-theme.html</span><div class="name">隐形哨兵切 nav 主题</div><div class="tags">ScrollTrigger.onToggle · data-attr</div></a>
+      <a class="card" href="C-nav/footer-theme.html"><span class="slug">C-nav/footer-theme.html</span><div class="name">Footer 三色主题</div><div class="tags">data-footer-theme · CSS 属性选择器</div></a>
+    </div>
+  </section>
+
+  <section class="idx-cat" id="D">
+    <div class="idx-cat-head"><div class="idx-cat-key">D</div><div class="idx-cat-name">微动效</div><div class="idx-cat-meta"><strong>40</strong> demos · 4 子组</div></div>
+
+    <div class="idx-sub-head">按钮 Buttons · 10</div>
+    <div class="cards">
+      <a class="card" href="D-micro/buttons/rive-button-4pack.html"><span class="slug">D-micro/buttons/rive-button-4pack.html</span><div class="name">按钮 hover 4 件套</div><div class="tags">rotate / invert / scale / shake</div></a>
+      <a class="card" href="D-micro/buttons/magnetic-button.html"><span class="slug">D-micro/buttons/magnetic-button.html</span><div class="name">磁力按钮 magnetic</div><div class="tags">mousemove · lerp · transform</div></a>
+      <a class="card" href="D-micro/buttons/hold-to-transition.html"><span class="slug">D-micro/buttons/hold-to-transition.html</span><div class="name">Hold-to-transition</div><div class="tags">mousedown timer · 防误触</div></a>
+      <a class="card" href="D-micro/buttons/ripple-button.html"><span class="slug">D-micro/buttons/ripple-button.html</span><div class="name">按钮 ripple 涟漪</div><div class="tags">click 位置 · scale + opacity</div></a>
+      <a class="card" href="D-micro/buttons/bg-slide-button.html"><span class="slug">D-micro/buttons/bg-slide-button.html</span><div class="name">按钮背景从一侧滑入</div><div class="tags">::before translateX · 纯 CSS</div></a>
+      <a class="card" href="D-micro/buttons/arrow-follow-button.html"><span class="slug">D-micro/buttons/arrow-follow-button.html</span><div class="name">按钮箭头跟随光标方向</div><div class="tags">mousemove · atan2 · rotate</div></a>
+      <a class="card" href="D-micro/buttons/inset-shadow-button.html"><span class="slug">D-micro/buttons/inset-shadow-button.html</span><div class="name">按钮按下 inset shadow 内陷</div><div class="tags">:active · inset box-shadow</div></a>
+      <a class="card" href="D-micro/buttons/loading-button.html"><span class="slug">D-micro/buttons/loading-button.html</span><div class="name">按钮 loading 态</div><div class="tags">文字变 spinner · CSS rotate</div></a>
+      <a class="card" href="D-micro/buttons/success-button.html"><span class="slug">D-micro/buttons/success-button.html</span><div class="name">按钮 success 态</div><div class="tags">click → ✓ + 反色 · 自动复位</div></a>
+      <a class="card" href="D-micro/buttons/disabled-button.html"><span class="slug">D-micro/buttons/disabled-button.html</span><div class="name">按钮 disabled 平滑过渡</div><div class="tags">opacity + filter · checkbox toggle</div></a>
+    </div>
+
+    <div class="idx-sub-head">链接 / 文本 Links &amp; Text · 10</div>
+    <div class="cards">
+      <a class="card" href="D-micro/links/char-hover-flip.html"><span class="slug">D-micro/links/char-hover-flip.html</span><div class="name">字符级 hover 翻页</div><div class="tags">上下两层字符 · stagger CSS</div></a>
+      <a class="card" href="D-micro/links/rive-state-machine.html"><span class="slug">D-micro/links/rive-state-machine.html</span><div class="name">Rive 状态机切赛道</div><div class="tags">hover swap · GSAP path morph</div></a>
+      <a class="card" href="D-micro/links/underline-draw.html"><span class="slug">D-micro/links/underline-draw.html</span><div class="name">下划线左到右画出</div><div class="tags">::after scaleX · transform-origin</div></a>
+      <a class="card" href="D-micro/links/cube-flip-link.html"><span class="slug">D-micro/links/cube-flip-link.html</span><div class="name">链接整词翻面 cube flip</div><div class="tags">3D rotateX · backface-visibility</div></a>
+      <a class="card" href="D-micro/links/typewriter.html"><span class="slug">D-micro/links/typewriter.html</span><div class="name">Typewriter 打字机</div><div class="tags">setInterval · cursor 闪烁</div></a>
+      <a class="card" href="D-micro/links/scramble-text.html"><span class="slug">D-micro/links/scramble-text.html</span><div class="name">Glitch / Scramble 字符替换</div><div class="tags">随机字符 · 24 帧揭示</div></a>
+      <a class="card" href="D-micro/links/char-shake.html"><span class="slug">D-micro/links/char-shake.html</span><div class="name">字符 hover 随机抖动</div><div class="tags">random rotate + translate</div></a>
+      <a class="card" href="D-micro/links/read-more.html"><span class="slug">D-micro/links/read-more.html</span><div class="name">Read more 展开 / 折叠</div><div class="tags">grid-template-rows 0fr↔1fr</div></a>
+      <a class="card" href="D-micro/links/wavy-underline.html"><span class="slug">D-micro/links/wavy-underline.html</span><div class="name">波浪下划线</div><div class="tags">SVG mask · background-position</div></a>
+      <a class="card" href="D-micro/links/svg-icon-draw.html"><span class="slug">D-micro/links/svg-icon-draw.html</span><div class="name">SVG icon hover 描线</div><div class="tags">stroke-dasharray + dashoffset</div></a>
+    </div>
+
+    <div class="idx-sub-head">表单控件 Form Controls · 10</div>
+    <div class="cards">
+      <a class="card" href="D-micro/forms/checkbox-draw.html"><span class="slug">D-micro/forms/checkbox-draw.html</span><div class="name">Checkbox 描边变实 + 对勾绘制</div><div class="tags">stroke-dashoffset · 双 path</div></a>
+      <a class="card" href="D-micro/forms/toggle-spring.html"><span class="slug">D-micro/forms/toggle-spring.html</span><div class="name">Toggle 反弹滑块</div><div class="tags">cubic-bezier spring</div></a>
+      <a class="card" href="D-micro/forms/radio-ripple.html"><span class="slug">D-micro/forms/radio-ripple.html</span><div class="name">Radio 涟漪选中</div><div class="tags">::before scale spring</div></a>
+      <a class="card" href="D-micro/forms/slider-floating-label.html"><span class="slug">D-micro/forms/slider-floating-label.html</span><div class="name">Slider 浮动 label + 手柄缩放</div><div class="tags">input range · :active scale</div></a>
+      <a class="card" href="D-micro/forms/dual-range-slider.html"><span class="slug">D-micro/forms/dual-range-slider.html</span><div class="name">Dual handle range slider</div><div class="tags">双 input range · min/max 互锁</div></a>
+      <a class="card" href="D-micro/forms/floating-label-input.html"><span class="slug">D-micro/forms/floating-label-input.html</span><div class="name">Floating label · 焦点上浮</div><div class="tags">:placeholder-shown · transform</div></a>
+      <a class="card" href="D-micro/forms/live-validation.html"><span class="slug">D-micro/forms/live-validation.html</span><div class="name">实时校验 + 错误抖动</div><div class="tags">input event · regex · shake</div></a>
+      <a class="card" href="D-micro/forms/autocomplete-stagger.html"><span class="slug">D-micro/forms/autocomplete-stagger.html</span><div class="name">Autocomplete 下拉 stagger 进入</div><div class="tags">filter + animation-delay</div></a>
+      <a class="card" href="D-micro/forms/magic-line-tabs.html"><span class="slug">D-micro/forms/magic-line-tabs.html</span><div class="name">多按钮 magic line underline</div><div class="tags">getBoundingClientRect · transform</div></a>
+      <a class="card" href="D-micro/forms/chip-toggle.html"><span class="slug">D-micro/forms/chip-toggle.html</span><div class="name">Pill / chip 选中态</div><div class="tags">click toggle · scale 1.05</div></a>
+    </div>
+
+    <div class="idx-sub-head">反馈与状态 Feedback · 10</div>
+    <div class="cards">
+      <a class="card" href="D-micro/feedback/modal-blur.html"><span class="slug">D-micro/feedback/modal-blur.html</span><div class="name">Modal 弹窗 + backdrop blur</div><div class="tags">backdrop-filter blur · scale</div></a>
+      <a class="card" href="D-micro/feedback/modal-shake.html"><span class="slug">D-micro/feedback/modal-shake.html</span><div class="name">Modal 摇晃强调拒绝</div><div class="tags">click-outside · shake 0.4s</div></a>
+      <a class="card" href="D-micro/feedback/toast-stack.html"><span class="slug">D-micro/feedback/toast-stack.html</span><div class="name">Toast 通知滑入 + auto-dismiss</div><div class="tags">dynamic DOM · stack · 3s</div></a>
+      <a class="card" href="D-micro/feedback/tooltip-delay.html"><span class="slug">D-micro/feedback/tooltip-delay.html</span><div class="name">Tooltip hover delay + 定位</div><div class="tags">600ms delay · fixed position</div></a>
+      <a class="card" href="D-micro/feedback/tooltip-edge-flip.html"><span class="slug">D-micro/feedback/tooltip-edge-flip.html</span><div class="name">Tooltip 智能边界反转</div><div class="tags">viewport edge detect · flip</div></a>
+      <a class="card" href="D-micro/feedback/skeleton-wave.html"><span class="slug">D-micro/feedback/skeleton-wave.html</span><div class="name">Skeleton loader · wave 闪烁</div><div class="tags">linear-gradient · animation</div></a>
+      <a class="card" href="D-micro/feedback/empty-state.html"><span class="slug">D-micro/feedback/empty-state.html</span><div class="name">Empty state · 插画 + 引导</div><div class="tags">SVG + 文 + CTA</div></a>
+      <a class="card" href="D-micro/feedback/notification-badge.html"><span class="slug">D-micro/feedback/notification-badge.html</span><div class="name">Notification badge · 弹出</div><div class="tags">scale spring · 数字 flip</div></a>
+      <a class="card" href="D-micro/feedback/cursor-spring.html"><span class="slug">D-micro/feedback/cursor-spring.html</span><div class="name">Cursor 弹簧延迟跟随</div><div class="tags">lerp 0.15 · 半拍跟手</div></a>
+      <a class="card" href="D-micro/feedback/heart-particles.html"><span class="slug">D-micro/feedback/heart-particles.html</span><div class="name">Like + 粒子飞溅</div><div class="tags">Web Animations API · 8 粒子</div></a>
+    </div>
+  </section>
+
+  <section class="idx-cat" id="E">
+    <div class="idx-cat-head"><div class="idx-cat-key">E</div><div class="idx-cat-name">数据驱动</div><div class="idx-cat-meta"><strong>3</strong> demos</div></div>
+    <div class="cards">
+      <a class="card" href="E-data/flip-countdown.html"><span class="slug">E-data/flip-countdown.html</span><div class="name">倒计时翻页数字</div><div class="tags">yPercent flip · 每秒更新</div></a>
+      <a class="card" href="E-data/cms-calendar.html"><span class="slug">E-data/cms-calendar.html</span><div class="name">CMS 日历切换</div><div class="tags">24 字段 · prev/next 切换</div></a>
+      <a class="card" href="E-data/scroll-counter.html"><span class="slug">E-data/scroll-counter.html</span><div class="name">滚动数字计数器</div><div class="tags">ScrollTrigger once · GSAP snap</div></a>
+    </div>
+  </section>
+
+  <section class="idx-cat" id="F">
+    <div class="idx-cat-head"><div class="idx-cat-key">F</div><div class="idx-cat-name">手势 &amp; 光标</div><div class="idx-cat-meta"><strong>3</strong> demos</div></div>
+    <div class="cards">
+      <a class="card" href="F-gesture/tap-to-lock.html"><span class="slug">F-gesture/tap-to-lock.html</span><div class="name">tap to lock 模态手势</div><div class="tags">touch-action 切换 · 锁页面</div></a>
+      <a class="card" href="F-gesture/cursor-reveal.html"><span class="slug">F-gesture/cursor-reveal.html</span><div class="name">自定义光标 + 区域 reveal</div><div class="tags">clip-path circle · cursor follow</div></a>
+      <a class="card" href="F-gesture/blend-cursor.html"><span class="slug">F-gesture/blend-cursor.html</span><div class="name">菜单图片 blend-mode cursor</div><div class="tags">mix-blend-mode · radial gradient</div></a>
+    </div>
+  </section>
+
+  <section class="idx-cat" id="G">
+    <div class="idx-cat-head"><div class="idx-cat-key">G</div><div class="idx-cat-name">视觉系统</div><div class="idx-cat-meta"><strong>6</strong> demos</div></div>
+    <div class="cards">
+      <a class="card" href="G-visual/fluid-clamp.html"><span class="slug">G-visual/fluid-clamp.html</span><div class="name">1728 流体 clamp 字号</div><div class="tags">clamp() · CSS custom property</div></a>
+      <a class="card" href="G-visual/oval-arc-text.html"><span class="slug">G-visual/oval-arc-text.html</span><div class="name">椭圆轨迹大字</div><div class="tags">transform-origin · 字符 rotate</div></a>
+      <a class="card" href="G-visual/gsap-flip.html"><span class="slug">G-visual/gsap-flip.html</span><div class="name">GSAP FLIP 布局变形</div><div class="tags">First-Last-Invert-Play</div></a>
+      <a class="card" href="G-visual/svg-mask-shape.html"><span class="slug">G-visual/svg-mask-shape.html</span><div class="name">SVG mask 异形容器</div><div class="tags">-webkit-mask-image · 凹缺切角</div></a>
+      <a class="card" href="G-visual/variable-font.html"><span class="slug">G-visual/variable-font.html</span><div class="name">Variable Font 双轴</div><div class="tags">font-variation-settings</div></a>
+      <a class="card" href="G-visual/scroll-font-width.html"><span class="slug">G-visual/scroll-font-width.html</span><div class="name">滚动驱动字宽变化</div><div class="tags">wdth axis sync to scroll</div></a>
+    </div>
+  </section>
+
+  <section class="idx-cat" id="H">
+    <div class="idx-cat-head"><div class="idx-cat-key">H</div><div class="idx-cat-name">媒体</div><div class="idx-cat-meta"><strong>2</strong> demos</div></div>
+    <div class="cards">
+      <a class="card" href="H-media/hover-video.html"><span class="slug">H-media/hover-video.html</span><div class="name">Hover 自动播放视频</div><div class="tags">IntersectionObserver · stream</div></a>
+      <a class="card" href="H-media/stat-hover-img.html"><span class="slug">H-media/stat-hover-img.html</span><div class="name">Stat hover 大图淡入</div><div class="tags">mouseenter + bg fade</div></a>
+    </div>
+  </section>
+</div>
+
+<footer class="idx-foot">
+  <div>反向工程自 <a href="https://landonorris.com" target="_blank">landonorris.com</a> · 由 <a href="https://www.itsoffbrand.com" target="_blank">OFF+BRAND</a> 工作室制作 · 仅作学习参考 · MIT License</div>
+</footer>
+
+</body>
+</html>

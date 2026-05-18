@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>实时校验 + 错误抖动 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 52 validation */
+.d52-input{padding:1rem 1.2rem;border:1.5px solid var(--line-soft);background:var(--bg-3);color:var(--fg);border-radius:6px;font-size:.95rem;font-family:inherit;outline:none;transition:border-color .3s,transform .3s}
+
+.d52-input.is-invalid{border-color:#ff5252;animation:d52S .4s}
+
+.d52-input.is-valid{border-color:var(--lime)}
+
+.d52-msg{font-size:.7rem;letter-spacing:.15em;color:#ff5252;text-transform:uppercase;height:1.2em;opacity:0;transition:opacity .25s}
+
+.d52-msg.show{opacity:1}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/forms</div>
+    <h1 class="cb-title">实时校验 + 错误抖动</h1>
+    <div class="cb-tags">input event · regex · shake</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;gap:.5rem;width:100%;max-width:380px"><input class="d52-input" id="d52I" type="text" placeholder="试着输入 email 格式..."><div class="d52-msg" id="d52M">需要 @ 和 .</div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo52</code></div>
+</footer>
+<script>
+// 52 validate
+(function(){
+  const i = document.getElementById('d52I');
+  const m = document.getElementById('d52M');
+  if (!i || !m) return;
+  i.addEventListener('input', () => {
+    const v = i.value;
+    if (v.length === 0) { i.classList.remove('is-invalid','is-valid'); m.classList.remove('show'); return; }
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      i.classList.remove('is-invalid'); i.classList.add('is-valid'); m.classList.remove('show');
+    } else {
+      i.classList.add('is-invalid'); i.classList.remove('is-valid'); m.classList.add('show');
+    }
+  });
+})();
+</script>
+</body>
+</html>

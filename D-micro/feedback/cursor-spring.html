@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cursor 弹簧延迟跟随 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 64 cursor follow */
+.d64-stage{background:var(--bg-3);border:1px solid var(--line-soft);border-radius:6px;display:flex;align-items:center;justify-content:center}
+
+.d64-c{position:absolute;width:2rem;height:2rem;border-radius:50%;background:var(--lime);mix-blend-mode:difference;pointer-events:none;transform:translate(-50%,-50%);opacity:0;transition:opacity .25s}
+
+.d64-stage:hover .d64-c{opacity:1}
+
+.d64-hint{color:var(--fg-mute);font-size:.75rem;letter-spacing:.15em;padding:1rem;pointer-events:none}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Cursor 弹簧延迟跟随</h1>
+    <div class="cb-tags">lerp 0.15 · 半拍跟手</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage d64-stage" id="d64Stage" style="height:240px;cursor:none;position:relative;overflow:hidden"><div class="d64-c" id="d64Cur"></div><div class="d64-hint mono">Move pointer here · cursor 慢半拍跟来</div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo64</code></div>
+</footer>
+<script>
+// 64 cursor follow lerp
+(function(){
+  const stage = document.getElementById('d64Stage');
+  const cur = document.getElementById('d64Cur');
+  if (!stage || !cur) return;
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  stage.addEventListener('mousemove', e => {
+    const r = stage.getBoundingClientRect();
+    tx = e.clientX - r.left;
+    ty = e.clientY - r.top;
+  });
+  function tick(){
+    cx += (tx - cx) * 0.15;
+    cy += (ty - cy) * 0.15;
+    cur.style.left = cx + 'px';
+    cur.style.top = cy + 'px';
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>

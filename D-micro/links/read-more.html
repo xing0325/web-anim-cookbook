@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Read more 展开 / 折叠 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 43 read more */
+.d43-card{padding:1.5rem;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:6px;max-width:560px;width:100%}
+
+.d43-card h4{font-size:1.1rem;margin-bottom:.5rem;color:var(--fg)}
+
+.d43-trunc{color:var(--fg-dim);font-size:.92rem;line-height:1.55}
+
+.d43-coll{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--cubic);color:var(--fg-dim);font-size:.9rem;line-height:1.65}
+
+.d43-coll > *{overflow:hidden}
+
+.d43-coll.is-open{grid-template-rows:1fr;margin-top:.75rem}
+
+.d43-toggle{margin-top:.75rem;background:none;border:none;color:var(--lime);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:.3rem 0;font-family:inherit}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/links</div>
+    <h1 class="cb-title">Read more 展开 / 折叠</h1>
+    <div class="cb-tags">grid-template-rows 0fr↔1fr</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column"><div class="d43-card"><h4>2024 Brazilian GP</h4><div class="d43-trunc">湿地起步，雨胎换中性胎窗口卡在第 27 圈。同段他超了 4 个人。</div><div class="d43-coll" id="d43Coll">从大雨到干胎的窗口是赛季最早最艰难的一次。Pit 策略走的最反直觉那条 —— 比对手早 3 圈进入。半圈内胎温窗口卡死，必须找到 P5 之前才能稳。最后冲线时距 P3 差 0.8 秒。</div><button class="d43-toggle" id="d43Toggle">阅读全文 ↓</button></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo43</code></div>
+</footer>
+<script>
+// 43 read more
+(function(){
+  const coll = document.getElementById('d43Coll');
+  const btn = document.getElementById('d43Toggle');
+  if (!coll || !btn) return;
+  btn.addEventListener('click', () => {
+    const open = coll.classList.toggle('is-open');
+    btn.textContent = open ? '收起 ↑' : '阅读全文 ↓';
+  });
+})();
+</script>
+</body>
+</html>

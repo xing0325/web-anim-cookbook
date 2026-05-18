@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modal 摇晃强调拒绝 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 57 modal shake */
+.d57-bd{position:fixed;inset:0;background:rgba(10,14,7,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:60}
+
+.d57-bd.is-open{display:flex}
+
+.d57-modal{background:var(--bg-2);border:1px solid var(--line-soft);border-radius:8px;padding:1.5rem;max-width:380px;width:90%;text-align:center}
+
+.d57-modal.shake{animation:d57Sh .4s}
+
+.d57-title{font-size:1.2rem;font-weight:500;margin-bottom:.4rem}
+
+.d57-sub{font-size:.78rem;color:var(--fg-dim)}
+
+.d57-no{background:var(--lime);color:#0a0e07}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Modal 摇晃强调拒绝</h1>
+    <div class="cb-tags">click-outside detect · shake</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><button class="btn" id="d57Open">Delete race history</button><div class="d57-bd" id="d57Bd"><div class="d57-modal" id="d57M"><div class="d57-title">Delete race history?</div><div class="d57-sub">12 races · This can't be undone</div><div style="display:flex;gap:.5rem;margin-top:1rem"><button class="btn" id="d57Yes">Yes</button><button class="btn d57-no" id="d57No">No</button></div></div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo57</code></div>
+</footer>
+<script>
+// 57 modal shake
+(function(){
+  const bd = document.getElementById('d57Bd');
+  const m = document.getElementById('d57M');
+  const open = document.getElementById('d57Open');
+  const no = document.getElementById('d57No');
+  const yes = document.getElementById('d57Yes');
+  if (!bd || !m || !open) return;
+  open.addEventListener('click', () => bd.classList.add('is-open'));
+  function close(){ bd.classList.remove('is-open'); }
+  no.addEventListener('click', close);
+  yes.addEventListener('click', close);
+  bd.addEventListener('click', e => {
+    if (e.target === bd) {
+      m.classList.remove('shake');
+      void m.offsetWidth;
+      m.classList.add('shake');
+    }
+  });
+})();
+</script>
+</body>
+</html>

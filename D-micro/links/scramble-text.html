@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glitch / Scramble 字符替换 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 41 scramble */
+.d41-out{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:clamp(1.8rem,4vw,3rem);color:var(--lime);letter-spacing:.1em}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/links</div>
+    <h1 class="cb-title">Glitch / Scramble 字符替换</h1>
+    <div class="cb-tags">随机字符 · 24 帧揭示</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column"><div class="d41-out" id="d41Out">LANDO NORRIS</div><button class="btn" id="d41Btn" style="margin-top:1.5rem">↻ Scramble</button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo41</code></div>
+</footer>
+<script>
+// 41 scramble
+(function(){
+  const out = document.getElementById('d41Out');
+  const btn = document.getElementById('d41Btn');
+  if (!out || !btn) return;
+  const target = out.textContent;
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&*";
+  let timer = null;
+  function run(){
+    if (timer) clearInterval(timer);
+    let frame = 0;
+    const total = 24;
+    timer = setInterval(() => {
+      frame++;
+      const reveal = Math.floor((frame / total) * target.length);
+      out.textContent = target.split('').map((c, i) => {
+        if (c === ' ') return ' ';
+        if (i < reveal) return c;
+        return chars[Math.floor(Math.random() * chars.length)];
+      }).join('');
+      if (frame >= total) { clearInterval(timer); out.textContent = target; }
+    }, 50);
+  }
+  btn.addEventListener('click', run);
+})();
+</script>
+</body>
+</html>

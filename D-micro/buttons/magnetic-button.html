@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>磁力按钮 magnetic · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+.d26-stage{height:280px;display:grid;place-items:center;position:relative}
+.d26-btn{padding:1.2rem 2rem;border:1px solid var(--lime);background:transparent;color:var(--lime);font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;border-radius:999px;display:inline-flex;align-items:center;gap:.7rem;font-family:'JetBrains Mono',ui-monospace,monospace;cursor:pointer;will-change:transform;transition:background .35s,color .35s}
+.d26-btn svg{width:.9rem;height:.9rem}
+.d26-btn:hover{background:var(--lime);color:#0a0e07}
+
+
+
+
+/* ---------- demo 26 · magnetic button ---------- */
+.d26-stage{height:280px;display:grid;place-items:center;position:relative}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/buttons</div>
+    <h1 class="cb-title">磁力按钮 magnetic</h1>
+    <div class="cb-tags">mousemove · lerp · transform</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d26-stage" id="d26Stage">
+          <button class="d26-btn" id="d26Btn">
+            <span>Race In</span>
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" fill="none" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>
+          </button>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo26</code></div>
+</footer>
+<script>
+/* =================== DEMO 26 · magnetic button === */
+(function(){
+  const stage = document.getElementById('d26Stage');
+  const btn = document.getElementById('d26Btn');
+  if(!stage||!btn) return;
+  let tx=0,ty=0,cx=0,cy=0,inside=false;
+  stage.addEventListener('mouseenter', () => { inside=true; });
+  stage.addEventListener('mouseleave', () => { inside=false; tx=0; ty=0; });
+  stage.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const bx = r.left+r.width/2, by = r.top+r.height/2;
+    const dx = e.clientX-bx, dy = e.clientY-by;
+    const dist = Math.sqrt(dx*dx+dy*dy);
+    const radius = 200;
+    if (dist < radius){
+      const force = (radius-dist)/radius * 0.45;
+      tx = dx*force; ty = dy*force;
+    } else { tx=0; ty=0; }
+  });
+  function tick(){
+    cx += (tx-cx)*0.18;
+    cy += (ty-cy)*0.18;
+    btn.style.transform = `translate(${cx.toFixed(2)}px, ${cy.toFixed(2)}px)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>

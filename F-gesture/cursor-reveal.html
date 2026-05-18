@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>自定义光标 + 区域 reveal · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d9-stage{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:1rem;height:380px;cursor:none}
+.d9-stage .d9-zone{position:relative;overflow:hidden;border:1px solid var(--line-soft);border-radius:4px;background:var(--bg-3)}
+.d9-zone-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1c2218,#131811)}
+.d9-zone-label{position:absolute;left:1rem;bottom:1rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.65rem;color:var(--fg-mute);letter-spacing:.15em;z-index:2}
+.d9-zone-reveal{position:absolute;inset:0;clip-path:circle(0px at 50% 50%);transition:clip-path .15s ease-out;will-change:clip-path}
+.d9-zone-reveal img{width:100%;height:100%;object-fit:cover;display:block}
+.d9-zone:hover .d9-zone-reveal{}
+.d9-cursor{position:fixed;width:96px;height:96px;border-radius:50%;background:var(--lime);color:#0a0e07;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;display:grid;place-items:center;pointer-events:none;mix-blend-mode:difference;z-index:9999;transform:translate(-50%,-50%) scale(.4);transition:transform .35s var(--cubic),background .35s;opacity:0;font-weight:600}
+.d9-cursor.visible{opacity:1}
+.d9-cursor.over{transform:translate(-50%,-50%) scale(1)}
+@media(max-width:700px){.d9-stage{grid-template-columns:1fr;height:auto}.d9-stage .d9-zone{height:220px}.d9-cursor{display:none}}
+
+
+
+
+/* ---------- demo 9: cursor reveal ---------- */
+.d9-stage{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:1rem;height:380px;cursor:none}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">F-gesture</div>
+    <h1 class="cb-title">自定义光标 + 区域 reveal</h1>
+    <div class="cb-tags">clip-path circle · cursor follow</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d9-stage" id="d9Stage">
+          <div class="d9-cursor" id="d9Cursor"><span>scroll</span></div>
+          <div class="d9-zone" data-mouse-area="highlights" data-cursor-text="highlights ↗">
+            <div class="d9-zone-bg"></div>
+            <div class="d9-zone-label">data-mouse-area="highlights"</div>
+            <div class="d9-zone-reveal" data-mouse-reveal>
+              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%23d2ff00'/><stop offset='1' stop-color='%23a8c800'/></linearGradient></defs><rect width='400' height='240' fill='url(%23g)'/><text x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-size='28' fill='%23101400' letter-spacing='8'>HIGHLIGHTS</text></svg>"/>
+            </div>
+          </div>
+          <div class="d9-zone" data-mouse-area="schedule" data-cursor-text="schedule ↗">
+            <div class="d9-zone-bg" style="background:linear-gradient(135deg,#1c2218,#0a1208)"></div>
+            <div class="d9-zone-label">data-mouse-area="schedule"</div>
+            <div class="d9-zone-reveal" data-mouse-reveal>
+              <img alt="" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'><rect width='400' height='240' fill='%23101400'/><text x='50%25' y='40%25' text-anchor='middle' font-family='monospace' font-size='22' fill='%23d2ff00' letter-spacing='6'>NEXT RACE</text><text x='50%25' y='70%25' text-anchor='middle' font-family='sans-serif' font-size='42' fill='%23d2ff00'>Montréal</text></svg>"/>
+            </div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo9</code></div>
+</footer>
+<script>
+/* =================== DEMO 9 · custom cursor + reveal === */
+const d9Stage = document.getElementById("d9Stage");
+const d9Cursor = document.getElementById("d9Cursor");
+const d9Zones = d9Stage.querySelectorAll(".d9-zone");
+d9Stage.addEventListener("mouseenter", () => d9Cursor.classList.add("visible"));
+d9Stage.addEventListener("mouseleave", () => { d9Cursor.classList.remove("visible","over"); d9Zones.forEach(z => z.querySelector(".d9-zone-reveal").style.clipPath="circle(0px at 50% 50%)"); });
+d9Stage.addEventListener("mousemove", e => {
+  d9Cursor.style.left = e.clientX + "px";
+  d9Cursor.style.top = e.clientY + "px";
+});
+d9Zones.forEach(z => {
+  const reveal = z.querySelector(".d9-zone-reveal");
+  const txtSpan = d9Cursor.querySelector("span");
+  z.addEventListener("mouseenter", () => { d9Cursor.classList.add("over"); txtSpan.textContent = z.dataset.cursorText || "see"; });
+  z.addEventListener("mouseleave", () => { d9Cursor.classList.remove("over"); txtSpan.textContent = "scroll"; reveal.style.clipPath="circle(0px at 50% 50%)"; });
+  z.addEventListener("mousemove", e => {
+    const r = z.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    reveal.style.clipPath = `circle(140px at ${x}px ${y}px)`;
+  });
+});
+</script>
+</body>
+</html>

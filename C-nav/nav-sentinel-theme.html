@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>隐形哨兵切 nav 主题 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d2-stage{height:300px;overflow-y:auto;border:1px solid var(--line-soft);border-radius:4px;position:relative;background:var(--bg-3);scroll-behavior:smooth}
+.d2-scroll{padding:1rem}
+.d2-zone{height:200px;padding:1rem;border-radius:4px;margin-bottom:1rem;font-size:.85rem;display:grid;place-items:center;position:relative}
+.d2-zone.dark{background:#0a1208;color:var(--lime)}
+.d2-zone.light{background:#f0f0e8;color:#0a0e07}
+.d2-zone.lime{background:var(--lime);color:#0a0e07}
+.d2-sentinel{height:1px;background:rgba(255,0,0,.4);position:relative}
+.d2-sentinel::after{content:attr(data-label);position:absolute;left:.5rem;top:-.85rem;font-size:.55rem;color:#ff5252;letter-spacing:.2em;text-transform:uppercase}
+.d2-readout{margin-top:1rem;padding:1rem;background:#070a05;border:1px solid var(--line-soft);border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.78rem;color:var(--fg-dim)}
+.d2-readout .v{color:var(--lime);font-weight:600}
+
+
+
+
+/* ---------- demo 2: sentinels theme ---------- */
+.d2-stage{height:300px;overflow-y:auto;border:1px solid var(--line-soft);border-radius:4px;position:relative;background:var(--bg-3);scroll-behavior:smooth}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">C-nav</div>
+    <h1 class="cb-title">隐形哨兵切 nav 主题</h1>
+    <div class="cb-tags">ScrollTrigger.onToggle · data-attr</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d2-stage" id="d2Stage">
+          <div class="d2-scroll">
+            <div class="d2-zone dark">↓ 这是深绿区，导航是浅灰</div>
+            <div class="d2-sentinel" data-label="sentinel: light" data-theme="light"></div>
+            <div class="d2-zone light">↓ 这是浅色区，导航翻成深绿</div>
+            <div class="d2-sentinel" data-label="sentinel: lime" data-theme="lime"></div>
+            <div class="d2-zone lime">↓ 这是柠檬绿区，导航整体反白</div>
+            <div class="d2-sentinel" data-label="sentinel: dark" data-theme="dark"></div>
+            <div class="d2-zone dark">↓ 回到深绿区</div>
+          </div>
+        </div>
+        <div class="d2-readout">页面顶部导航的 <span class="v" id="d2ReadOut">data-theme="dark"</span> 正在被这个滚动容器控制。在容器里滚动，看顶部 nav。</div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo2</code></div>
+</footer>
+<script>
+/* =================== DEMO 2 · sentinels =================== */
+const d2Stage = document.getElementById("d2Stage");
+const d2ReadOut = document.getElementById("d2ReadOut");
+const nav = document.getElementById("nav");
+const sentinels = d2Stage.querySelectorAll(".d2-sentinel");
+function checkSentinels() {
+  const stageRect = d2Stage.getBoundingClientRect();
+  const triggerY = stageRect.top + 60; // somewhere near top of the d2 box
+  let theme = "dark";
+  sentinels.forEach(s => {
+    const r = s.getBoundingClientRect();
+    if (r.top <= triggerY) theme = s.dataset.theme;
+  });
+  nav.setAttribute("data-theme", theme === "dark" ? "" : theme);
+  d2ReadOut.textContent = `data-theme="${theme}"`;
+}
+d2Stage.addEventListener("scroll", checkSentinels);
+ScrollTrigger.create({
+  trigger: d2Stage, start: "top center", end: "bottom top",
+  onLeave: () => nav.setAttribute("data-theme", ""),
+  onLeaveBack: () => nav.setAttribute("data-theme", "")
+});
+</script>
+</body>
+</html>

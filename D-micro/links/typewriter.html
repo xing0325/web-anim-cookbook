@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Typewriter 打字机 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 40 typewriter */
+.d40-text{font-family:"Mona Sans","Inter",sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);color:var(--lime);letter-spacing:-.01em}
+
+.d40-cursor{display:inline-block;width:.55em;height:1em;vertical-align:text-bottom;background:var(--lime);margin-left:.15em;animation:d40C 1s steps(2,start) infinite}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/links</div>
+    <h1 class="cb-title">Typewriter 打字机</h1>
+    <div class="cb-tags">setInterval · cursor 闪烁</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;display:flex;align-items:flex-start;text-align:left"><div class="d40-text"><span id="d40Out"></span><span class="d40-cursor"></span></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo40</code></div>
+</footer>
+<script>
+// 40 typewriter
+(function(){
+  const out = document.getElementById('d40Out');
+  if (!out) return;
+  const lines = ["This is a vertical drive.", "Reverse-engineered with love.", "Type · erase · loop."];
+  let li = 0, ci = 0, writing = true;
+  function tick(){
+    const line = lines[li];
+    if (writing) {
+      ci++;
+      out.textContent = line.slice(0, ci);
+      if (ci >= line.length) { writing = false; return setTimeout(tick, 1400); }
+      setTimeout(tick, 80);
+    } else {
+      ci--;
+      out.textContent = line.slice(0, ci);
+      if (ci <= 0) { writing = true; li = (li + 1) % lines.length; return setTimeout(tick, 400); }
+      setTimeout(tick, 40);
+    }
+  }
+  tick();
+})();
+</script>
+</body>
+</html>

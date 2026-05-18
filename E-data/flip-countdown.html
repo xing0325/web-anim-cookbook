@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>倒计时翻页数字 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d12-stage{padding:2rem 0;text-align:center}
+.d12-eyebrow{font-size:.7rem;letter-spacing:.3em;color:var(--lime);text-transform:uppercase;margin-bottom:1.5rem}
+.d12-row{display:flex;align-items:flex-start;justify-content:center;gap:1rem;flex-wrap:wrap}
+.d12-cell{display:flex;flex-direction:column;align-items:center}
+.d12-sep{font-size:clamp(2rem,5vw,3rem);font-weight:200;color:var(--fg-mute);line-height:1}
+.d12-num{display:flex;gap:.15rem;font-family:'JetBrains Mono',ui-monospace,monospace}
+.d12-num span{position:relative;display:inline-block;width:.8em;height:1.2em;overflow:hidden;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:300;line-height:1.2em;color:var(--fg);background:linear-gradient(180deg,var(--bg-3),var(--bg-2));border:1px solid var(--line-soft);border-radius:6px;padding:0 .12em;box-sizing:content-box}
+.d12-num span::before,.d12-num span::after{content:attr(data-cur);position:absolute;left:.12em;top:0;color:var(--lime)}
+.d12-num span::after{content:attr(data-next);top:100%}
+.d12-num span.flip{animation:d12Flip .4s var(--cubic) forwards}
+@keyframes d12Flip{from{transform:translateY(0)}to{transform:translateY(-100%)}}
+.d12-num span.flip::before,.d12-num span.flip::after{animation:d12FlipChild .4s var(--cubic) forwards}
+@keyframes d12FlipChild{0%{transform:translateY(0)}100%{transform:translateY(0)}}
+.d12-lbl{font-size:.6rem;letter-spacing:.25em;color:var(--fg-mute);text-transform:uppercase;margin-top:.6rem}
+
+
+
+
+/* ---------- demo 12: countdown digit ---------- */
+.d12-stage{padding:2rem 0;text-align:center}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">E-data</div>
+    <h1 class="cb-title">倒计时翻页数字</h1>
+    <div class="cb-tags">yPercent flip · 每秒更新</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d12-stage">
+          <div class="d12-eyebrow">下一场比赛 · MONTRÉAL GP</div>
+          <div class="d12-row">
+            <div class="d12-cell"><div class="d12-num" data-countdown-digit="day"><span></span><span></span></div><div class="d12-lbl">days</div></div>
+            <div class="d12-sep">:</div>
+            <div class="d12-cell"><div class="d12-num" data-countdown-digit="hour"><span></span><span></span></div><div class="d12-lbl">hours</div></div>
+            <div class="d12-sep">:</div>
+            <div class="d12-cell"><div class="d12-num" data-countdown-digit="min"><span></span><span></span></div><div class="d12-lbl">mins</div></div>
+            <div class="d12-sep">:</div>
+            <div class="d12-cell"><div class="d12-num" data-countdown-digit="sec"><span></span><span></span></div><div class="d12-lbl">secs</div></div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo12</code></div>
+</footer>
+<script>
+/* =================== DEMO 12 · countdown digit flip === */
+(function(){
+  const cells = document.querySelectorAll('.d12-num');
+  const target = new Date(Date.now() + (32*86400 + 5*3600 + 21*60 + 17)*1000); // 32d 5h ahead
+  function pad(n){ return String(Math.max(0,n)).padStart(2,"0"); }
+  function set(cell, val){
+    const cur = cell.dataset.cur, nxt = pad(val);
+    if (cur === nxt) return;
+    const spans = cell.querySelectorAll('span');
+    const a = nxt[0], b = nxt[1];
+    spans[0].textContent = a;
+    spans[1].textContent = b;
+    cell.dataset.cur = nxt;
+    spans.forEach(s => { s.classList.remove('flip'); void s.offsetWidth; s.classList.add('flip'); });
+  }
+  function tick(){
+    const diff = target - new Date();
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff%86400000/3600000);
+    const m = Math.floor(diff%3600000/60000);
+    const s = Math.floor(diff%60000/1000);
+    set(document.querySelector('[data-countdown-digit="day"]'), d);
+    set(document.querySelector('[data-countdown-digit="hour"]'), h);
+    set(document.querySelector('[data-countdown-digit="min"]'), m);
+    set(document.querySelector('[data-countdown-digit="sec"]'), s);
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>

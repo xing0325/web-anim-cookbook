@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>滚动驱动字宽变化 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d29-stage{position:relative;height:280vh}
+.d29-pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;padding:2rem}
+.d29-text{font-family:"Mona Sans",sans-serif;font-size:clamp(3rem,12vw,9rem);letter-spacing:-.02em;color:var(--lime);text-align:center;line-height:1}
+.d29-info{font-size:.75rem;color:var(--fg-mute);letter-spacing:.2em}
+.d29-info span{color:var(--lime);font-weight:600}
+
+
+
+
+/* ---------- demo 29 · scroll-driven font width ---------- */
+.d29-stage{position:relative;height:280vh}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">G-visual</div>
+    <h1 class="cb-title">滚动驱动字宽变化</h1>
+    <div class="cb-tags">wdth axis sync to scroll</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d29-stage pin-stage" id="d29Stage" data-pin-state="start">
+          <div class="pin-hint pin-hint-start is-start"><span>↓ 滚动看字变胖</span><span class="arrow"></span></div>
+          <div class="pin-hint pin-hint-done is-done"><span>✓ 已达最宽 · 继续往下</span><span class="arrow"></span></div>
+          <div class="d29-pin">
+            <div class="d29-text" id="d29Text" style="font-variation-settings:'wght' 300, 'wdth' 75">CHAMPION</div>
+            <div class="d29-info mono">wdth: <span id="d29Out">75</span> · wght: <span id="d29Out2">300</span></div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo29</code></div>
+</footer>
+<script>
+/* =================== DEMO 29 · scroll-driven font width === */
+(function(){
+  const stage = document.getElementById('d29Stage');
+  const text = document.getElementById('d29Text');
+  const out = document.getElementById('d29Out');
+  const out2 = document.getElementById('d29Out2');
+  if(!stage||!text) return;
+  ScrollTrigger.create({
+    trigger: stage, start: "top top", end: "bottom bottom", scrub: true,
+    onUpdate: self => {
+      const t = self.progress;
+      const wdth = 75 + t*50;
+      const wght = 300 + t*400;
+      text.style.fontVariationSettings = `'wght' ${wght.toFixed(0)}, 'wdth' ${wdth.toFixed(0)}`;
+      out.textContent = wdth.toFixed(0);
+      out2.textContent = wght.toFixed(0);
+      stage.dataset.pinState = t < .08 ? "start" : (t > .92 ? "end" : "mid");
+    }
+  });
+})();
+</script>
+</body>
+</html>

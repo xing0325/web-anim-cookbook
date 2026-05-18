@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>scrub · 滚动驱动 3D 头盔 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d3-stage{position:relative;height:340vh;background:linear-gradient(to bottom,var(--bg-2),var(--bg-3))}
+.d3-pin{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden}
+.d3-helmet{width:240px;height:240px;position:relative;transform-style:preserve-3d;will-change:transform}
+.d3-helmet .face{position:absolute;inset:0;border:1px solid var(--lime);background:linear-gradient(135deg,rgba(208,255,0,.05),rgba(208,255,0,.18));backdrop-filter:blur(2px)}
+.d3-helmet .face::before{content:"";position:absolute;inset:8px;border:1px dashed rgba(208,255,0,.3)}
+.d3-helmet .f1{transform:translateZ(120px)}
+.d3-helmet .f2{transform:rotateY(90deg) translateZ(120px)}
+.d3-helmet .f3{transform:rotateY(180deg) translateZ(120px)}
+.d3-helmet .f4{transform:rotateY(-90deg) translateZ(120px)}
+.d3-helmet .f5{transform:rotateX(90deg) translateZ(120px)}
+.d3-helmet .f6{transform:rotateX(-90deg) translateZ(120px)}
+.d3-helmet .face .lbl{position:absolute;bottom:1rem;left:1rem;font-size:.6rem;letter-spacing:.3em;color:var(--lime);font-family:'JetBrains Mono',ui-monospace,monospace}
+.d3-perspective{perspective:1000px;perspective-origin:center}
+.d3-progress{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.75rem;color:var(--fg-dim)}
+.d3-progress .v{color:var(--lime)}
+
+
+
+
+/* ---------- demo 3: scroll-driven 3D ---------- */
+.d3-stage{position:relative;height:340vh;background:linear-gradient(to bottom,var(--bg-2),var(--bg-3))}
+
+  .d3-helmet{width:180px;height:180px}
+
+  .d3-helmet .f1{transform:translateZ(90px)}
+
+  .d3-helmet .f2{transform:rotateY(90deg) translateZ(90px)}
+
+  .d3-helmet .f3{transform:rotateY(180deg) translateZ(90px)}
+
+  .d3-helmet .f4{transform:rotateY(-90deg) translateZ(90px)}
+
+  .d3-helmet .f5{transform:rotateX(90deg) translateZ(90px)}
+
+  .d3-helmet .f6{transform:rotateX(-90deg) translateZ(90px)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">scrub · 滚动驱动 3D 头盔</h1>
+    <div class="cb-tags">ScrollTrigger · scrub · CSS 3D</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d3-stage pin-stage" id="d3Stage" data-pin-state="start">
+          <div class="pin-hint pin-hint-start is-start"><span>↓ 滚动 6 个面看完</span><span class="arrow"></span></div>
+          <div class="pin-hint pin-hint-done is-done"><span>✓ 动效完成 · 继续往下</span><span class="arrow"></span></div>
+          <div class="d3-pin">
+            <div class="d3-perspective">
+              <div class="d3-helmet" id="d3Helmet">
+                <div class="face f1"><span class="lbl">helmet · front</span></div>
+                <div class="face f2"><span class="lbl">side · L</span></div>
+                <div class="face f3"><span class="lbl">rear</span></div>
+                <div class="face f4"><span class="lbl">side · R</span></div>
+                <div class="face f5"><span class="lbl">crown</span></div>
+                <div class="face f6"><span class="lbl">chin</span></div>
+              </div>
+            </div>
+            <div class="d3-progress">scroll progress · <span class="v" id="d3Pct">0%</span> · helmet.rotate <span class="v" id="d3Deg">0deg</span></div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo3</code></div>
+</footer>
+<script>
+/* =================== DEMO 3 · scroll-driven 3D =================== */
+const d3Stage = document.getElementById("d3Stage");
+const d3Helmet = document.getElementById("d3Helmet");
+const d3Pct = document.getElementById("d3Pct");
+const d3Deg = document.getElementById("d3Deg");
+ScrollTrigger.create({
+  trigger: d3Stage,
+  start: "top top",
+  end: "bottom bottom",
+  scrub: true,
+  onUpdate: self => {
+    const p = self.progress;
+    const deg = p * 540;
+    const tilt = -20 + p * 40;
+    d3Helmet.style.transform = `rotateX(${tilt}deg) rotateY(${deg}deg)`;
+    d3Pct.textContent = (p * 100).toFixed(0) + "%";
+    d3Deg.textContent = deg.toFixed(0) + "deg";
+    d3Stage.dataset.pinState = p < .08 ? "start" : (p > .92 ? "end" : "mid");
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>章节滚动进度条 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d25-stage{position:relative;height:280vh;background:linear-gradient(to bottom,var(--bg-2),var(--bg-3))}
+.d25-bar{position:sticky;top:0;left:0;right:0;height:3px;background:var(--bg);z-index:5;overflow:hidden}
+.d25-bar-fill{width:100%;height:100%;background:var(--lime);transform-origin:0 50%;transform:scaleX(0);transition:transform .1s linear}
+.d25-content{padding:25vh 2rem;display:flex;flex-direction:column;gap:30vh}
+.d25-block{max-width:50rem;margin:0 auto;padding:2rem;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:4px}
+.d25-block .d25-eyebrow{font-size:.65rem;letter-spacing:.25em;color:var(--lime);text-transform:uppercase;margin-bottom:1rem}
+.d25-block p{color:var(--fg-dim);font-size:.95rem;line-height:1.6}
+
+
+
+
+/* ---------- demo 23 (Stat hover img) · d24- ---------- */
+.d24-stage{position:relative;border-radius:4px;overflow:hidden;border:1px solid var(--line-soft);background:var(--bg-3)}
+
+.d24-bg{position:absolute;inset:0;background:transparent;opacity:0;transition:opacity .55s var(--cubic),background .55s var(--cubic);z-index:0}
+
+.d24-stage.is-hot .d24-bg{opacity:.85}
+
+.d24-grid{position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-soft);z-index:1}
+
+.d24-stat{padding:2rem 1.5rem;background:var(--bg-3);cursor:pointer;transition:background .35s,color .35s}
+
+.d24-stat:hover{background:rgba(0,0,0,.4)}
+
+.d24-num{font-size:clamp(2rem,5vw,3.5rem);font-weight:200;color:var(--lime);line-height:1;margin-bottom:.5rem;letter-spacing:-.02em}
+
+.d24-lbl{font-size:.65rem;letter-spacing:.25em;color:var(--fg-dim);text-transform:uppercase;font-family:'JetBrains Mono',ui-monospace,monospace}
+.d24-grid{grid-template-columns:1fr}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">章节滚动进度条</h1>
+    <div class="cb-tags">transform scaleX · scrub</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d25-stage pin-stage" id="d25Stage" data-pin-state="start">
+          <div class="d25-bar"><div class="d25-bar-fill" id="d25Fill"></div></div>
+          <div class="d25-content">
+            <div class="d25-block">
+              <div class="d25-eyebrow mono">section · 01 / 03</div>
+              <p>滚动这个 section，看上方的细线随你的滚动百分比拉长。这是 <code>scroll-indicator-bar</code> 的局部版——原站把它装在全站顶端，整页进度可见。</p>
+            </div>
+            <div class="d25-block">
+              <div class="d25-eyebrow mono">section · 02 / 03</div>
+              <p>实现公式：<code>scaleX = (scrollY - sectionTop) / sectionHeight</code>。和顶部全局进度条一样，但 trigger 换成单个 section。</p>
+            </div>
+            <div class="d25-block">
+              <div class="d25-eyebrow mono">section · 03 / 03</div>
+              <p>到底了。看头部那条柠檬绿细线，应该已经 100%。<code>transform-origin: 0 50%</code> + <code>scaleX(progress)</code> 是最省 CPU 的写法——硬件加速 transform，不触发 reflow。</p>
+            </div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo24</code></div>
+</footer>
+<script>
+/* =================== DEMO 24 (per-section scroll bar) · d25- ============ */
+(function(){
+  const stage = document.getElementById('d25Stage');
+  const fill = document.getElementById('d25Fill');
+  if (!stage || !fill) return;
+  ScrollTrigger.create({
+    trigger: stage, start: "top top", end: "bottom bottom", scrub: true,
+    onUpdate: self => { fill.style.transform = `scaleX(${self.progress})`; }
+  });
+})();
+</script>
+</body>
+</html>

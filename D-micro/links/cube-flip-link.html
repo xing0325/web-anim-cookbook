@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>链接整词翻面 cube flip · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 39 cube flip */
+.d39-link{position:relative;display:inline-block;height:1.4em;perspective:600px;cursor:pointer;font-size:1.1rem;line-height:1.4em;width:7em;text-align:center}
+
+.d39-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;color:var(--fg);transition:transform .55s var(--cubic),color .35s}
+
+.d39-back{transform:rotateX(-90deg) translateZ(.7em);color:var(--lime)}
+
+.d39-link .d39-face:not(.d39-back){transform-origin:bottom}
+
+.d39-link:hover .d39-face:not(.d39-back){transform:rotateX(90deg) translateZ(.7em)}
+
+.d39-link:hover .d39-back{transform:rotateX(0deg) translateZ(0)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/links</div>
+    <h1 class="cb-title">链接整词翻面 cube flip</h1>
+    <div class="cb-tags">3D rotateX · backface-visibility</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:1.5rem;flex-wrap:wrap"><a class="d39-link"><span class="d39-face">Hover</span><span class="d39-face d39-back">Click ↗</span></a><a class="d39-link"><span class="d39-face">Lando</span><span class="d39-face d39-back">Norris</span></a><a class="d39-link"><span class="d39-face">Watch</span><span class="d39-face d39-back">Live</span></a></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo39</code></div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>

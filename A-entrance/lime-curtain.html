@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全屏柠檬绿过场幕布 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+.d11-viewport{position:relative;height:380px;border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;background:var(--bg-3)}
+.d11-page{position:absolute;inset:0;padding:2rem;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.6rem}
+.d11-page[data-page="a"]{background:radial-gradient(circle at 80% 20%,rgba(208,255,0,.06),transparent 50%),var(--bg-3)}
+.d11-page[data-page="b"]{background:radial-gradient(circle at 20% 80%,rgba(208,255,0,.04),transparent 50%),#0d1109}
+.d11-tag{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--fg-mute);font-family:'JetBrains Mono',ui-monospace,monospace}
+.d11-headline{font-size:clamp(2rem,5vw,3.6rem);font-weight:200;letter-spacing:-.02em;line-height:1;color:var(--fg)}
+.d11-sub{font-size:.95rem;color:var(--fg-dim)}
+.d11-link{margin-top:1rem;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--lime);border-bottom:1px solid var(--lime);padding-bottom:.15rem}
+.d11-curtain{position:absolute;inset:0;transform:translateY(100%);pointer-events:none;z-index:10;will-change:transform}
+.d11-curtain.in{animation:d11Cover .55s var(--cubic) forwards}
+.d11-curtain.out{animation:d11Reveal .55s var(--cubic) forwards}
+@keyframes d11Cover{from{transform:translateY(100%)}to{transform:translateY(0%)}}
+@keyframes d11Reveal{from{transform:translateY(0%)}to{transform:translateY(-100%)}}
+.d11-curtain-shape{position:absolute;inset:0}
+.d11-curtain-shape svg{width:100%;height:100%;display:block}
+.d11-curtain-shape svg path:first-child{transform:translateY(-2%)}
+.d11-curtain-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:.5rem;color:#0a0e07;font-size:.9rem;letter-spacing:.35em;text-transform:uppercase;font-weight:600;font-family:'JetBrains Mono',ui-monospace,monospace}
+.d11-curtain-text em{font-style:normal;font-size:1.2rem;animation:d11Dot 1s infinite}
+@keyframes d11Dot{0%,100%{opacity:0}50%{opacity:1}}
+.d11-controls{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
+.d11-state{font-size:.7rem;color:var(--fg-mute);letter-spacing:.1em;margin-left:auto}
+.d11-state .v{color:var(--lime)}
+
+
+
+
+/* ---------- demo 11: lime page-transition curtain ---------- */
+.d11-viewport{position:relative;height:380px;border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;background:var(--bg-3)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">A-entrance</div>
+    <h1 class="cb-title">全屏柠檬绿过场幕布</h1>
+    <div class="cb-tags">.transition-w · 三态 input · Taxi.js</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d11-viewport" id="d11Viewport">
+          <div class="d11-page" data-page="a">
+            <div class="d11-tag">page · A</div>
+            <div class="d11-headline">HOME</div>
+            <div class="d11-sub">Lando Norris</div>
+            <a href="#" class="d11-link" data-go="b">→ Go to On Track</a>
+          </div>
+          <div class="d11-page" data-page="b" style="display:none">
+            <div class="d11-tag">page · B</div>
+            <div class="d11-headline" style="font-family:monospace;letter-spacing:.1em">ON TRACK</div>
+            <div class="d11-sub">2025 race highlights</div>
+            <a href="#" class="d11-link" data-go="a">← Back to Home</a>
+          </div>
+          <!-- the lime curtain (page-transition.riv 的纯 CSS 仿) -->
+          <div class="d11-curtain" id="d11Curtain">
+            <div class="d11-curtain-shape">
+              <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="#d2ff00"/>
+                <path d="M0,100 Q50,80 100,100 L100,100 L0,100 Z" fill="#a8c800"/>
+              </svg>
+            </div>
+            <div class="d11-curtain-text">
+              <span>LOADING</span>
+              <em id="d11Dot">·</em>
+            </div>
+          </div>
+        </div>
+        <div class="d11-controls">
+          <button class="btn" data-go="b">Trigger transition →</button>
+          <button class="btn" data-go="a">← Reverse</button>
+          <div class="d11-state mono" id="d11State">state · <span class="v">initial=true · out=false · in=false</span></div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo11</code></div>
+</footer>
+<script>
+/* =================== DEMO 11 · lime page-transition curtain === */
+const d11Viewport = document.getElementById("d11Viewport");
+const d11Curtain = document.getElementById("d11Curtain");
+const d11State = document.getElementById("d11State").querySelector(".v");
+const d11Pages = d11Viewport.querySelectorAll(".d11-page");
+let d11Busy = false;
+function d11Go(target) {
+  if (d11Busy) return;
+  d11Busy = true;
+  // 1. Out: curtain covers
+  d11State.textContent = "initial=false · OUT=true · in=false  → 盖屏";
+  d11Curtain.classList.remove("out");
+  // force reflow
+  void d11Curtain.offsetWidth;
+  d11Curtain.classList.add("in");
+  setTimeout(() => {
+    // 2. Swap pages while covered
+    d11Pages.forEach(p => p.style.display = p.dataset.page === target ? "flex" : "none");
+    d11State.textContent = "DOM swap · 切到 page " + target.toUpperCase();
+    // 3. In: curtain reveals
+    setTimeout(() => {
+      d11Curtain.classList.remove("in");
+      void d11Curtain.offsetWidth;
+      d11Curtain.classList.add("out");
+      d11State.textContent = "initial=false · out=false · IN=true  → 揭屏";
+      setTimeout(() => {
+        d11Curtain.classList.remove("out");
+        d11Busy = false;
+        d11State.textContent = "initial=true · out=false · in=false  (rest)";
+      }, 600);
+    }, 200);
+  }, 550);
+}
+document.querySelectorAll("[data-go]").forEach(b => {
+  b.addEventListener("click", e => { e.preventDefault(); d11Go(b.dataset.go); });
+});
+
+/* =================== reveal on scroll === */
+ScrollTrigger.batch(".reveal", {
+  start: "top 88%",
+  onEnter: els => els.forEach(el => el.classList.add("in"))
+});
+
+/* =================== D micro batch · 35 demos === */
+</script>
+</body>
+</html>

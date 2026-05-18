@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Notification badge · 弹出 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 63 notification badge */
+.d63-bell{position:relative;width:3rem;height:3rem;border:1px solid var(--line-soft);background:var(--bg-3);border-radius:50%;color:var(--fg);cursor:pointer;display:grid;place-items:center}
+
+.d63-bell svg{width:1.3rem;height:1.3rem}
+
+.d63-badge{position:absolute;top:-.15rem;right:-.15rem;background:var(--lime);color:#0a0e07;font-size:.65rem;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace;border-radius:999px;min-width:1.3rem;height:1.3rem;display:grid;place-items:center;padding:0 .3rem;transition:transform .35s cubic-bezier(.5,1.6,.5,1);transform:scale(0)}
+
+.d63-badge.show{transform:scale(1)}
+
+.d63-badge.pop{animation:d63P .45s cubic-bezier(.5,1.6,.5,1)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Notification badge · 弹出</h1>
+    <div class="cb-tags">scale spring · 数字 flip</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="gap:1.5rem"><button class="d63-bell" id="d63Bell"><svg viewBox="0 0 24 24"><path d="M12 3 C8 3 7 6 7 10 C7 14 5 16 5 17 L19 17 C19 16 17 14 17 10 C17 6 16 3 12 3 M10 19 A2 2 0 0 0 14 19" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round"/></svg><span class="d63-badge" id="d63Badge">0</span></button><button class="btn" id="d63Add">+1 notification</button><button class="btn" id="d63Clear">Clear</button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo63</code></div>
+</footer>
+<script>
+// 63 notification badge
+(function(){
+  const badge = document.getElementById('d63Badge');
+  const add = document.getElementById('d63Add');
+  const clr = document.getElementById('d63Clear');
+  if (!badge) return;
+  let n = 0;
+  function up(){
+    badge.textContent = n;
+    badge.classList.toggle('show', n > 0);
+    badge.classList.remove('pop');
+    void badge.offsetWidth;
+    if (n > 0) badge.classList.add('pop');
+  }
+  add.addEventListener('click', () => { n++; up(); });
+  clr.addEventListener('click', () => { n = 0; up(); });
+})();
+</script>
+</body>
+</html>

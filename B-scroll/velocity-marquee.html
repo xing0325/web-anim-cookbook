@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>速度敏感 marquee · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d5-stage{padding:3rem 0;overflow:hidden;display:flex;flex-direction:column;gap:1rem}
+.d5-row{display:flex;gap:3rem;white-space:nowrap;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;letter-spacing:-.01em;will-change:transform}
+.d5-row .item{display:inline-flex;align-items:center;gap:1rem;color:var(--fg-dim);transition:color .3s}
+.d5-row .item:hover{color:var(--lime)}
+.d5-row .item::after{content:"⟶";color:var(--lime);font-size:.7em}
+.d5-stage .label{font-size:.7rem;letter-spacing:.25em;color:var(--fg-mute);font-family:'JetBrains Mono',ui-monospace,monospace}
+
+
+
+
+/* ---------- demo 5: velocity marquee ---------- */
+.d5-stage{padding:3rem 0;overflow:hidden;display:flex;flex-direction:column;gap:1rem}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">速度敏感 marquee</h1>
+    <div class="cb-tags">scroll velocity · direction-aware</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d5-stage" id="d5Stage">
+          <div class="label">scroll velocity · <span id="d5VelOut">0</span> · direction <span id="d5Dir">→</span></div>
+          <div class="d5-row" id="d5R1">
+            <span class="item">2025 WDC</span><span class="item">McLaren MCL39</span><span class="item">L4ndo N0rris</span><span class="item">From Bristol</span><span class="item">Since 2019</span><span class="item">2025 WDC</span><span class="item">McLaren MCL39</span><span class="item">L4ndo N0rris</span><span class="item">From Bristol</span><span class="item">Since 2019</span>
+          </div>
+          <div class="d5-row" id="d5R2">
+            <span class="item">Reverse Lane</span><span class="item">Pole Position</span><span class="item">P1</span><span class="item">Quattro Stagioni</span><span class="item">Lap of Honour</span><span class="item">Reverse Lane</span><span class="item">Pole Position</span><span class="item">P1</span><span class="item">Quattro Stagioni</span><span class="item">Lap of Honour</span>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo5</code></div>
+</footer>
+<script>
+/* =================== DEMO 5 · velocity marquee =================== */
+const r1 = document.getElementById("d5R1");
+const r2 = document.getElementById("d5R2");
+const d5VelOut = document.getElementById("d5VelOut");
+const d5Dir = document.getElementById("d5Dir");
+let x1 = 0, x2 = 0, baseV = 0.5;
+let lastScroll = window.scrollY, dir = 1, vel = 0;
+function tickMarquee() {
+  const cur = window.scrollY;
+  const delta = cur - lastScroll;
+  lastScroll = cur;
+  // smooth velocity
+  vel = vel * 0.85 + Math.abs(delta) * 0.15;
+  if (delta !== 0) dir = delta > 0 ? 1 : -1;
+  const speed = baseV + vel * 0.3;
+  x1 -= speed * dir;
+  x2 += speed * dir;
+  // wrap
+  const w1 = r1.scrollWidth / 2;
+  const w2 = r2.scrollWidth / 2;
+  if (x1 < -w1) x1 += w1;
+  if (x1 > 0) x1 -= w1;
+  if (x2 < -w2) x2 += w2;
+  if (x2 > 0) x2 -= w2;
+  r1.style.transform = `translateX(${x1}px)`;
+  r2.style.transform = `translateX(${x2}px)`;
+  d5VelOut.textContent = vel.toFixed(1);
+  d5Dir.textContent = dir > 0 ? "→ down" : "← up";
+  requestAnimationFrame(tickMarquee);
+}
+tickMarquee();
+</script>
+</body>
+</html>

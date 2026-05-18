@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>按钮箭头跟随光标方向 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 33 arrow rotate */
+.d33-btn{padding:1rem 2rem;border:1px solid var(--lime);background:transparent;color:var(--lime);border-radius:999px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:.6rem}
+
+.d33-arrow{display:inline-block;transition:transform .25s var(--cubic);transform-origin:center}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/buttons</div>
+    <h1 class="cb-title">按钮箭头跟随光标方向</h1>
+    <div class="cb-tags">mousemove · atan2 · rotate</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" id="d33Stage"><button class="d33-btn">Race In <span class="d33-arrow" id="d33Arrow">→</span></button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo33</code></div>
+</footer>
+<script>
+// 33 arrow follow cursor
+(function(){
+  const stage = document.getElementById('d33Stage');
+  const arrow = document.getElementById('d33Arrow');
+  if (!stage || !arrow) return;
+  stage.addEventListener('mousemove', e => {
+    const r = arrow.getBoundingClientRect();
+    const ax = r.left + r.width / 2;
+    const ay = r.top + r.height / 2;
+    const ang = Math.atan2(e.clientY - ay, e.clientX - ax) * 180 / Math.PI;
+    arrow.style.transform = `rotate(${ang}deg)`;
+  });
+  stage.addEventListener('mouseleave', () => arrow.style.transform = 'rotate(0deg)');
+})();
+</script>
+</body>
+</html>

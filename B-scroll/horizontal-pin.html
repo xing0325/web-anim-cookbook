@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>横向 pin 滚动 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d4-wrap{position:relative;height:300vh}
+.d4-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.d4-track{display:flex;gap:1.5rem;padding:0 4rem;will-change:transform}
+.d4-card{flex:0 0 320px;height:60vh;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:4px;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .35s}
+.d4-card:hover{border-color:var(--lime)}
+.d4-card .num{font-size:3rem;font-weight:200;color:var(--lime);line-height:1;margin-bottom:1rem}
+.d4-card .t{font-size:1.05rem;font-weight:500;margin-bottom:.5rem}
+.d4-card .d{font-size:.8rem;color:var(--fg-dim);line-height:1.5}
+.d4-card .pill{display:inline-block;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;padding:.35rem .8rem;border:1px solid var(--line);border-radius:999px;color:var(--lime);align-self:flex-start}
+
+
+
+
+/* ---------- demo 4: horizontal pin ---------- */
+.d4-wrap{position:relative;height:300vh}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">横向 pin 滚动</h1>
+    <div class="cb-tags">ScrollTrigger · pin · translateX</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d4-wrap" id="d4Wrap">
+          <div class="d4-pin">
+            <div class="d4-track" id="d4Track">
+              <div class="d4-card"><div class="pill">01 · Brazil GP</div><div class="num">+2.1s</div><div><div class="t">São Paulo · Wet</div><div class="d">湿地起步，雨胎换中性胎窗口卡在第 27 圈。同段他超了 4 个人。</div></div></div>
+              <div class="d4-card"><div class="pill">02 · Vegas GP</div><div class="num">P1</div><div><div class="t">Las Vegas · Night</div><div class="d">夜战拿杆位起步守到最后一圈。冷胎温窗口比预期短 0.4 圈。</div></div></div>
+              <div class="d4-card"><div class="pill">03 · Imola</div><div class="num">+0.8s</div><div><div class="t">Imola · Wet→Dry</div><div class="d">天气变化 3 次，pit 策略走的最反直觉那条。</div></div></div>
+              <div class="d4-card"><div class="pill">04 · Monaco</div><div class="num">P3</div><div><div class="t">Monaco · Street</div><div class="d">街道赛，超不动只能等。但起步那一脚刹车是赛季最稳的一次。</div></div></div>
+              <div class="d4-card"><div class="pill">05 · Silverstone</div><div class="num">P2</div><div><div class="t">Home race</div><div class="d">主场，万人看台一起站起来。最后 5 圈胎差用尽。</div></div></div>
+            </div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo4</code></div>
+</footer>
+<script>
+/* =================== DEMO 4 · horizontal pin =================== */
+const d4Wrap = document.getElementById("d4Wrap");
+const d4Track = document.getElementById("d4Track");
+function setupD4() {
+  const trackWidth = d4Track.scrollWidth;
+  const viewport = window.innerWidth;
+  const distance = Math.max(0, trackWidth - viewport + 64);
+  gsap.to(d4Track, {
+    x: -distance,
+    ease: "none",
+    scrollTrigger: {
+      trigger: d4Wrap,
+      start: "top top",
+      end: () => "+=" + distance,
+      scrub: true,
+      invalidateOnRefresh: true
+    }
+  });
+}
+setupD4();
+window.addEventListener("resize", () => { ScrollTrigger.refresh(); });
+</script>
+</body>
+</html>

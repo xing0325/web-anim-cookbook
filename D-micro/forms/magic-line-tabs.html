@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>多按钮 magic line underline · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 54 magic line */
+.d54-tabs{position:relative;display:flex;gap:.25rem;border-bottom:1px solid var(--line-soft);padding:0 0 .65rem;flex-wrap:wrap}
+
+.d54-tabs button{padding:.5rem 1rem;background:transparent;border:none;color:var(--fg-dim);font-size:.85rem;font-family:inherit;cursor:pointer;letter-spacing:.05em;transition:color .25s;font-weight:500}
+
+.d54-tabs button.is-active{color:var(--lime)}
+
+.d54-line{position:absolute;bottom:0;height:2px;background:var(--lime);transition:transform .45s var(--cubic),width .45s var(--cubic);left:0;width:0;border-radius:999px}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/forms</div>
+    <h1 class="cb-title">多按钮 magic line underline</h1>
+    <div class="cb-tags">getBoundingClientRect · transform</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="width:100%"><div class="d54-tabs" id="d54Tabs"><button class="is-active">Home</button><button>On Track</button><button>Off Track</button><button>Calendar</button><span class="d54-line" id="d54Line"></span></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo54</code></div>
+</footer>
+<script>
+// 54 magic line
+(function(){
+  const tabs = document.getElementById('d54Tabs');
+  const line = document.getElementById('d54Line');
+  if (!tabs || !line) return;
+  function move(btn){
+    const r = btn.getBoundingClientRect();
+    const pr = tabs.getBoundingClientRect();
+    line.style.width = r.width + 'px';
+    line.style.transform = `translateX(${r.left - pr.left}px)`;
+  }
+  tabs.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => {
+      tabs.querySelectorAll('button').forEach(x => x.classList.remove('is-active'));
+      b.classList.add('is-active');
+      move(b);
+    });
+  });
+  setTimeout(() => move(tabs.querySelector('button.is-active')), 100);
+  window.addEventListener('resize', () => {
+    const a = tabs.querySelector('button.is-active');
+    if (a) move(a);
+  });
+})();
+</script>
+</body>
+</html>

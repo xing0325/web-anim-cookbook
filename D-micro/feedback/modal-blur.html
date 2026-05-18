@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modal 弹窗 + backdrop blur · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 56 modal */
+.d56-bd{position:fixed;inset:0;background:rgba(10,14,7,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:60;opacity:0;transition:opacity .35s var(--cubic)}
+
+.d56-bd.is-open{display:flex;opacity:1}
+
+.d56-modal{background:var(--bg-2);border:1px solid var(--lime);border-radius:8px;padding:2rem;max-width:380px;width:90%;text-align:center;transform:scale(.92);transition:transform .45s cubic-bezier(.5,1.4,.5,1)}
+
+.d56-bd.is-open .d56-modal{transform:scale(1)}
+
+.d56-eyebrow{font-size:.65rem;letter-spacing:.3em;color:var(--lime);margin-bottom:.5rem}
+
+.d56-title{font-size:1.6rem;font-weight:300;margin-bottom:.5rem;color:var(--fg)}
+
+.d56-sub{font-size:.9rem;color:var(--fg-dim);margin-bottom:1.5rem}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Modal 弹窗 + backdrop blur</h1>
+    <div class="cb-tags">backdrop-filter blur · scale</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><button class="btn" id="d56Open">Open modal</button><div class="d56-bd" id="d56Bd"><div class="d56-modal"><div class="d56-eyebrow">Message from Lando</div><div class="d56-title">See you at Spa</div><div class="d56-sub">Race weekend starts Friday.</div><button class="btn" id="d56Close">Close</button></div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo56</code></div>
+</footer>
+<script>
+// 56 modal
+(function(){
+  const bd = document.getElementById('d56Bd');
+  const open = document.getElementById('d56Open');
+  const close = document.getElementById('d56Close');
+  if (!bd || !open) return;
+  open.addEventListener('click', () => bd.classList.add('is-open'));
+  close.addEventListener('click', () => bd.classList.remove('is-open'));
+  bd.addEventListener('click', e => { if (e.target === bd) bd.classList.remove('is-open'); });
+})();
+</script>
+</body>
+</html>

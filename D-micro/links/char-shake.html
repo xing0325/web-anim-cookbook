@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>字符 hover 随机抖动 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 42 char shake */
+.d42-text{font-family:"Mona Sans",sans-serif;font-size:clamp(2rem,5vw,3.6rem);letter-spacing:-.01em;color:var(--lime);user-select:none}
+
+.d42-text span{display:inline-block;transition:transform .3s var(--cubic);cursor:default}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/links</div>
+    <h1 class="cb-title">字符 hover 随机抖动</h1>
+    <div class="cb-tags">random rotate + translate</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><div class="d42-text"><span>L</span><span>A</span><span>N</span><span>D</span><span>O</span><span>&nbsp;</span><span>N</span><span>O</span><span>R</span><span>R</span><span>I</span><span>S</span></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo42</code></div>
+</footer>
+<script>
+// 42 char shake
+(function(){
+  document.querySelectorAll('.d42-text span').forEach(s => {
+    s.addEventListener('mouseenter', () => {
+      const r = (Math.random() - 0.5) * 30;
+      const x = (Math.random() - 0.5) * 8;
+      const y = (Math.random() - 0.5) * 8;
+      s.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+    });
+    s.addEventListener('mouseleave', () => s.style.transform = '');
+  });
+})();
+</script>
+</body>
+</html>

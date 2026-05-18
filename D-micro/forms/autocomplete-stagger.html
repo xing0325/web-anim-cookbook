@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autocomplete 下拉 stagger 进入 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 53 autocomplete */
+.d53-wrap{position:relative}
+
+.d53-input{width:100%;padding:1rem 1.2rem;border:1.5px solid var(--line-soft);background:var(--bg-3);color:var(--fg);border-radius:6px;font-size:.95rem;font-family:inherit;outline:none;transition:border-color .25s}
+
+.d53-input:focus{border-color:var(--lime)}
+
+.d53-list{list-style:none;margin:.25rem 0 0;padding:0;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:6px;max-height:200px;overflow:auto;display:none}
+
+.d53-list.is-open{display:block}
+
+.d53-list li{padding:.6rem 1rem;font-size:.88rem;color:var(--fg-dim);cursor:pointer;transform:translateY(8px);opacity:0;animation:d53I .35s var(--cubic) forwards;border-bottom:1px dashed var(--line-soft)}
+
+.d53-list li:last-child{border-bottom:none}
+
+.d53-list li:hover{background:rgba(208,255,0,.08);color:var(--lime)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/forms</div>
+    <h1 class="cb-title">Autocomplete 下拉 stagger 进入</h1>
+    <div class="cb-tags">filter + animation-delay</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;width:100%;max-width:380px"><div class="d53-wrap"><input class="d53-input" id="d53I" placeholder="Search circuit (try mon, su, sil)..."><ul class="d53-list" id="d53L"></ul></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo53</code></div>
+</footer>
+<script>
+// 53 autocomplete
+(function(){
+  const i = document.getElementById('d53I');
+  const l = document.getElementById('d53L');
+  if (!i || !l) return;
+  const tracks = ["Monaco","Monza","Mexico City","Spa-Francorchamps","Silverstone","Suzuka","São Paulo","Bahrain","Baku","Imola","Hungaroring","Barcelona","Zandvoort","Singapore","Las Vegas","Austin","Miami","Jeddah","Lusail","Melbourne","Abu Dhabi","Shanghai","Montreal","Red Bull Ring"];
+  function up(){
+    const q = i.value.trim().toLowerCase();
+    if (!q) { l.classList.remove('is-open'); l.innerHTML = ''; return; }
+    const hits = tracks.filter(t => t.toLowerCase().includes(q)).slice(0, 6);
+    l.innerHTML = hits.map((t, idx) => `<li style="animation-delay:${idx * 50}ms">${t}</li>`).join('');
+    l.classList.toggle('is-open', hits.length > 0);
+  }
+  i.addEventListener('input', up);
+  i.addEventListener('blur', () => setTimeout(() => l.classList.remove('is-open'), 200));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>按钮 success 态 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 36 success */
+.d36-btn{padding:1rem 2.2rem;border:1px solid var(--lime);background:transparent;color:var(--lime);border-radius:999px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .35s,color .35s;min-width:160px}
+
+.d36-btn.done{background:var(--lime);color:#0a0e07}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/buttons</div>
+    <h1 class="cb-title">按钮 success 态</h1>
+    <div class="cb-tags">click → ✓ 替换 + 反色</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><button class="d36-btn" id="d36Btn">Save changes</button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo36</code></div>
+</footer>
+<script>
+// 36 success
+(function(){
+  const btn = document.getElementById('d36Btn');
+  if (!btn) return;
+  const origText = btn.textContent;
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('done')) return;
+    btn.classList.add('done');
+    btn.textContent = "✓ Saved";
+    setTimeout(() => { btn.classList.remove('done'); btn.textContent = origText; }, 1600);
+  });
+})();
+</script>
+</body>
+</html>

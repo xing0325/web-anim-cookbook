@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>滚动驱动色彩补间 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.d15-stage{position:relative;height:320vh}
+.d15-pin{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;padding:2rem}
+.d15-orb{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#1a2410,#0a1208);box-shadow:0 0 80px rgba(208,255,0,.0),inset 0 0 50px rgba(0,0,0,.5);transition:none;flex-shrink:0}
+.d15-info{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.75rem;display:flex;flex-direction:column;gap:.5rem;min-width:260px}
+.d15-row{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dashed var(--line-soft);padding-bottom:.4rem}
+.d15-k{color:var(--fg-mute);letter-spacing:.1em}
+.d15-v{color:var(--lime)}
+
+
+
+
+/* ---------- demo 15: scroll color interp ---------- */
+.d15-stage{position:relative;height:320vh}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">B-scroll</div>
+    <h1 class="cb-title">滚动驱动色彩补间</h1>
+    <div class="cb-tags">hex 线性插值 · scrub</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d15-stage pin-stage" id="d15Stage" data-pin-state="start">
+          <div class="pin-hint pin-hint-start is-start"><span>↓ 滚动让头盔变色</span><span class="arrow"></span></div>
+          <div class="pin-hint pin-hint-done is-done"><span>✓ 色彩补间完成 · 继续</span><span class="arrow"></span></div>
+          <div class="d15-pin">
+            <div class="d15-orb" id="d15Orb"></div>
+            <div class="d15-info">
+              <div class="d15-row"><span class="d15-k">progress</span><span class="d15-v" id="d15Prog">0%</span></div>
+              <div class="d15-row"><span class="d15-k">color</span><span class="d15-v" id="d15Hex">#0a0e07</span></div>
+              <div class="d15-row"><span class="d15-k">data-gl-change-from</span><span class="d15-v">"dark-green"</span></div>
+              <div class="d15-row"><span class="d15-k">data-gl-change-to</span><span class="d15-v">"lime"</span></div>
+            </div>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo15</code></div>
+</footer>
+<script>
+/* =================== DEMO 15 · scroll color interp === */
+(function(){
+  const stage = document.getElementById('d15Stage');
+  const orb = document.getElementById('d15Orb');
+  const prog = document.getElementById('d15Prog');
+  const hex = document.getElementById('d15Hex');
+  const from = [10,18,8];   // #0a1208
+  const to   = [210,255,0]; // #d2ff00
+  function lerp(a,b,t){ return Math.round(a + (b-a)*t); }
+  function toHex(rgb){ return "#" + rgb.map(v => v.toString(16).padStart(2,"0")).join(""); }
+  ScrollTrigger.create({
+    trigger: stage, start: "top top", end: "bottom bottom", scrub: true,
+    onUpdate: self => {
+      const t = self.progress;
+      const r = lerp(from[0],to[0],t), g = lerp(from[1],to[1],t), b = lerp(from[2],to[2],t);
+      const c = toHex([r,g,b]);
+      orb.style.background = `radial-gradient(circle at 35% 35%, ${c}, ${toHex([Math.max(0,r-40),Math.max(0,g-40),Math.max(0,b-40)])})`;
+      orb.style.boxShadow = `0 0 ${20+t*80}px rgba(208,255,0,${t*.6}), inset 0 0 50px rgba(0,0,0,.5)`;
+      prog.textContent = (t*100).toFixed(0) + "%";
+      hex.textContent = c;
+      stage.dataset.pinState = t < .08 ? "start" : (t > .92 ? "end" : "mid");
+    }
+  });
+})();
+</script>
+</body>
+</html>

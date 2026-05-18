@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tooltip 智能边界反转 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 60 tooltip edge flip */
+.d60-trig{padding:.7rem 1.2rem;border:1px solid var(--line-soft);background:var(--bg-3);color:var(--fg);border-radius:6px;font-size:.78rem;cursor:pointer;font-family:inherit;flex:1;min-width:120px}
+
+.d60-tip{position:fixed;background:var(--lime);color:#0a0e07;padding:.5rem .85rem;border-radius:4px;font-size:.72rem;pointer-events:none;opacity:0;transition:opacity .25s;z-index:50;white-space:nowrap;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+.d60-tip.show{opacity:1}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Tooltip 智能边界反转</h1>
+    <div class="cb-tags">viewport edge detect · flip</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="justify-content:space-between;display:flex;flex-wrap:wrap"><button class="d60-trig" data-tip="At far left — flips right">Left edge</button><button class="d60-trig" data-tip="Center button">Centered</button><button class="d60-trig" data-tip="At far right — flips left">Right edge</button></div>
+        <div class="d60-tip" id="d60Tip"></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo60</code></div>
+</footer>
+<script>
+// 60 tooltip edge flip
+(function(){
+  const tip = document.getElementById('d60Tip');
+  if (!tip) return;
+  document.querySelectorAll('.d60-trig').forEach(b => {
+    b.addEventListener('mouseenter', () => {
+      tip.textContent = b.dataset.tip;
+      const r = b.getBoundingClientRect();
+      tip.classList.add('show');
+      tip.style.left = 'auto'; tip.style.right = 'auto'; tip.style.top = 'auto'; tip.style.bottom = 'auto';
+      // measure tip
+      const tw = tip.offsetWidth;
+      const vw = window.innerWidth;
+      let left = r.left + r.width / 2 - tw / 2;
+      if (left < 8) left = 8;
+      if (left + tw > vw - 8) left = vw - tw - 8;
+      tip.style.left = left + 'px';
+      tip.style.top = (r.bottom + 10) + 'px';
+    });
+    b.addEventListener('mouseleave', () => tip.classList.remove('show'));
+  });
+})();
+</script>
+</body>
+</html>

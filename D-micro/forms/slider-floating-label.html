@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slider 浮动 label + 手柄缩放 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 49 slider */
+.d49-wrap{position:relative;height:50px}
+
+.d49-wrap input[type="range"]{appearance:none;-webkit-appearance:none;width:100%;height:4px;background:transparent;position:absolute;top:23px;left:0;z-index:2;outline:none}
+
+.d49-wrap input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:18px;height:18px;background:var(--lime);border-radius:50%;cursor:grab;transition:transform .2s}
+
+.d49-wrap input:active::-webkit-slider-thumb{transform:scale(1.4);cursor:grabbing}
+
+.d49-track{position:absolute;top:25px;left:0;height:2px;background:var(--bg-3);border-radius:999px;width:100%;overflow:hidden}
+
+.d49-track::before{content:"";position:absolute;left:0;top:0;height:100%;width:var(--p,65%);background:var(--lime)}
+
+.d49-label{position:absolute;top:0;font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--lime);font-size:.85rem;transform:translateX(-50%);transition:transform .15s,opacity .2s;opacity:0;font-weight:600;left:var(--p,65%)}
+
+.d49-wrap:hover .d49-label,.d49-wrap input:active ~ .d49-label{opacity:1;transform:translate(-50%,-2px)}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/forms</div>
+    <h1 class="cb-title">Slider 浮动 label + 手柄缩放</h1>
+    <div class="cb-tags">input range · :active scale</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage" style="flex-direction:column;width:100%;max-width:480px"><div class="d49-wrap"><input type="range" min="0" max="100" value="65" id="d49R"><div class="d49-label" id="d49L">65</div><div class="d49-track" id="d49T"></div></div></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo49</code></div>
+</footer>
+<script>
+// 49 slider
+(function(){
+  const r = document.getElementById('d49R');
+  const l = document.getElementById('d49L');
+  const w = r?.closest('.d49-wrap');
+  if (!r || !l || !w) return;
+  function up(){
+    const v = r.value;
+    w.style.setProperty('--p', v + '%');
+    l.textContent = v;
+  }
+  r.addEventListener('input', up);
+  up();
+})();
+</script>
+</body>
+</html>

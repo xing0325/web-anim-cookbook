@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GSAP FLIP 布局变形 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<style>
+.d14-stage{padding:1rem 0}
+.d14-grid{display:grid;gap:.75rem;transition:none}
+.d14-grid[data-layout="grid"]{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,120px)}
+.d14-grid[data-layout="row"]{grid-template-columns:repeat(6,1fr);grid-template-rows:160px}
+.d14-grid[data-layout="stack"]{grid-template-columns:1fr;grid-template-rows:repeat(6,52px)}
+.d14-grid[data-layout="scatter"]{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,140px);transform:rotate(-2deg)}
+.d14-card{position:relative;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:4px;display:flex;flex-direction:column;justify-content:space-between;padding:.85rem 1rem;will-change:transform;font-family:'JetBrains Mono',ui-monospace,monospace}
+.d14-card[data-color="lime"]{background:linear-gradient(135deg,rgba(208,255,0,.12),var(--bg-3));border-color:rgba(208,255,0,.3)}
+.d14-card[data-color="dark"]{background:linear-gradient(135deg,#0a1208,var(--bg-2))}
+.d14-card span{font-size:.65rem;letter-spacing:.25em;color:var(--lime)}
+.d14-card em{font-style:normal;font-size:.9rem;font-weight:500;color:var(--fg);letter-spacing:.05em}
+.d14-grid[data-layout="scatter"] .d14-card:nth-child(1){transform:rotate(2deg) translateY(-8px)}
+.d14-grid[data-layout="scatter"] .d14-card:nth-child(3){transform:rotate(-3deg) translateY(10px)}
+.d14-grid[data-layout="scatter"] .d14-card:nth-child(5){transform:rotate(4deg) translateY(-5px)}
+.d14-controls{display:flex;gap:.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.d14-btn{font-size:.65rem;padding:.5rem 1rem}
+
+
+
+
+/* ---------- demo 14: GSAP FLIP ---------- */
+.d14-stage{padding:1rem 0}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">G-visual</div>
+    <h1 class="cb-title">GSAP FLIP 布局变形</h1>
+    <div class="cb-tags">First-Last-Invert-Play</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d14-stage">
+          <div class="d14-grid" id="d14Grid" data-layout="grid">
+            <div class="d14-card" data-color="lime"><span>01</span><em>HOME</em></div>
+            <div class="d14-card" data-color="dark"><span>02</span><em>HELMET</em></div>
+            <div class="d14-card" data-color="lime"><span>03</span><em>RACE</em></div>
+            <div class="d14-card" data-color="dark"><span>04</span><em>WIN</em></div>
+            <div class="d14-card" data-color="lime"><span>05</span><em>PODIUM</em></div>
+            <div class="d14-card" data-color="dark"><span>06</span><em>CHAMPION</em></div>
+          </div>
+          <div class="d14-controls">
+            <button class="btn d14-btn is-on" data-flip="grid">grid 3×2</button>
+            <button class="btn d14-btn" data-flip="row">row · 横排</button>
+            <button class="btn d14-btn" data-flip="stack">stack · 叠</button>
+            <button class="btn d14-btn" data-flip="scatter">scatter · 散开</button>
+          </div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo14</code></div>
+</footer>
+<script>
+/* =================== DEMO 14 · GSAP FLIP === */
+(function(){
+  const grid = document.getElementById('d14Grid');
+  const cards = grid.querySelectorAll('.d14-card');
+  const btns = document.querySelectorAll('.d14-btn');
+  function flipTo(layout){
+    const first = new Map();
+    cards.forEach(c => first.set(c, c.getBoundingClientRect()));
+    btns.forEach(b => b.classList.toggle('is-on', b.dataset.flip === layout));
+    grid.dataset.layout = layout;
+    cards.forEach(c => {
+      const last = c.getBoundingClientRect();
+      const f = first.get(c);
+      const dx = f.left - last.left;
+      const dy = f.top - last.top;
+      const sx = f.width / last.width;
+      const sy = f.height / last.height;
+      gsap.fromTo(c, { x: dx, y: dy, scaleX: sx, scaleY: sy }, { x:0, y:0, scaleX:1, scaleY:1, duration:.65, ease:"power3.inOut" });
+    });
+  }
+  btns.forEach(b => b.addEventListener('click', () => flipTo(b.dataset.flip)));
+})();
+</script>
+</body>
+</html>

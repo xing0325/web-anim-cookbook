@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>菜单图片 blend-mode cursor · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d17-stage{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;height:280px}
+.d17-col{position:relative;overflow:hidden;border-radius:3px;cursor:none;transition:transform .35s var(--cubic)}
+.d17-col:hover{transform:translateY(-8px)}
+.d17-img{position:absolute;inset:0;background-size:cover;background-position:center}
+.d17-img.i1{background:linear-gradient(135deg,#d2ff00,#5a7d00)}
+.d17-img.i2{background:linear-gradient(135deg,#7a9100,#1c2a04)}
+.d17-img.i3{background:linear-gradient(45deg,#a8c800,#3a4500)}
+.d17-img.i4{background:linear-gradient(225deg,#e8ff66,#7a9100)}
+.d17-img.i5{background:linear-gradient(315deg,#bdf039,#465800)}
+.d17-blend{position:absolute;inset:0;background:linear-gradient(135deg,#d2ff00,#101400);mix-blend-mode:difference;opacity:0;transition:opacity .45s var(--cubic)}
+.d17-col:hover .d17-blend{opacity:1}
+.d17-col::after{content:attr(data-nav-img);position:absolute;bottom:.5rem;left:.6rem;font-size:.7rem;letter-spacing:.2em;color:#0a0e07;font-weight:600;font-family:'JetBrains Mono',ui-monospace,monospace}
+
+
+
+
+/* ---------- demo 17: menu image blend ---------- */
+.d17-stage{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;height:280px}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">F-gesture</div>
+    <h1 class="cb-title">菜单图片 blend-mode cursor</h1>
+    <div class="cb-tags">mix-blend-mode · radial gradient</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d17-stage" id="d17Stage">
+          <div class="d17-col" data-nav-img="1"><div class="d17-img i1"></div><div class="d17-blend"></div></div>
+          <div class="d17-col" data-nav-img="2"><div class="d17-img i2"></div><div class="d17-blend"></div></div>
+          <div class="d17-col" data-nav-img="3"><div class="d17-img i3"></div><div class="d17-blend"></div></div>
+          <div class="d17-col" data-nav-img="4"><div class="d17-img i4"></div><div class="d17-blend"></div></div>
+          <div class="d17-col" data-nav-img="5"><div class="d17-img i5"></div><div class="d17-blend"></div></div>
+        </div>
+        <p style="margin-top:1rem;font-size:.8rem;color:var(--fg-dim)">鼠标在色块间扫过，每列上盖一层 mix-blend-mode 的图层，色彩相互重叠。</p>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo17</code></div>
+</footer>
+<script>
+/* =================== DEMO 17 · menu blend cursor === */
+(function(){
+  const cols = document.querySelectorAll('.d17-col');
+  cols.forEach(c => {
+    c.addEventListener('mousemove', e => {
+      const r = c.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const blend = c.querySelector('.d17-blend');
+      blend.style.background = `radial-gradient(circle at ${x*100}% ${y*100}%, #d2ff00, #101400)`;
+    });
+  });
+})();
+</script>
+</body>
+</html>

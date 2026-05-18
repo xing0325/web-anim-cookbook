@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Like + 粒子飞溅 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 65 heart */
+.d65-like{position:relative;display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.5rem;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:999px;color:var(--fg);cursor:pointer;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.85rem;transition:border-color .25s}
+
+.d65-like svg{width:1.2rem;height:1.2rem;color:var(--fg-mute);transition:color .25s,transform .25s}
+
+.d65-like.liked{border-color:var(--lime)}
+
+.d65-like.liked svg{color:var(--lime);fill:var(--lime)}
+
+.d65-like.liked svg{animation:d65H .55s var(--cubic)}
+
+.d65-like .particle{position:absolute;width:6px;height:6px;background:var(--lime);border-radius:50%;left:1.4rem;top:50%;pointer-events:none}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/feedback</div>
+    <h1 class="cb-title">Like + 粒子飞溅</h1>
+    <div class="cb-tags">Web Animations API · 8 particles</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><button class="d65-like" id="d65Like"><svg viewBox="0 0 24 24"><path d="M12 21 C5 16 3 12 3 8.5 C3 5.5 5.5 3 8.5 3 C10.5 3 12 4 12 5.5 C12 4 13.5 3 15.5 3 C18.5 3 21 5.5 21 8.5 C21 12 19 16 12 21 Z" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round"/></svg><span id="d65Count">42</span></button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo65</code></div>
+</footer>
+<script>
+// 65 like + particles
+(function(){
+  const btn = document.getElementById('d65Like');
+  const ct = document.getElementById('d65Count');
+  if (!btn) return;
+  let n = +ct.textContent;
+  let liked = false;
+  btn.addEventListener('click', () => {
+    liked = !liked;
+    btn.classList.toggle('liked', liked);
+    n += liked ? 1 : -1;
+    ct.textContent = n;
+    if (liked) {
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('span');
+        p.className = 'particle';
+        const ang = (Math.PI * 2 / 8) * i + Math.random() * 0.5;
+        const dist = 30 + Math.random() * 25;
+        const dx = Math.cos(ang) * dist;
+        const dy = Math.sin(ang) * dist;
+        p.style.setProperty('--dx', dx + 'px');
+        p.style.setProperty('--dy', dy + 'px');
+        p.style.transform = `translate(0,0)`;
+        p.animate([
+          { transform: 'translate(-50%,-50%)', opacity: 1 },
+          { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`, opacity: 0 }
+        ], { duration: 600, easing: 'cubic-bezier(0.2, 0.7, 0.4, 1)' });
+        btn.appendChild(p);
+        setTimeout(() => p.remove(), 650);
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>

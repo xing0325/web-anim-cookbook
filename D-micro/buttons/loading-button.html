@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>按钮 loading 态 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../../_shared/base.css">
+
+<style>
+/* 35 loading */
+.d35-btn{position:relative;padding:1rem 2.5rem;border:1px solid var(--lime);background:transparent;color:var(--lime);border-radius:999px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;min-width:170px;overflow:hidden}
+
+.d35-txt,.d35-sp{transition:opacity .25s}
+
+.d35-sp{position:absolute;top:50%;left:50%;width:1rem;height:1rem;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;transform:translate(-50%,-50%);opacity:0;animation:d35S .6s linear infinite}
+
+.d35-btn.loading .d35-txt{opacity:0}
+
+.d35-btn.loading .d35-sp{opacity:1}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">D-micro/buttons</div>
+    <h1 class="cb-title">按钮 loading 态</h1>
+    <div class="cb-tags">文字变 spinner · CSS rotate</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="dmb-stage"><button class="d35-btn" id="d35Btn"><span class="d35-txt">Submit</span><span class="d35-sp"></span></button></div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo35</code></div>
+</footer>
+<script>
+// 35 loading
+(function(){
+  const btn = document.getElementById('d35Btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('loading')) return;
+    btn.classList.add('loading');
+    setTimeout(() => btn.classList.remove('loading'), 1600);
+  });
+})();
+</script>
+</body>
+</html>

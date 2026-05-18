@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1728 流体 clamp 字号 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d7-stage{padding:2rem 0}
+.d7-readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem}
+.d7-cell{background:var(--bg-3);border:1px solid var(--line-soft);padding:1rem;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace}
+.d7-cell .k{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-mute);margin-bottom:.4rem}
+.d7-cell .v{font-size:1.1rem;color:var(--lime);font-weight:500}
+.d7-demo-text{font-size:clamp(2rem,calc(var(--fluid-container) / var(--design-width) * 48px),3rem);font-weight:300;color:var(--fg);line-height:1.1;margin-top:1rem}
+
+
+
+
+/* ---------- demo 7: fluid 1728 ---------- */
+.d7-stage{padding:2rem 0}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">G-visual</div>
+    <h1 class="cb-title">1728 流体 clamp 字号</h1>
+    <div class="cb-tags">clamp() · CSS custom property</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d7-stage">
+          <div class="d7-readout">
+            <div class="d7-cell"><div class="k">viewport 宽</div><div class="v" id="d7Vw">— px</div></div>
+            <div class="d7-cell"><div class="k">fluid-container</div><div class="v" id="d7Fc">— px</div></div>
+            <div class="d7-cell"><div class="k">设计基准</div><div class="v">1728</div></div>
+            <div class="d7-cell"><div class="k">当前 root fz</div><div class="v" id="d7Fz">— px</div></div>
+          </div>
+          <div class="d7-demo-text">这段字号 = (clamp(992, 100vw, 1920) / 1728) × 48px</div>
+          <p style="margin-top:1rem;color:var(--fg-dim);font-size:.85rem">缩放浏览器宽度，看上面四个数字怎么联动。这就是 OFF+BRAND 整站字号"会呼吸"的秘密。</p>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo7</code></div>
+</footer>
+<script>
+/* =================== DEMO 7 · fluid 1728 readout =================== */
+const d7Vw = document.getElementById("d7Vw");
+const d7Fc = document.getElementById("d7Fc");
+const d7Fz = document.getElementById("d7Fz");
+function updateD7() {
+  const vw = window.innerWidth;
+  const fc = Math.max(992, Math.min(vw, 1920));
+  const fz = (fc / 1728 * 16).toFixed(2);
+  d7Vw.textContent = vw + " px";
+  d7Fc.textContent = fc + " px";
+  d7Fz.textContent = fz + " px";
+}
+updateD7();
+window.addEventListener("resize", updateD7);
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>tap to lock 模态手势 · web-anim-cookbook</title>
+<link rel="stylesheet" href="../_shared/base.css">
+
+<style>
+.d8-stage{position:relative;height:400px;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;touch-action:auto;transition:border-color .35s}
+.d8-stage.locked{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime)}
+.d8-toggle{position:absolute;top:1rem;right:1rem;z-index:3}
+.d8-canvas{position:absolute;inset:0;display:grid;place-items:center;touch-action:auto}
+.d8-stage.locked .d8-canvas{touch-action:none}
+.d8-orb{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(208,255,0,.9),rgba(208,255,0,.2) 60%,rgba(20,30,10,.95));box-shadow:0 0 60px rgba(208,255,0,.25),inset 0 0 40px rgba(0,0,0,.4);cursor:grab;user-select:none;-webkit-user-select:none}
+.d8-stage.locked .d8-orb{cursor:grabbing}
+.d8-hint{position:absolute;left:1rem;bottom:1rem;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-mute);max-width:60%}
+.d8-hint .v{color:var(--lime)}
+
+
+
+
+/* ---------- demo 8: mobile lock ---------- */
+.d8-stage{position:relative;height:400px;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;touch-action:auto;transition:border-color .35s}
+</style>
+</head>
+<body class="cookbook-page">
+<header class="cb-head">
+  <a class="cb-back" href="../README.md">← cookbook</a>
+  <div class="cb-meta">
+    <div class="cb-cat">F-gesture</div>
+    <h1 class="cb-title">tap to lock 模态手势</h1>
+    <div class="cb-tags">touch-action · 锁页面</div>
+  </div>
+</header>
+<main class="cb-stage">
+<div class="d8-stage" id="d8Stage">
+          <div class="d8-toggle"><button class="btn" id="d8Btn">tap to lock</button></div>
+          <div class="d8-canvas" id="d8Canvas">
+            <div class="d8-orb" id="d8Orb"></div>
+          </div>
+          <div class="d8-hint" id="d8Hint">未锁 · 在这里滑动 = 翻页面</div>
+        </div>
+</main>
+<footer class="cb-foot">
+  <div>Source · 反向 OFF+BRAND × Lando Norris site · <a href="https://landonorris.com" target="_blank">landonorris.com</a></div>
+  <div>Demo ID: <code>demo8</code></div>
+</footer>
+<script>
+/* =================== DEMO 8 · tap-to-lock =================== */
+const d8Stage = document.getElementById("d8Stage");
+const d8Btn = document.getElementById("d8Btn");
+const d8Orb = document.getElementById("d8Orb");
+const d8Hint = document.getElementById("d8Hint");
+let d8Locked = false;
+let d8Rot = { x: 0, y: 0 };
+d8Btn.addEventListener("click", () => {
+  d8Locked = !d8Locked;
+  d8Stage.classList.toggle("locked", d8Locked);
+  d8Btn.textContent = d8Locked ? "Back to scroll" : "tap to lock";
+  d8Btn.classList.toggle("is-on", d8Locked);
+  d8Hint.innerHTML = d8Locked
+    ? `<span class="v">已锁</span> · 拖动这里 = 转动球（不会滚页面）`
+    : `未锁 · 在这里滑动 = 翻页面`;
+});
+let d8Drag = null;
+function onDown(e) {
+  if (!d8Locked) return;
+  d8Drag = { x: (e.touches ? e.touches[0].clientX : e.clientX), y: (e.touches ? e.touches[0].clientY : e.clientY) };
+}
+function onMove(e) {
+  if (!d8Drag) return;
+  e.preventDefault();
+  const x = e.touches ? e.touches[0].clientX : e.clientX;
+  const y = e.touches ? e.touches[0].clientY : e.clientY;
+  d8Rot.y += (x - d8Drag.x) * 0.6;
+  d8Rot.x -= (y - d8Drag.y) * 0.6;
+  d8Drag = { x, y };
+  d8Orb.style.transform = `rotateX(${d8Rot.x}deg) rotateY(${d8Rot.y}deg)`;
+  d8Orb.style.background = `radial-gradient(circle at ${35 + Math.sin(d8Rot.y * Math.PI / 180) * 25}% 35%, rgba(208,255,0,.9), rgba(208,255,0,.2) 60%, rgba(20,30,10,.95))`;
+}
+function onUp() { d8Drag = null; }
+d8Stage.addEventListener("mousedown", onDown);
+d8Stage.addEventListener("touchstart", onDown, { passive: true });
+window.addEventListener("mousemove", onMove);
+window.addEventListener("touchmove", onMove, { passive: false });
+window.addEventListener("mouseup", onUp);
+window.addEventListener("touchend", onUp);
+</script>
+</body>
+</html>
