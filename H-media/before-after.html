@@ -40,27 +40,7 @@
   <div>Demo ID: <code>demo89</code></div>
 </footer>
 <script>
-// 89 before/after
-(function(){
-  const stage = document.getElementById('d89Stage');
-  const before = document.getElementById('d89Before');
-  const handle = document.getElementById('d89Handle');
-  if(!stage||!before||!handle) return;
-  let dragging = false;
-  function setX(clientX){
-    const r = stage.getBoundingClientRect();
-    let pct = (clientX - r.left) / r.width * 100;
-    pct = Math.max(0, Math.min(100, pct));
-    before.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
-    handle.style.left = pct + '%';
-  }
-  stage.addEventListener('mousedown', e => { dragging = true; setX(e.clientX); });
-  window.addEventListener('mousemove', e => { if(dragging) setX(e.clientX); });
-  window.addEventListener('mouseup', () => dragging = false);
-  stage.addEventListener('touchstart', e => { dragging = true; setX(e.touches[0].clientX); }, {passive:true});
-  stage.addEventListener('touchmove', e => { if(dragging) setX(e.touches[0].clientX); }, {passive:true});
-  stage.addEventListener('touchend', () => dragging = false);
-})();
+
 </script>
 </body>
 </html>

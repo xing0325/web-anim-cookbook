@@ -1,6 +1,6 @@
 # web-anim-cookbook
 
-> 89 个可直接拷贝复用的 web 高级动效 demo。反向工程自 [landonorris.com](https://landonorris.com)（兰多·诺里斯官网，由 [OFF+BRAND](https://offbrand.studio) 工作室操刀），整理出一套"普通网页用不到的高级动效"配方集。
+> 90 个可直接拷贝复用的 web 高级动效 demo。反向工程自 [landonorris.com](https://landonorris.com)（兰多·诺里斯官网，由 [OFF+BRAND](https://offbrand.studio) 工作室操刀），整理出一套"普通网页用不到的高级动效"配方集。
 
 赛车风视觉（柠檬绿 `#d2ff00` + 暗绿 `#0a0e07`），但 demo 本身是纯技术展示，可用于任何项目。
 
@@ -26,7 +26,7 @@
 | [D](./D-micro/README.md) | 微动效合集 | 40 | 4 个子组：按钮 / 链接 / 表单 / 反馈 |
 | [E](./E-data/README.md) | 数据驱动 | 6 | 倒计时、CMS 日历、计数器、localStorage、multi-step、undo/redo |
 | [F](./F-gesture/README.md) | 手势 & 光标 | 7 | tap-to-lock、cursor reveal、blend、swipe、drag-sort、drop-upload、3D tilt |
-| [G](./G-visual/README.md) | 视觉系统 | 11 | clamp、椭圆排字、Variable Font、conic 仪表、玻璃、描边字、blob、3D flip |
+| [G](./G-visual/README.md) | 视觉系统 | 12 | clamp、椭圆排字、Variable Font、conic 仪表、玻璃、描边字、blob、3D flip、**流体光标位移** |
 | [H](./H-media/README.md) | 媒体 | 4 | hover 自动播放、stat hover、lightbox、before/after 对比 |
 
 ---

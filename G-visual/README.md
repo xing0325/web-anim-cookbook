@@ -17,6 +17,7 @@
 | `text-stroke.html` | text-stroke 描边字（`-webkit-text-stroke` · 中空字 · hover 填充） |
 | `liquid-blob.html` | Liquid morph blob（SVG `path` 的 `d` 周期性变形 · 有机液态感） |
 | `card-flip-3d.html` | 3D card flip 双面卡片（`transform-style: preserve-3d` · `rotateY` · 两面独立内容） |
+| `fluid-cursor.html` | **鼠标驱动流体位移 · 仿原版头盔**（SVG `feTurbulence` + `feDisplacementMap` · 鼠标位置驱动噪声 baseFrequency · 2.5s 后 idle Lissajous 自动游走 · 是原版 Three.js GPU Navier-Stokes 求解器的 1/60 代码量简化版） |
 
 ## 共同点 / 设计哲学
 
