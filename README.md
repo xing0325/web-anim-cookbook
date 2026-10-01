@@ -2,6 +2,9 @@
 
 > 90 个可直接拷贝复用的 web 高级动效 demo。反向工程自 [landonorris.com](https://landonorris.com)（兰多·诺里斯官网，由 [OFF+BRAND](https://offbrand.studio) 工作室操刀），整理出一套"普通网页用不到的高级动效"配方集。
 
+**在线浏览：** <https://xing0325.github.io/web-anim-cookbook/>  
+**内容：** 90 个分类 demo + 1 个综合旗舰示例，均可独立阅读和运行。
+
 赛车风视觉（柠檬绿 `#d2ff00` + 暗绿 `#0a0e07`），但 demo 本身是纯技术展示，可用于任何项目。
 
 ---
